@@ -88,6 +88,7 @@ $n = 0;
 
         </ul>
       </nav>
+
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
@@ -158,7 +159,7 @@ $n = 0;
               ?>
               >
                 <li><a class="nav-link" href="./createTask.php">Create Task</a></li>
-                <li><a class="nav-link" href="badge.html">Update Task</a></li>
+                <li><a class="nav-link" href="./UpdateTask.php">Update Task</a></li>
                 <li><a class="nav-link" href="./deleteTask.php">Delete Task</a></li>
               </ul>
             </li>
@@ -204,7 +205,7 @@ $n = 0;
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="copy"></i><span>Main Functions</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="./createUser.php">Create User</a></li>
-                <li><a class="nav-link" href="./UpdateTask.php">Update User</a></li>
+                <li><a class="nav-link" href="badge.html">Update User</a></li>
                 <li><a class="nav-link" href="./DeleteUser.php">Delete User</a></li>
               </ul>
             </li>
@@ -225,6 +226,23 @@ $n = 0;
                 <li><a class="nav-link" href="./allUsers.php">All Users</a></li>
                 <li><a class="nav-link" href="./adminUsers.php">Admin Users</a></li>
                 <li><a class="nav-link" href="./nonAdminUsers.php">Non Admin Users</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown"
+            <?php
+                if($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
+                  echo 'style="display:none;"';
+                }
+              ?>
+            >
+              <a href="#" class="menu-toggle nav-link has-dropdown"
+             
+              ><i data-feather="copy"></i><span> All Expencess</span></a>
+              <ul class="dropdown-menu"
+             
+              >
+                <li><a class="nav-link" href="./ExpencessSummery.php">Expencess Summery</a></li>
               </ul>
             </li>
 

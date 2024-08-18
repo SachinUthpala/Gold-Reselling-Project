@@ -86,7 +86,7 @@ $n = 1;
           </div>
           <ul class="sidebar-menu">
             <li class="menu-header">Main</li>
-            <li class="dropdown">
+            <li class="dropdown active">
               <a href="admin.php" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
             </li>
             <li class="dropdown"
@@ -218,7 +218,7 @@ $n = 1;
               </ul>
             </li>
 
-            <li class="dropdown active"
+            <li class="dropdown"
             <?php
                 if($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
                   echo 'style="display:none;"';
@@ -231,7 +231,7 @@ $n = 1;
               <ul class="dropdown-menu"
              
               >
-                <li class="active"><a class="nav-link" href="./ExpencessSummery.php">Expencess Summery</a></li>
+                <li><a class="nav-link" href="./ExpencessSummery.php">Expencess Summery</a></li>
               </ul>
             </li>
 
