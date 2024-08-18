@@ -98,7 +98,7 @@ $n = 0;
             <li class="dropdown active">
               <a href="admin.php" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
             </li>
-            <li class="dropdown"
+            <li class="dropdown active"
             <?php
                   if($_SESSION['AdminAccess'] == 2) {
                     echo 'style="display:none;"';
@@ -115,7 +115,7 @@ $n = 0;
                   ></i><span>My Tasks</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="./MyAllTask.php">All Tasks</a></li>
-                <li><a class="nav-link" href="./myCompletedTasks.php">Completed Tasks</a></li>
+                <li class="active"><a class="nav-link" href="./myCompletedTasks.php">Completed Tasks</a></li>
                 <li><a class="nav-link" href="./myOngoing.php">On Going Task</a></li>
               </ul>
             </li>

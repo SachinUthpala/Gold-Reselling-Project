@@ -219,7 +219,7 @@ $n = 1;
               </ul>
             </li>
 
-            <li class="dropdown"
+            <li class="dropdown active"
             <?php
                 if($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
                   echo 'style="display:none;"';
@@ -233,7 +233,7 @@ $n = 1;
              
               >
                 <li><a class="nav-link" href="./allUsers.php">All Users</a></li>
-                <li><a class="nav-link" href="./adminUsers.php">Admin Users</a></li>
+                <li class="active"><a class="nav-link" href="./adminUsers.php">Admin Users</a></li>
                 <li><a class="nav-link" href="./nonAdminUsers.php">Non Admin Users</a></li>
               </ul>
             </li>

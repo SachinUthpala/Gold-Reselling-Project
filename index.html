@@ -500,6 +500,34 @@ https://templatemo.com/tm-570-chain-app-dev
 
   <br><br>
   <h1 style="color: #ffae00;font-size: 20px;text-align: center;padding: 20px 40px;font-weight: 500;">සැලකිය යුතුයි - අප ආයතනය විසින් කිසිදු අයුරකින් සොරකම් කරන ලද ව්‍යාජ රන් භාණ්ඩ මිලදී නොගන්නා අතර, එසේ කිරීමට උත්සහ දරන්නන් පිලිබදව තොරතුරු එසැනින් ලගම ඇති පොලීසියට දැනුම් දෙනු ලැබේ!</h1>
+  
+  <script>
+    async function  AdminLogin(){
+         const { value: password } = await Swal.fire({
+         title: "Enter your password",
+         input: "password",
+         inputLabel: "Password",
+         inputPlaceholder: "Enter your password",
+         inputAttributes: {
+             maxlength: "100",
+             autocapitalize: "off",
+             autocorrect: "off"
+         }
+         });
+         if (password === "admin@2024") {
+
+             location.href="./Admin/AdminLogin/login.php";
+         }else{
+             Swal.fire({
+             icon: "error",
+             title: "Oops...",
+             text: "Provide Correct Password To Continive this Task !",
+             });
+         }
+     }
+ </script>
+
+  
   <footer id="newsletter">
     <div class="container">
       
@@ -519,6 +547,7 @@ https://templatemo.com/tm-570-chain-app-dev
               <li><a href="#">Home</a></li>
               <li><a href="#">Services</a></li>
               <li><a href="#">About</a></li>
+              <li><a href="./Admin/index.html">Team Member</a></li>
             </ul>
           </div>
         </div>
@@ -531,7 +560,7 @@ https://templatemo.com/tm-570-chain-app-dev
               <li><a href="#">Twitter</a></li>
             </ul>
             <ul>
-              <li><a href="#">App Dev Team</a></li>
+              <li><a href="./Admin/index.html">App Dev Team</a></li>
               <li><a href="#">Maintaince</a></li>
             </ul>
           </div>
@@ -549,6 +578,12 @@ https://templatemo.com/tm-570-chain-app-dev
     </div>
   </footer>
 
+  <!-- 
+        sweet alert
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  
 
   <!-- Scripts -->
   <script src="vendor/jquery/jquery.min.js"></script>

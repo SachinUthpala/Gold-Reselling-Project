@@ -322,7 +322,7 @@ if(isset($_POST['Update'])){
                         <input type="text" class="form-control" value="<?php echo $row2['location']; ?>" name="location" placeholder="Location">
                       </div>
 
-                      <input type="text" class="form-control" value="<?php echo $row2['task_id ']; ?>" name="id" placeholder="Location">
+                      <input type="hidden" class="form-control" value="<?php echo $row2['task_id']; ?>" name="id_task" placeholder="Location">
                       
 
 

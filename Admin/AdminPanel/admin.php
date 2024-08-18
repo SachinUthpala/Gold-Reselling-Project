@@ -267,6 +267,23 @@ $allexpencess = $result_expencess->num_rows ;
               </ul>
             </li>
 
+            <li class="dropdown"
+            <?php
+                if($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
+                  echo 'style="display:none;"';
+                }
+              ?>
+            >
+              <a href="#" class="menu-toggle nav-link has-dropdown"
+             
+              ><i data-feather="copy"></i><span> All Expencess</span></a>
+              <ul class="dropdown-menu"
+             
+              >
+                <li><a class="nav-link" href="./ExpencessSummery.php">Expencess Summery</a></li>
+              </ul>
+            </li>
+
             
             
             
