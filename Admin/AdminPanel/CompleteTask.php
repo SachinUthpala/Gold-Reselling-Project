@@ -268,7 +268,7 @@ if(isset($_POST['complete'])){
           <!-- user create form -->
           <div class="card">
                   <div class="card-header">
-                    <h4>Create New  Task</h4>
+                    <h4>Complete Task</h4>
                   </div>
                   <form action="../DbActions/TaskComplete/completeTask.php" enctype="multipart/form-data" method="post">
                   <div class="card-body">
@@ -284,6 +284,11 @@ if(isset($_POST['complete'])){
                       <div class="form-group col-md-6">
                         <label for="inputEmail4">Weight</label>
                         <input type="text" class="form-control"  name="weight" placeholder="Weight">
+                      </div>
+
+                      <div class="form-group col-md-6">
+                        <label for="inputEmail4">Price</label>
+                        <input type="text" class="form-control"  name="price" placeholder="price">
                       </div>
 
                       <div class="form-group col-md-6">

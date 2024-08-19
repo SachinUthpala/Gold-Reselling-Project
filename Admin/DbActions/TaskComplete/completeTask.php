@@ -11,6 +11,7 @@ if (isset($_POST['completeTask'])) {
     $weight = $_POST['weight'];
     $date = $_POST['date'];
     $time = $_POST['time'];
+    $price = (int)$_POST['price'];
 
     // Jewelry image upload
     if (isset($_FILES['jewelry'])) {
@@ -66,8 +67,32 @@ if (isset($_POST['completeTask'])) {
         }
     }
 
-    $sql = "INSERT INTO `complete_task`(`IdNumber`,`weight`, `jewelryImg`, `Id_image`, `receipt_img`, `taskID`, `compteled_date`, `completedTime`) 
-    VALUES ('$id' , '$weight' , '$j_img_path' ,'$id_img_path' ,'$recit_img_path' ,'$idTask' ,'$date' ,'$time')";
+    if($price <= 49999){
+        $commition = 0;
+    }else if($price > 49999 &&  $price <=99999){
+        $commition = 1000;
+    }else if($price > 99999 && $price <= 149999){
+        $commition = 1500;
+    }else if($price > 149999 && $price <= 199999){
+        $commition = 2000;
+    }else if($price > 199999 && $price <= 249999){
+        $commition = 2500;
+    }else if($price > 249999 && $price <= 299999){
+        $commition = 3000;
+    }else if($price > 299999 && $price <= 349999){
+        $commition = 3500;
+    }else if($price > 349999 && $price <= 399999){
+        $commition = 4000;
+    }else if($price > 399999 && $price <= 449999){
+        $commition = 4500;
+    }else if($price > 449999 && $price <= 499999){
+        $commition = 5000;
+    }else{
+        $commition = 5000;
+    }
+
+    $sql = "INSERT INTO `complete_task`(`IdNumber`,`weight`,`price`,`commition`, `jewelryImg`, `Id_image`, `receipt_img`, `taskID`, `compteled_date`, `completedTime`) 
+    VALUES ('$id' , '$weight' ,'$price','$commition', '$j_img_path' ,'$id_img_path' ,'$recit_img_path' ,'$idTask' ,'$date' ,'$time')";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         echo "Task completed successfully";
