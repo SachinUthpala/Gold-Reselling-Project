@@ -356,6 +356,18 @@ $row = $result->fetch_assoc();
                             <br>
                             <p class="text-muted"><?php echo $row['completedTime']; ?></p>
                           </div>
+
+                          <div class="col-md-3 col-6">
+                            <strong>Price</strong>
+                            <br>
+                            <p class="text-muted"><?php echo $row['price']; ?></p>
+                          </div>
+
+                          <div class="col-md-3 col-6">
+                            <strong>Commition</strong>
+                            <br>
+                            <p class="text-muted"><?php echo $row['commition']; ?></p>
+                          </div>
                         </div>
                         
                         <div class="row">

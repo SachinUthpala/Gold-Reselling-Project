@@ -12,8 +12,8 @@ if(!$_SESSION['UserName'] && !$_SESSION['UserId']){
 
 $userId = (int)$_SESSION['UserId'];
 
-$stmt = $conn->prepare("SELECT * FROM `total_expencess` WHERE userID = ?");
-$stmt->bind_param("i", $userId);
+$stmt = $conn->prepare("SELECT * FROM `total_expencess` ");
+// $stmt->bind_param("i", $userId);
 
 $stmt->execute();
 
@@ -319,7 +319,7 @@ $n = 1;
                             <td><?php echo $rows['tID']; ?></td>
                             <td><?php echo $rows['userID']; ?></td>
                             <td><?php echo $rows['userName']; ?></td>
-                            <td><?php echo "Rs ." .$rows['amount']."00"; ?></td>
+                            <td><?php echo "Rs ." .$rows['amount'].".00"; ?></td>
                           </tr>
                         <?php } ?>
                       </tbody>

@@ -657,7 +657,7 @@ $allexpencess = $result_expencess->num_rows ;
                           <tr>
                            
                             <td><?php echo $rows2['expencess_type']; ?></td>
-                            <td><?php echo 'Rs '.$rows2['amount'].'00'; ?></td>
+                            <td><?php echo 'Rs '.$rows2['amount'].'.00'; ?></td>
                             <td><?php echo $rows2['date']; ?></td>
                             <td>
                               <img src="<?php echo '../'.$rows2['reciptImg']; ?>" alt="" width="40px" height="30px">
