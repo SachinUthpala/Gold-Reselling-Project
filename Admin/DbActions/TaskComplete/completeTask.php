@@ -103,9 +103,10 @@ if (isset($_POST['completeTask'])) {
         header('Location: ../../AdminPanel/MyAllTask.php');
     } else {
         echo "Error: " . mysqli_error($conn);
+        header('Location: ../../AdminPanel/MyAllTask.php');
     }
 
-    mysqli_close($conn);
+    
 
 
 
