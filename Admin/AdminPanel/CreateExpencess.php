@@ -269,11 +269,11 @@ $AllUsers = $result_total->num_rows ;
                     
                     <div class="form-group col-md-6">
                         <label for="inputEmail4">Expences Type</label>
-                        <input type="text" class="form-control"  name="expences_type" placeholder="Inquery Number">
+                        <input type="text" class="form-control"  name="expences_type" placeholder="Inquery Number" value="Riding Cost">
                       </div>
                       <div class="form-group col-md-6">
-                        <label for="inputEmail4">Amount</label>
-                        <input type="number" class="form-control"  name="amount" placeholder="date">
+                        <label for="inputEmail4">Distance</label>
+                        <input type="number" class="form-control"  name="amount" placeholder="Distance">
                       </div>
 
                       <div class="form-group col-md-6">

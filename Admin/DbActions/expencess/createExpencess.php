@@ -7,7 +7,7 @@ if(isset($_POST['createTask'])){
     $date = date('Y-m-d');
     $userID = (int)$_POST['userID'];
     $exType = $_POST['expences_type'];
-    $amount = $_POST['amount'];
+    $amount = (int)$_POST['amount'] * 6;
     $userName = $_POST['userNAme'];
     $image = $_FILES['image'];
 
