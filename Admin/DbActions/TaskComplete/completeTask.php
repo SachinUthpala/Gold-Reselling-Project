@@ -12,6 +12,7 @@ if (isset($_POST['completeTask'])) {
     $date = $_POST['date'];
     $time = $_POST['time'];
     $price = (int)$_POST['price'];
+    $completedBy = $_POST['userName'];
 
     // Jewelry image upload
     if (isset($_FILES['jewelry'])) {
@@ -99,6 +100,22 @@ if (isset($_POST['completeTask'])) {
 
         $sql_taskUpdate = "UPDATE `task` SET `completion`= 2 WHERE  `task_id` = $idTask";
         $result_taskUpdate = mysqli_query($conn, $sql_taskUpdate);
+
+        $checkCommition_sql = "SELECT `completedBy` FROM commition_total WHERE completedBy = '$completedBy'";
+        $resultCheckCommition = mysqli_query($conn , $checkCommition_sql);
+        
+        if( $resultCheckCommition->num_rows > 0){
+            $updaateCommitionsql =  "UPDATE commition_total
+                                        SET Commition = Commition + $commition
+                                        WHERE completedBy = '$completedBy'";
+            $resultUpdatecommi = mysqli_query($conn,$updaateCommitionsql);
+        }else{
+            $sql_commition = "INSERT INTO `commition_total`( `taskId`, `completedBy`, `Commition`) 
+            VALUES ('$idTask' , '$completedBy' , '$commition')";
+            $resultCommitions = mysqli_query($conn , $sql_commition);
+        }
+
+
 
         header('Location: ../../AdminPanel/MyAllTask.php');
     } else {

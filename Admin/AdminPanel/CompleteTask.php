@@ -324,6 +324,7 @@ if(isset($_POST['complete'])){
                         </label>
                       </div>
                     </div>
+                    <input type="hidden" name="userName" value="<?php echo $_SESSION['UserName']; ?>">
                   </div>
                   <div class="card-footer">
                     <button class="btn btn-primary" name="completeTask">Submit</button>
