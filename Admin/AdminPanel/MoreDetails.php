@@ -234,6 +234,14 @@ $row = $result->fetch_assoc();
                 <li><a class="nav-link" href="./nonAdminUsers.php">Non Admin Users</a></li>
               </ul>
             </li>
+            
+            <li class="menu-header"
+            <?php
+                if( $_SESSION['AdminAccess'] == 0) {
+                  echo 'style="display:none;"';
+                }
+              ?>
+            >Expensess & Commitions</li>
 
             <li class="dropdown"
             <?php
@@ -249,6 +257,49 @@ $row = $result->fetch_assoc();
              
               >
                 <li><a class="nav-link" href="./ExpencessSummery.php">Expencess Summery</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown"
+            <?php
+                if($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
+                  echo 'style="display:none;"';
+                }
+              ?>
+            >
+              <a href="#" class="menu-toggle nav-link has-dropdown"
+             
+              ><i data-feather="copy"></i><span> All Commitions</span></a>
+              <ul class="dropdown-menu"
+             
+              >
+                <li><a class="nav-link" href="./AllCommitions.php">Commitions</a></li>
+              </ul>
+            </li>
+
+            <li class="menu-header"
+            <?php
+                if( $_SESSION['AdminAccess'] == 0) {
+                  echo 'style="display:none;"';
+                }
+              ?>
+            >Advance Settings</li>
+
+            <li class="dropdown"
+            <?php
+                if($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
+                  echo 'style="display:none;"';
+                }
+              ?>
+            >
+              <a href="#" class="menu-toggle nav-link has-dropdown"
+             
+              ><i data-feather="copy"></i><span> Advance Stettings</span></a>
+              <ul class="dropdown-menu"
+             
+              >
+                <li><a class="nav-link" href="../DbActions/Advance/clearExpencess.php">Clear Expencess</a></li>
+                <li><a class="nav-link" href="../DbActions/Advance/clearExpencess.php">Clear Commitions</a></li>
               </ul>
             </li>
 

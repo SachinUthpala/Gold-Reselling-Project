@@ -329,7 +329,7 @@ header
 }
 
 .header-area {
-  background-color: #fff9ec;
+  background-color: #ffffff;
   position: absolute;
   left: 0px;
   right: 0px;
@@ -891,7 +891,7 @@ Banner Style
 
 .main-banner {
   
-  background: linear-gradient(#ffffffc5 , #ffffffb7) , url(../images/bd.jfif);
+  background: linear-gradient(#ff0000c5 , #000000cc) , url(../images/bd.jfif);
   padding: 250px 120px 150px 120px;
   position: relative;
   overflow: hidden;
