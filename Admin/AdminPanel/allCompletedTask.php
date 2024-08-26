@@ -9,10 +9,24 @@ if(!$_SESSION['UserName'] && !$_SESSION['UserId']){
   header('Location: ../index.html');
 }
 
-$sql = "SELECT * FROM task WHERE `completion` = 2";
+// $sql = "SELECT * FROM task WHERE `completion` = 2";
+// $result = mysqli_query($conn, $sql);
+
+
+
+$sql = "
+SELECT 
+    task.*, 
+    complete_task.completedBy 
+FROM 
+    task 
+LEFT JOIN 
+    complete_task 
+ON 
+    task.task_id = complete_task.	taskID";
 $result = mysqli_query($conn, $sql);
 
-$n = 0;
+$n = 1;
 
 ?>
 
@@ -387,6 +401,7 @@ $n = 0;
                             <th>Price</th>
                             <th>Location</th>
                             <th>Completion</th>
+                            <th>Completed By</th>
                             <th>More Details</th>
      
                           </tr>
@@ -420,7 +435,7 @@ $n = 0;
                                     }
                                 ?>
                             </td>
-                            
+                            <td><?php echo $rows['completedBy']; ?></td>
                             <td 
                             <?php
                               if($rows['completion'] == 0){
@@ -430,7 +445,15 @@ $n = 0;
                               }
                             ?>
                             >
-                            <p style='color:red;font-weight:bold;'>Not Completed</p>
+                            <p style='color:red;font-weight:bold;'>
+                              <?php
+                                $idCompleted = (int)$rows['inqueryNumber'];
+                                 $completedBYSQL = "SELECT * FROM complete_task WHERE taskID = $idCompleted  ";
+                                 $resultCompletedBy = mysqli_query($conn , $completedBYSQL);
+                                 $completedByrow = $resultCompletedBy->fetch_assoc();
+                                  echo $completedByrow['complete_task'];
+                              ?>
+                            </p>
                             </td>
 
                             <td 

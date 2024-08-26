@@ -16,6 +16,7 @@ if(isset($_POST['complete'])){
     header('Location: ../index.html');
 }
 
+$UserNames = $_SESSION['UserName'];
 
 
 
@@ -366,6 +367,12 @@ if(isset($_POST['complete'])){
                         <label for="inputEmail4">Recipt Image</label>
                         <input type="file" class="form-control"  name="recipt_image" placeholder="Recipt Image">
                       </div>
+
+                      <div class="form-group col-md-6">
+                        <label for="inputEmail4">Completed By</label>
+                        <input type="text" class="form-control"  name="completedBy" value="<?php echo $UserNames; ?>"">
+                      </div>
+
                     </div>
                     <div class="form-group mb-0">
                       <div class="form-check">

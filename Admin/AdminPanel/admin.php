@@ -10,6 +10,7 @@ if(!$_SESSION['UserName'] && !$_SESSION['UserId']){
   header('Location: ../index.html');
 }
 
+$userNames = $_SESSION['UserName'];
 
 $userId = (int)$_SESSION['UserId'];
 
@@ -289,6 +290,7 @@ $allexpencess = $result_expencess->num_rows ;
              
               >
                 <li><a class="nav-link" href="./ExpencessSummery.php">Expencess Summery</a></li>
+                <li><a class="nav-link" href="./AllExpencess.php">All Expencess</a></li>
               </ul>
             </li>
 
@@ -305,7 +307,8 @@ $allexpencess = $result_expencess->num_rows ;
               <ul class="dropdown-menu"
              
               >
-                <li><a class="nav-link" href="./AllCommitions.php">Commitions</a></li>
+                <li><a class="nav-link" href="./AllCommitions.php">Commotions Summary</a></li>
+                <li><a class="nav-link" href="./CommitionSummery.php">All Commotions</a></li>
               </ul>
             </li>
 
@@ -650,6 +653,93 @@ $allexpencess = $result_expencess->num_rows ;
               </div>
             </div>
 
+            <!-- =========================== -->
+
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="card">
+                <div class="card-statistic-4">
+                  <div class="align-items-center justify-content-between">
+                    <div class="row ">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                        <div class="card-content">
+                          <h5 class="font-15">MY TOTAL COMMITION AMOUNT</h5>
+                          <h2 class="mb-3 font-18"></h2>
+                          <p class="mb-0"><span class="col-green">
+                            <?php
+                             $sqlis_txs = "SELECT * FROM commition_total WHERE completedBy = '$userNames'";
+                             $sqlix_results = mysqli_query($conn , $sqlis_txs);
+                             $mysqli_rowss = $sqlix_results->fetch_assoc();
+
+                             echo 'Rs . '.$mysqli_rowss['Commition'].'.00';
+                            ?>
+                          </span>
+                           </p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                        <div class="banner-img">
+                          <img src="assets/img/banner/2.png" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+             <!-- ========================= -->
+             <?php
+                             $sqlis_txs11 = "SELECT * FROM complete_task  WHERE completedBy = '$userNames'";
+                             $sqlix_results11 = mysqli_query($conn , $sqlis_txs11);
+                             
+                            ?>
+              <!-- =========================== -->
+
+             <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>MY Expencess</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-striped" id="table-1">
+                        <thead>
+                        <tr>
+                            <th>Task ID</th>
+                            <th>Completed Date</th>
+                            <th>Completed Time</th>
+                            <th>Commition</th>
+     
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                        <?php while($rows21 = $sqlix_results11-> fetch_assoc()){ ?>
+                          <tr>
+                           
+                            <td><?php echo $rows21['taskID']; ?></td>
+                            <td><?php echo $rows21['compteled_date']; ?></td>
+                            <td><?php echo $rows21['completedTime']; ?></td>
+                            <td><?php echo 'Rs '.$rows21['commition'].'.00'; ?></td>
+                            
+                            
+
+                          </tr>
+                          <?php 
+                            $n++;
+                        } ?>
+                          
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+             <!-- ======================= -->
+
             
             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
               <div class="card">
@@ -666,7 +756,7 @@ $allexpencess = $result_expencess->num_rows ;
                              $sqlix_result = mysqli_query($conn , $sqlis_tx);
                              $mysqli_row = $sqlix_result->fetch_assoc();
 
-                             echo 'Rs'.$mysqli_row['amount'].'.00';
+                             echo 'Rs '.$mysqli_row['amount'].'.00';
                             ?>
                           </span>
                            </p>

@@ -344,6 +344,11 @@ $AllUsers = $result_total->num_rows ;
                       </div>
 
                       <div class="form-group col-md-6">
+                        <label for="inputEmail4">Weight</label>
+                        <input type="text" class="form-control"  name="weight" placeholder="weight">
+                      </div>
+
+                      <div class="form-group col-md-6">
                         <label for="inputEmail4">Phone</label>
                         <input type="text" class="form-control"  name="phone" placeholder="Phone Number">
                       </div>

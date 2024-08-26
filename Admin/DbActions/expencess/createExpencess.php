@@ -9,7 +9,9 @@ if(isset($_POST['createTask'])){
     $exType = $_POST['expences_type'];
     $amount = (int)$_POST['amount'] * 6;
     $userName = $_POST['userNAme'];
-    $image = $_FILES['image'];
+
+    $distance = $amount / 6 ;
+    
 
     $findUserAvailableSql = "SELECT * FROM total_expencess WHERE userID = '$userID'";
     $resultAvailableSql = mysqli_query($conn , $findUserAvailableSql);
@@ -25,26 +27,15 @@ if(isset($_POST['createTask'])){
         $sqlForUpdateTotal_result = mysqli_query($conn , $sqlForUpdateTotal);
 
         // ///////////////////////
-        if (isset($_FILES['image'])) {
-            $jewelry_img = $_FILES['image'];
-            $j_img_name = $jewelry_img['name'];
-            $j_img_tmp = $jewelry_img['tmp_name'];
-            $j_img_separate = explode('.', $j_img_name);
-            $file_extension = strtolower(end($j_img_separate)); // Use end() to get the last element
-            $extensions = array('jpeg', 'jpg', 'png');
+  
     
-            if (in_array($file_extension, $extensions)) {
-                $j_upload_path = '../../WebImages/expencess/' . $j_img_name;
-                move_uploaded_file($j_img_tmp, $j_upload_path);
-                $j_img_path = 'WebImages/expencess/' . $j_img_name;
+           
 
-                $sqlInsertExpences = "INSERT INTO `expencess`( `user_id`, `expencess_type`, `amount`, `date` , `reciptImg`) 
-                VALUES ('$userID' , '$exType' , '$amount' , '$date' , '$j_img_path' )";
+                $sqlInsertExpences = "INSERT INTO `expencess`( `user_id`, `expencess_type`, `amount`, `date` , `reciptImg` , `distance`) 
+                VALUES ('$userID' , '$exType' , '$amount' , '$date' , 'none' , '$distance')";
                 $resultsqlInsertExpences = mysqli_query($conn , $sqlInsertExpences);
-            } else {
-                echo "Jewelry file not supported";
-            }
-        }
+           
+     
         // ///////////////////////
 
         
@@ -55,28 +46,15 @@ if(isset($_POST['createTask'])){
         $resultsqlInsetUerEx = mysqli_query($conn , $sqlInsetUerEx);
 
 
-        // ///////////////////////
-        if (isset($_FILES['image'])) {
-            $jewelry_img = $_FILES['image'];
-            $j_img_name = $jewelry_img['name'];
-            $j_img_tmp = $jewelry_img['tmp_name'];
-            $j_img_separate = explode('.', $j_img_name);
-            $file_extension = strtolower(end($j_img_separate)); // Use end() to get the last element
-            $extensions = array('jpeg', 'jpg', 'png');
+        
     
-            if (in_array($file_extension, $extensions)) {
-                $j_upload_path = '../../WebImages/expencess/' . $j_img_name;
-                move_uploaded_file($j_img_tmp, $j_upload_path);
-                $j_img_path = 'WebImages/expencess/' . $j_img_name;
-
+     
                 $sqlInsertExpences = "INSERT INTO `expencess`( `user_id`, `expencess_type`, `amount`, `date` , `reciptImg`) 
-                VALUES ('$userID' , '$exType' , '$amount' , '$date' , '$j_img_path' )";
+                VALUES ('$userID' , '$exType' , '$amount' , '$date' , 'none' )";
                 $resultsqlInsertExpences = mysqli_query($conn , $sqlInsertExpences);
-            } else {
-                echo "Jewelry file not supported";
-            }
-        }
-        // ///////////////////////
+            
+        
+     
     }
 
         $_SESSION['TaskCreated'] = 1;

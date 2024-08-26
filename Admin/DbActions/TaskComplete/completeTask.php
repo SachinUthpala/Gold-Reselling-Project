@@ -12,7 +12,7 @@ if (isset($_POST['completeTask'])) {
     $date = $_POST['date'];
     $time = $_POST['time'];
     $price = (int)$_POST['price'];
-    $completedBy = $_POST['userName'];
+    $completedBy = $_POST['completedBy'];
 
     // Jewelry image upload
     if (isset($_FILES['jewelry'])) {
@@ -92,8 +92,8 @@ if (isset($_POST['completeTask'])) {
         $commition = 5000;
     }
 
-    $sql = "INSERT INTO `complete_task`(`IdNumber`,`weight`,`price`,`commition`, `jewelryImg`, `Id_image`, `receipt_img`, `taskID`, `compteled_date`, `completedTime`) 
-    VALUES ('$id' , '$weight' ,'$price','$commition', '$j_img_path' ,'$id_img_path' ,'$recit_img_path' ,'$idTask' ,'$date' ,'$time')";
+    $sql = "INSERT INTO `complete_task`(`IdNumber`,`weight`,`price`,`commition`, `jewelryImg`, `Id_image`, `receipt_img`, `taskID`, `compteled_date`, `completedTime` , `completedBy`) 
+    VALUES ('$id' , '$weight' ,'$price','$commition', '$j_img_path' ,'$id_img_path' ,'$recit_img_path' ,'$idTask' ,'$date' ,'$time' , '$completedBy')";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         echo "Task completed successfully";
