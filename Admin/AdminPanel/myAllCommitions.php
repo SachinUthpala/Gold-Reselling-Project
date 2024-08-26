@@ -10,20 +10,20 @@ if(!$_SESSION['UserName'] && !$_SESSION['UserId']){
   exit();
 }
 
-$userId = (int)$_SESSION['UserId'];
+$userId = $_SESSION['UserName'];
 
 $sql = "
 SELECT 
-    expencess.*, 
-    users.UserName 
+    complete_task.*, 
+    task.* 
 FROM 
-    expencess 
+    complete_task 
 LEFT JOIN 
-    users 
+    task 
 ON 
-    expencess.user_id = users.UserId
+    complete_task.taskID = task.task_id
 WHERE 
-    expencess.user_id = $userId";
+    complete_task.completedBy = '$userId'";
 
 $result = mysqli_query($conn, $sql);
 
@@ -365,21 +365,25 @@ $n = 1;
                     <table class="table table-striped" id="table-1">
                       <thead>
                         <tr>
-                          <th>Expencess Type</th>
-                          <th>UserName</th>
-                          <th>Distance</th>
-                          <th>Amount</th>
-                          <th>Date</th>
+                          <th>Inquiry Number</th>
+                          <th>customer Name</th>
+                          <th>date</th>
+                          <th>completed date</th>
+                          <th>Completed By</th>
+                          <th>Price</th>
+                          <th>Commitions</th>
                         </tr>
                       </thead>
                       <tbody>
                         <?php while ($rows = $result->fetch_assoc()) { ?>
                           <tr>
-                            <td><?php echo $rows['expencess_type']; ?></td>
-                            <td><?php echo $rows['UserName']; ?></td>
-                            <td><?php echo $rows['distance']; ?></td>
-                            <td><?php echo "Rs ." .$rows['amount'].".00"; ?></td>
+                            <td><?php echo $rows['inqueryNumber']; ?></td>
+                            <td><?php echo $rows['customerName']; ?></td>
                             <td><?php echo $rows['date']; ?></td>
+                            <td><?php echo $rows['compteled_date']; ?></td>
+                            <td><?php echo $rows['completedBy']; ?></td>
+                            <td><?php echo "Rs ." .$rows['price'].".00"; ?></td>
+                            <td><?php echo "Rs ." .$rows['commition'].".00"; ?></td>
                           </tr>
                         <?php } ?>
                       </tbody>

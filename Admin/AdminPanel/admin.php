@@ -161,13 +161,18 @@ $allexpencess = $result_expencess->num_rows ;
                 
               </ul>
             </li>
-            <li class="dropdown"
-            
-            >
+            <li class="dropdown">
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Expences</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="./CreateExpencess.php">Your Expences</a></li>
+                <li><a class="nav-link" href="./CreateExpencess.php">Your Expenses</a></li>
                 <li><a class="nav-link" href="./MyallExpencess.php">My All Expenses</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Commotions</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="./myAllCommitions.php">My All Commotions</a></li>
               </ul>
             </li>
             
