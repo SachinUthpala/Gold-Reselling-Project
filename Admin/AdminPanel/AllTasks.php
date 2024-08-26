@@ -119,18 +119,21 @@ $n = 0;
                 <li><a class="nav-link" href="./MyAllTask.php">All Tasks</a></li>
                 <li><a class="nav-link" href="./myCompletedTasks.php">Completed Tasks</a></li>
                 <li><a class="nav-link" href="./myOngoing.php">On Going Task</a></li>
+                
               </ul>
             </li>
-            <li class="dropdown"
-            <?php
-                  if($_SESSION['AdminAccess'] == 2) {
-                    echo 'style="display:none;"';
-                  }
-                ?>
-            >
+            <li class="dropdown">
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Expences</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="./CreateExpencess.php">Your Expences</a></li>
+                <li><a class="nav-link" href="./CreateExpencess.php">Your Expenses</a></li>
+                <li><a class="nav-link" href="./MyallExpencess.php">My All Expenses</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Commotions</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="./myAllCommitions.php">My All Commotions</a></li>
               </ul>
             </li>
             
@@ -251,6 +254,7 @@ $n = 0;
              
               >
                 <li><a class="nav-link" href="./ExpencessSummery.php">Expencess Summery</a></li>
+                <li><a class="nav-link" href="./AllExpencess.php">All Expencess</a></li>
               </ul>
             </li>
 
@@ -267,7 +271,8 @@ $n = 0;
               <ul class="dropdown-menu"
              
               >
-                <li><a class="nav-link" href="./AllCommitions.php">Commitions</a></li>
+                <li><a class="nav-link" href="./AllCommitions.php">Commotions Summary</a></li>
+                <li><a class="nav-link" href="./CommitionSummery.php">All Commotions</a></li>
               </ul>
             </li>
 
@@ -386,6 +391,7 @@ $n = 0;
                             <th>City</th>
                             <th>Price</th>
                             <th>Location</th>
+                            <th>Completed By</th>
                             <th>Completion</th>
                             <th>More Details</th>
      
@@ -407,6 +413,7 @@ $n = 0;
                             <td><?php echo $rows['city']; ?></td>
                             <td><?php echo $rows['enterPrice']; ?></td>
                             <td><a href="<?php echo $rows['location']; ?>" target=" ">Map</a></td>
+                            <td><?php echo $rows['enterPrice']; ?></td>
                             <td>
                                 <?php
                                     if($rows['completion'] == 2) {
