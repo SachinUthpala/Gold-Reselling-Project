@@ -16,6 +16,12 @@ if (isset($_POST['createUser'])) {
 
     $result = mysqli_query($conn, $sql);
 
+    if($adminAccess == 2){
+        $sql2 = "INSERT INTO `taskcreatorcommition`(`taskCreatorName`, `Commition`) 
+        VALUES ('$name' , 0) ";
+        $result2 = mysqli_query($conn , $sql2);
+    }
+
     if ($result) {
         echo "User Created Successfully";
         $_SESSION['userCreated'] = 1;
