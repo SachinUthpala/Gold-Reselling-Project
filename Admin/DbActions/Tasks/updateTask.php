@@ -3,7 +3,6 @@
 require_once '../Db.conn.php';
 session_start();
 
-
 if (isset($_POST['completeTask'])) {
     // Retrieve POST data
     $idTask = $_POST['taskId'];
@@ -12,8 +11,10 @@ if (isset($_POST['completeTask'])) {
     $date = $_POST['date'];
     $time = $_POST['time'];
 
-
-    $sql = "UPDATE `complete_task` SET `IdNumber`='[value-2]',`weight`='[value-3]',`jewelryImg`='[value-4]',`Id_image`='[value-5]',`receipt_img`='' WHERE 1"
+    // Initialize image paths
+    $j_img_path = null;
+    $id_img_path = null;
+    $recit_img_path = null;
 
     // Jewelry image upload
     if (isset($_FILES['jewelry'])) {
@@ -21,7 +22,7 @@ if (isset($_POST['completeTask'])) {
         $j_img_name = $jewelry_img['name'];
         $j_img_tmp = $jewelry_img['tmp_name'];
         $j_img_separate = explode('.', $j_img_name);
-        $file_extension = strtolower(end($j_img_separate)); // Use end() to get the last element
+        $file_extension = strtolower(end($j_img_separate));
         $extensions = array('jpeg', 'jpg', 'png');
 
         if (in_array($file_extension, $extensions)) {
@@ -30,11 +31,12 @@ if (isset($_POST['completeTask'])) {
             $j_img_path = 'WebImages/JewelaryImg/' . $j_img_name;
         } else {
             echo "Jewelry file not supported";
+            exit;
         }
     }
 
     // ID image upload
-    if (isset($_FILES['id_image']) ) {
+    if (isset($_FILES['id_image'])) {
         $id_img = $_FILES['id_image'];
         $id_name = $id_img['name'];
         $id_tmp = $id_img['tmp_name'];
@@ -48,11 +50,12 @@ if (isset($_POST['completeTask'])) {
             $id_img_path = 'WebImages/UserId/' . $id_name;
         } else {
             echo "ID file not supported";
+            exit;
         }
     }
 
     // Receipt image upload
-    if (isset($_FILES['recipt_image']) ) {
+    if (isset($_FILES['recipt_image'])) {
         $recit_img = $_FILES['recipt_image'];
         $recit_name = $recit_img['name'];
         $recit_tmp = $recit_img['tmp_name'];
@@ -66,15 +69,26 @@ if (isset($_POST['completeTask'])) {
             $recit_img_path = 'WebImages/Recepts/' . $recit_name;
         } else {
             echo "Receipt file not supported";
+            exit;
         }
     }
 
-    
+    // SQL query with values
+    $sql = "UPDATE `complete_task` 
+            SET `IdNumber` = '$id', 
+                `weight` = '$weight', 
+                `jewelryImg` = '$j_img_path', 
+                `Id_image` = '$id_img_path', 
+                `receipt_img` = '$recit_img_path'
+            WHERE `taskId` = '$idTask'";
+
+    // Execute query
     $result = mysqli_query($conn, $sql);
     if ($result) {
         echo "Task completed successfully";
 
-        $sql_taskUpdate = "UPDATE `task` SET `completion`= 2 WHERE  `task_id` = $idTask";
+        // Update task completion status
+        $sql_taskUpdate = "UPDATE `task` SET `completion` = 2 WHERE `task_id` = $idTask";
         $result_taskUpdate = mysqli_query($conn, $sql_taskUpdate);
 
         header('Location: ../../AdminPanel/MyAllTask.php');
@@ -82,43 +96,8 @@ if (isset($_POST['completeTask'])) {
         echo "Error: " . mysqli_error($conn);
     }
 
+    // Close the connection
     mysqli_close($conn);
-
-
-
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+?>
