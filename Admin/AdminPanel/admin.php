@@ -158,18 +158,16 @@ $allexpencess = $result_expencess->num_rows ;
                 <li><a class="nav-link" href="./MyAllTask.php">All Tasks</a></li>
                 <li><a class="nav-link" href="./myCompletedTasks.php">Completed Tasks</a></li>
                 <li><a class="nav-link" href="./myOngoing.php">On Going Task</a></li>
+                
               </ul>
             </li>
             <li class="dropdown"
-            <?php
-                  if($_SESSION['AdminAccess'] == 2) {
-                    echo 'style="display:none;"';
-                  }
-                ?>
+            
             >
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Expences</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="./CreateExpencess.php">Your Expences</a></li>
+                <li><a class="nav-link" href="./MyallExpencess.php">My All Expenses</a></li>
               </ul>
             </li>
             
