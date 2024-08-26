@@ -9,7 +9,18 @@ if(!$_SESSION['UserName'] && !$_SESSION['UserId']){
   header('Location: ../index.html');
 }
 
-$sql = "SELECT * FROM task";
+
+$sql = "
+SELECT 
+    task.*, 
+    users.* 
+FROM 
+    task 
+LEFT JOIN 
+    users 
+ON 
+    task.select_user = users.UserId";
+
 $result = mysqli_query($conn, $sql);
 
 $n = 0;
@@ -413,7 +424,7 @@ $n = 0;
                             <td><?php echo $rows['city']; ?></td>
                             <td><?php echo $rows['enterPrice']; ?></td>
                             <td><a href="<?php echo $rows['location']; ?>" target=" ">Map</a></td>
-                            <td><?php echo $rows['enterPrice']; ?></td>
+                            <td><?php echo $rows['UserName']; ?></td>
                             <td>
                                 <?php
                                     if($rows['completion'] == 2) {
