@@ -363,8 +363,11 @@ header
     transition: all 0.3s ease 0s;
 }
 
-.background-header .main-nav .logo {
-  line-height: 80px;
+
+
+.logoimg{
+  width: 50px !important;
+  height: 50px !important;
 }
 
 .background-header .main-nav .nav {
@@ -666,6 +669,8 @@ header
 }
 
 @media (max-width: 767px) {
+
+
   .pre-header ul.info li:last-child,
   .pre-header ul.info li:nth-child(6) {
     display: none!important;
@@ -773,11 +778,21 @@ header
   .header-area .main-nav .nav li.submenu:hover ul, .header-area .main-nav .nav li.submenu:focus ul {
     height: 0px;
   }
+
+  .logoimg{
+    width: 50px !important;
+    height: 50px !important;
+  }
 }
 
 @media (min-width: 767px) {
   .header-area .main-nav .nav {
     display: flex !important;
+  }
+
+  .logoimg{
+    width: 50px !important;
+    height: 50px !important;
   }
 }
 
