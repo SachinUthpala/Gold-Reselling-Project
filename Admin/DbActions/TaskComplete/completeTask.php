@@ -69,7 +69,7 @@ if (isset($_POST['completeTask'])) {
     }
 
     if($price <= 49999){
-        $commition = 0;
+        $commition = 1000;
     }else if($price > 49999 &&  $price <=99999){
         $commition = 1000;
     }else if($price > 99999 && $price <= 149999){

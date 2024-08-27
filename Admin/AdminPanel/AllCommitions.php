@@ -11,8 +11,13 @@ if(!$_SESSION['UserName'] && !$_SESSION['UserId']){
 }
 
 $userId = (int)$_SESSION['UserId'];
+$adminId = (int)$_SESSION['AdminAccess'];
 
-$stmt = $conn->prepare("SELECT * FROM `commition_total` ");
+if($adminId == 2){
+  $stmt = $conn->prepare("SELECT * FROM ` taskcreatorcommition` WHERE tID = 1 ");
+}else{
+  $stmt = $conn->prepare("SELECT * FROM `commition_total` ");
+}
 // $stmt->bind_param("i", $userId);
 
 $stmt->execute();
@@ -61,6 +66,7 @@ $n = 1;
             </li>
           </ul>
         </div>
+        <h1><?php echo 'aa'. $adminId; ?></h1>
         <ul class="navbar-nav navbar-right">
           <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
@@ -353,7 +359,13 @@ $n = 1;
           </div>
 
           <!-- Expenses Table -->
-          <div class="row">
+          <div class="row"
+          <?php
+            if($adminId ==2){
+              echo'style="display: none;"';
+            }
+          ?>
+          >
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
@@ -376,6 +388,44 @@ $n = 1;
                             <td><?php echo $rows['comId']; ?></td>
                             <td><?php echo $rows['taskId']; ?></td>
                             <td><?php echo $rows['completedBy']; ?></td>
+                            <td><?php echo "Rs ." .$rows['Commition'].".00"; ?></td>
+                          </tr>
+                        <?php } ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row"
+          <?php
+            if($adminId !=2){
+              echo'style="display: none;"';
+            }
+          ?>
+          >
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h4>Expenses Table</h4>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-striped" id="table-1">
+                      <thead>
+                        <tr>
+                          <th>COM ID</th>
+                          <th>Completed By</th>
+                          <th>Commition</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php while ($rows = $result->fetch_assoc()) { ?>
+                          <tr>
+                            <td><?php echo $rows['tID']; ?></td>
+                            <td><?php echo $rows['taskCreatorName']; ?></td>
                             <td><?php echo "Rs ." .$rows['Commition'].".00"; ?></td>
                           </tr>
                         <?php } ?>
