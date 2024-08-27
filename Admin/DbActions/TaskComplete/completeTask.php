@@ -92,6 +92,11 @@ if (isset($_POST['completeTask'])) {
         $commition = 5000;
     }
 
+    $sql2 = "UPDATE taskcreatorcommition
+             SET Commition = Commition + 200";
+    
+    $result2 = mysqli_query($conn , $sql2);
+
     $sql = "INSERT INTO `complete_task`(`IdNumber`,`weight`,`price`,`commition`, `jewelryImg`, `Id_image`, `receipt_img`, `taskID`, `compteled_date`, `completedTime` , `completedBy`) 
     VALUES ('$id' , '$weight' ,'$price','$commition', '$j_img_path' ,'$id_img_path' ,'$recit_img_path' ,'$idTask' ,'$date' ,'$time' , '$completedBy')";
     $result = mysqli_query($conn, $sql);
