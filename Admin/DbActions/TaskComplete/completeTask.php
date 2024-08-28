@@ -32,6 +32,74 @@ if (isset($_POST['completeTask'])) {
         }
     }
 
+    if (isset($_FILES['jewelry1'])) {
+        $jewelry_img1 = $_FILES['jewelry1'];
+        $j_img_name1 = $jewelry_img1['name'];
+        $j_img_tmp1 = $jewelry_img1['tmp_name'];
+        $j_img_separate1 = explode('.', $j_img_name1);
+        $file_extension1 = strtolower(end($j_img_separate1)); // Use end() to get the last element
+        $extensions1 = array('jpeg', 'jpg', 'png');
+
+        if (in_array($file_extension1, $extensions1)) {
+            $j_upload_path1 = '../../WebImages/JewelaryImg/' . $j_img_name1;
+            move_uploaded_file($j_img_tmp, $j_upload_path1);
+            $j_img_path1 = 'WebImages/JewelaryImg/' . $j_img_name1;
+        } else {
+            echo "Jewelry file not supported";
+        }
+    }
+
+    if (isset($_FILES['jewelry2'])) {
+        $jewelry_img2 = $_FILES['jewelry2'];
+        $j_img_name2 = $jewelry_img2['name'];
+        $j_img_tmp2 = $jewelry_img2['tmp_name'];
+        $j_img_separate2 = explode('.', $j_img_name2);
+        $file_extension2 = strtolower(end($j_img_separate2)); // Use end() to get the last element
+        $extensions2 = array('jpeg', 'jpg', 'png');
+
+        if (in_array($file_extension2, $extensions2)) {
+            $j_upload_path2 = '../../WebImages/JewelaryImg/' . $j_img_name2;
+            move_uploaded_file($j_img_tmp2, $j_upload_path2);
+            $j_img_path2 = 'WebImages/JewelaryImg/' . $j_img_name2;
+        } else {
+            echo "Jewelry file not supported";
+        }
+    }
+
+    if (isset($_FILES['jewelry3'])) {
+        $jewelry_img3 = $_FILES['jewelry3'];
+        $j_img_name3 = $jewelry_img['name'];
+        $j_img_tmp3 = $jewelry_img['tmp_name'];
+        $j_img_separate3 = explode('.', $j_img_name3);
+        $file_extension3 = strtolower(end($j_img_separate3)); // Use end() to get the last element
+        $extensions3 = array('jpeg', 'jpg', 'png');
+
+        if (in_array($file_extension3, $extensions3)) {
+            $j_upload_path3 = '../../WebImages/JewelaryImg/' . $j_img_name3;
+            move_uploaded_file($j_img_tmp3, $j_upload_path3);
+            $j_img_path3 = 'WebImages/JewelaryImg/' . $j_img_name3;
+        } else {
+            echo "Jewelry file not supported";
+        }
+    }
+
+    if (isset($_FILES['jewelry4'])) {
+        $jewelry_img4 = $_FILES['jewelry4'];
+        $j_img_name4 = $jewelry_img4['name'];
+        $j_img_tmp4 = $jewelry_img4['tmp_name'];
+        $j_img_separate4 = explode('.', $j_img_name4);
+        $file_extension4 = strtolower(end($j_img_separate4)); // Use end() to get the last element
+        $extensions4 = array('jpeg', 'jpg', 'png');
+
+        if (in_array($file_extension4, $extensions4)) {
+            $j_upload_path4 = '../../WebImages/JewelaryImg/' . $j_img_name4;
+            move_uploaded_file($j_img_tmp4, $j_upload_path4);
+            $j_img_path4 = 'WebImages/JewelaryImg/' . $j_img_name4;
+        } else {
+            echo "Jewelry file not supported";
+        }
+    }
+
     // ID image upload
     if (isset($_FILES['id_image']) ) {
         $id_img = $_FILES['id_image'];
@@ -45,6 +113,23 @@ if (isset($_POST['completeTask'])) {
             $id_upload_path = '../../WebImages/UserId/' . $id_name;
             move_uploaded_file($id_tmp, $id_upload_path);
             $id_img_path = 'WebImages/UserId/' . $id_name;
+        } else {
+            echo "ID file not supported";
+        }
+    }
+
+    if (isset($_FILES['id_image1']) ) {
+        $id_img1 = $_FILES['id_image1'];
+        $id_name1 = $id_img1['name'];
+        $id_tmp1 = $id_img1['tmp_name'];
+        $id_separate1 = explode('.', $id_name1);
+        $file_extension1 = strtolower(end($id_separate1));
+        $extensions1 = array('jpeg', 'jpg', 'png');
+
+        if (in_array($file_extension1, $extensions1)) {
+            $id_upload_path1 = '../../WebImages/UserId/' . $id_name1;
+            move_uploaded_file($id_tmp1, $id_upload_path1);
+            $id_img_path1 = 'WebImages/UserId/' . $id_name1;
         } else {
             echo "ID file not supported";
         }
@@ -97,8 +182,8 @@ if (isset($_POST['completeTask'])) {
     
     $result2 = mysqli_query($conn , $sql2);
 
-    $sql = "INSERT INTO `complete_task`(`IdNumber`,`weight`,`price`,`commition`, `jewelryImg`, `Id_image`, `receipt_img`, `taskID`, `compteled_date`, `completedTime` , `completedBy`) 
-    VALUES ('$id' , '$weight' ,'$price','$commition', '$j_img_path' ,'$id_img_path' ,'$recit_img_path' ,'$idTask' ,'$date' ,'$time' , '$completedBy')";
+    $sql = "INSERT INTO `complete_task`(`IdNumber`,`weight`,`price`,`commition`, `jewelryImg` , `jewelryImg_1`, `jewelryImg_2`, `jewelryImg_3`, `jewelryImg_4`, `Id_image`, `Id_image1`, `receipt_img`, `taskID`, `compteled_date`, `completedTime` , `completedBy`) 
+    VALUES ('$id' , '$weight' ,'$price','$commition', '$j_img_path' ,'$j_img_path1','$j_img_path2','$j_img_path3','$j_img_path4' ,'$id_img_path' ,'$id_img_path1','$recit_img_path' ,'$idTask' ,'$date' ,'$time' , '$completedBy')";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         echo "Task completed successfully";
