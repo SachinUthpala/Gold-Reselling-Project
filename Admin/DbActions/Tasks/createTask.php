@@ -17,10 +17,11 @@ if(isset($_POST['createTask'])){
     $price = $_POST['price'];
     $location = $_POST['location'];
     $weight = $_POST['weight'];
+    $note = $_POST['note'];
 
 
-    $sql = "INSERT INTO `task`( `select_user`, `inqueryNumber`, `date`, `time`, `customerName`, `Phone`, `bank_shop`, `city`, `enterPrice`, `location` , `weight`) 
-    VALUES ( '$userId' , '$Inquery_Number' ,'$date' ,'$time' ,'$customer_name' ,'$phone' ,'$bank' ,'$city' ,'$price' ,'$location' ,'$weight')";
+    $sql = "INSERT INTO `task`( `select_user`, `inqueryNumber`, `date`, `time`, `customerName`, `Phone`, `bank_shop`, `city`, `enterPrice`, `location` , `weight` , `note`) 
+    VALUES ( '$userId' , '$Inquery_Number' ,'$date' ,'$time' ,'$customer_name' ,'$phone' ,'$bank' ,'$city' ,'$price' ,'$location' ,'$weight' , '$note')";
 
     $result = mysqli_query($conn , $sql);
 

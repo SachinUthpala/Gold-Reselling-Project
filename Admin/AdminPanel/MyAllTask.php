@@ -403,6 +403,7 @@ $n = 1;
                             <th>City</th>
                             <th>Price</th>
                             <th>Location</th>
+                            <th>Note</th>
                             <th>Completion</th>
                             <th>Complete Now</th>
      
@@ -422,6 +423,7 @@ $n = 1;
                             <td><?php echo $rows['city']; ?></td>
                             <td><?php echo $rows['enterPrice']; ?></td>
                             <td><a href="<?php echo $rows['location']; ?>">Map</a></td>
+                            <td><?php echo $rows['note']; ?></td>
                             <td>
                                 <?php
                                     if($rows['completion'] == 2) {

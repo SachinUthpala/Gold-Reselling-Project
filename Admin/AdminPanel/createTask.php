@@ -379,6 +379,11 @@ $AllUsers = $result_total->num_rows ;
                         <input type="text" class="form-control" name="location" placeholder="Location">
                       </div>
 
+                      <div class="form-group col-md-6">
+                        <label for="inputEmail4">Note</label>
+                        <input type="text" class="form-control" name="note" placeholder="Extra Note">
+                      </div>
+
                     </div>
                    
                     

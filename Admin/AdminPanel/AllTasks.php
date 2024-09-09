@@ -403,6 +403,7 @@ $n = 0;
                             <th>City</th>
                             <th>Price</th>
                             <th>Location</th>
+                            <th>Note</th>
                             <th>Completed By</th>
                             <th>Completion</th>
                             <th>More Details</th>
@@ -425,6 +426,7 @@ $n = 0;
                             <td><?php echo $rows['city']; ?></td>
                             <td><?php echo $rows['enterPrice']; ?></td>
                             <td><a href="<?php echo $rows['location']; ?>" target=" ">Map</a></td>
+                            <td><?php echo $rows['note']; ?></td>
                             <td><?php echo $rows['UserName']; ?></td>
                             <td>
                                 <?php
