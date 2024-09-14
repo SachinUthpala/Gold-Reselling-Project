@@ -15,7 +15,11 @@ $adminId = $_SESSION['AdminAccess'];
 
 
 if($adminId == 2){
+<<<<<<< HEAD
   $tCsql = "SELECT * FROM `taskcreatorcommition` WHERE tID = 2";
+=======
+  $tCsql = "SELECT * FROM `taskcreatorcommition` WHERE tID = 1";
+>>>>>>> a543eb6d1796989a71f9ab1acc8b3c1b742b8621
   $tcResult = mysqli_query($conn, $tCsql);
 
   if ($tcResult) {
@@ -386,7 +390,11 @@ $n = 1;
                       <div class="col-lg-6 pr-0 pt-3">
                         <div class="card-content">
                           <h5 class="font-15">Commotion</h5>
+<<<<<<< HEAD
                           <h2 class="mb-3 font-18"><?php echo 'Rs. '.$tcRow['Commition'].'.00' ; ?></h2>
+=======
+                          <h2 class="mb-3 font-18"><?php echo $tcRow['Commition'] ; ?></h2>
+>>>>>>> a543eb6d1796989a71f9ab1acc8b3c1b742b8621
                         </div>
                       </div>
                       <div class="col-lg-6 pl-0">

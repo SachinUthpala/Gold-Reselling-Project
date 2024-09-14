@@ -66,6 +66,7 @@ $n = 1;
             </li>
           </ul>
         </div>
+        <h1><?php echo 'aa'. $adminId; ?></h1>
         <ul class="navbar-nav navbar-right">
           <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
