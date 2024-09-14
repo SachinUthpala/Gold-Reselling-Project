@@ -374,6 +374,8 @@ $n = 1;
                           <th>Distance</th>
                           <th>Amount</th>
                           <th>Date</th>
+                          <th>Approved</th>
+                          <th>Change Approved</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -384,6 +386,88 @@ $n = 1;
                             <td><?php echo $rows['distance']; ?></td>
                             <td><?php echo "Rs ." .$rows['amount'].".00"; ?></td>
                             <td><?php echo $rows['date']; ?></td>
+                            <td><?php 
+                            
+                            if($rows['approved_exp'] == 0) {
+                              echo '<p style="color:orange;font-weight:bold;font-size:14px;">Pending</p>';
+                            }else{
+                              echo '<p style="color:green;font-weight:bold;font-size:14px;">Approved</p>';
+                            }
+
+                            ?></td>
+                            <td 
+                            <?php
+                              if($rows['approved_exp'] != 0){
+                                echo 'style="display:none;"';
+                              }
+                            ?>
+                            >
+                                  <form id="approvalForm" action="#" method="post">
+                                      <input type="hidden" name="expId" value="<?php echo $rows['expenxess_id']; ?>">
+                                      <input type="submit" value="Approved" class="btn btn-success" id="approveBtn">
+                                  </form>
+
+                                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                                <script>
+                                    document.getElementById('approveBtn').addEventListener('click', function(event) {
+                                        event.preventDefault(); // Prevent the form from submitting immediately
+
+                                        Swal.fire({
+                                            title: 'Are you sure?',
+                                            text: "Do you want to approve this?",
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#3085d6',
+                                            cancelButtonColor: '#d33',
+                                            confirmButtonText: 'Yes, approve it!',
+                                            cancelButtonText: 'No, cancel!'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                // If confirmed, submit the form
+                                                document.getElementById('approvalForm').submit();
+                                            }
+                                        });
+                                    });
+                                </script>
+
+                            </td>
+
+                            <td 
+                            <?php
+                              if($rows['approved_exp'] == 0){
+                                echo 'style="display:none;"';
+                              }
+                            ?>
+                            >
+                                  <form id="approvalForm2" action="#" method="post">
+                                      <input type="hidden" name="expId" value="<?php echo $rows['expenxess_id']; ?>">
+                                      <input type="submit" value="Remove Approved" class="btn btn-danger" id="approveBtn2">
+                                  </form>
+
+                                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                                <script>
+                                    document.getElementById('approveBtn2').addEventListener('click', function(event) {
+                                        event.preventDefault(); // Prevent the form from submitting immediately
+
+                                        Swal.fire({
+                                            title: 'Are you sure?',
+                                            text: "Do you want to remove approve this?",
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#3085d6',
+                                            cancelButtonColor: '#d33',
+                                            confirmButtonText: 'Yes, approve it!',
+                                            cancelButtonText: 'No, cancel!'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                // If confirmed, submit the form
+                                                document.getElementById('approvalForm2').submit();
+                                            }
+                                        });
+                                    });
+                                </script>
+
+                            </td>
                           </tr>
                         <?php } ?>
                       </tbody>

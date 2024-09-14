@@ -376,6 +376,7 @@ $n = 1;
                           <th>Distance</th>
                           <th>Amount</th>
                           <th>Date</th>
+                          <th>Approved</th>
                           <th>Remove</th>
                         </tr>
                       </thead>
@@ -387,10 +388,25 @@ $n = 1;
                             <td><?php echo $rows['distance']; ?></td>
                             <td><?php echo "Rs ." .$rows['amount'].".00"; ?></td>
                             <td><?php echo $rows['date']; ?></td>
-                            <td>
+                            <td><?php 
+                            
+                            if($rows['approved_exp'] == 0) {
+                              echo '<p style="color:orange;font-weight:bold;font-size:14px;">Pending</p>';
+                            }else{
+                              echo '<p style="color:green;font-weight:bold;font-size:14px;">Approved</p>';
+                            }
+
+                            ?></td>
+                            <td 
+                            <?php
+                              if($rows['approved_exp'] != 0){
+                                echo 'style="display:none"';
+                              }
+                            ?>
+                            >
                               <form action="../DbActions/expencess/remove.exp.php" method="post">
                                 <input type="hidden" name="expID" value="<?php echo $rows['expenxess_id']; ?>">
-                                <button type="submit" class="btn btn-danger">Remove</button>
+                                <button type="submit" class="btn btn-danger" >Remove</button>
                               </form>
                             </td>
                           </tr>
