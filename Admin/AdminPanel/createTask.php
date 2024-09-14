@@ -371,7 +371,7 @@ $AllUsers = $result_total->num_rows ;
 
                       <div class="form-group col-md-6">
                         <label for="inputEmail4">Price</label>
-                        <input type="text" class="form-control" name="price" placeholder="Bank Or Shop">
+                        <input type="text" class="form-control" name="price" placeholder="Item Price">
                       </div>
 
                       <div class="form-group col-md-6">

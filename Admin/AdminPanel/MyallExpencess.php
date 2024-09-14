@@ -376,6 +376,7 @@ $n = 1;
                           <th>Distance</th>
                           <th>Amount</th>
                           <th>Date</th>
+                          <th>Remove</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -386,6 +387,12 @@ $n = 1;
                             <td><?php echo $rows['distance']; ?></td>
                             <td><?php echo "Rs ." .$rows['amount'].".00"; ?></td>
                             <td><?php echo $rows['date']; ?></td>
+                            <td>
+                              <form action="../DbActions/expencess/remove.exp.php" method="post">
+                                <input type="hidden" name="expID" value="<?php echo $rows['expenxess_id']; ?>">
+                                <button type="submit" class="btn btn-danger">Remove</button>
+                              </form>
+                            </td>
                           </tr>
                         <?php } ?>
                       </tbody>

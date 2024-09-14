@@ -1,6 +1,5 @@
 <?php
 
-
 require_once '../Db.conn.php';
 session_start();
 

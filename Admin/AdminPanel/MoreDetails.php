@@ -433,16 +433,57 @@ $row = $result->fetch_assoc();
                                 <div class="section-title">Jewelry Photo</div>
                                 <img alt="image" src="<?php echo '../'.$row['jewelryImg']; ?>" class="author-box-picture" width="200px" height="150px">
                             </div>
+                            <div class="col-md-5 col-6">
+                                <div class="section-title">Jewelry Photo</div>
+                                <img alt="image" src="<?php echo '../'.$row['jewelryImg_1']; ?>" class="author-box-picture" width="200px" height="150px">
+                            </div>
+                            <div class="col-md-5 col-6">
+                                <div class="section-title">Jewelry Photo</div>
+                                <img alt="image" src="<?php echo '../'.$row['jewelryImg_2']; ?>" class="author-box-picture" width="200px" height="150px">
+                            </div>
+                            <div class="col-md-5 col-6">
+                                <div class="section-title">Jewelry Photo</div>
+                                <img alt="image" src="<?php echo '../'.$row['jewelryImg_3']; ?>" class="author-box-picture" width="200px" height="150px">
+                            </div>
+                            <div class="col-md-5 col-6">
+                                <div class="section-title">Jewelry Photo</div>
+                                <img alt="image" src="<?php echo '../'.$row['jewelryImg_4']; ?>" class="author-box-picture" width="200px" height="150px">
+                            </div>
 
                             <div class="col-md-5 col-6">
-                                <div class="section-title">ID Photo</div>
+                                <div class="section-title">ID Photo Front</div>
                                 <img alt="image" src="<?php echo '../'.$row['Id_image']; ?>" class="author-box-picture" width="200px" height="150px">
+                            </div>
+
+                            <div class="col-md-5 col-6">
+                                <div class="section-title">ID Photo Back</div>
+                                <img alt="image" src="<?php echo '../'.$row['Id_image1']; ?>" class="author-box-picture" width="200px" height="150px">
                             </div>
 
                             <div class="col-md-3 col-6">
                                 <div class="section-title">Recept Photo</div>
                                 <img alt="image" src="<?php echo '../'.$row['receipt_img']; ?>" class="author-box-picture" width="200px" height="150px">
-                            </div>`
+                            </div>
+                            
+                            <div class="col-md-3 col-6">
+                                <div class="section-title">Recept Photo</div>
+                                <img alt="image" src="<?php echo '../'.$row['receipt_img1']; ?>" class="author-box-picture" width="200px" height="150px">
+                            </div>
+                            
+                            <div class="col-md-3 col-6">
+                                <div class="section-title">Recept Photo</div>
+                                <img alt="image" src="<?php echo '../'.$row['receipt_img2']; ?>" class="author-box-picture" width="200px" height="150px">
+                            </div>
+                            
+                            <div class="col-md-3 col-6">
+                                <div class="section-title">Recept Photo</div>
+                                <img alt="image" src="<?php echo '../'.$row['receipt_img3']; ?>" class="author-box-picture" width="200px" height="150px">
+                            </div>
+                            
+                            <div class="col-md-3 col-6">
+                                <div class="section-title">Recept Photo</div>
+                                <img alt="image" src="<?php echo '../'.$row['receipt_img4']; ?>" class="author-box-picture" width="200px" height="150px">
+                            </div>
 
                         </div>
 

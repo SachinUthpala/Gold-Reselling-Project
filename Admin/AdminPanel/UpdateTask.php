@@ -430,7 +430,7 @@ $n = 1;
                             <th>Phone</th>
                             <th>Bank</th>
                             <th>Price</th>
-                            <th>Delete</th>
+                            <th>Update / Delete</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -465,6 +465,21 @@ $n = 1;
                             </td>
 
                             <td
+                            
+                            <?php
+                             if($rows['completion'] == 0){
+                              echo 'style="display:block;"';
+                             }else{
+                              echo 'style="display:none;"';
+                             }
+                            ?>
+
+                            >
+                                <form action="../DbActions/Tasks/deleteTask.php" method="post">
+                                    <input type="hidden" name="delete_id" value="<?php echo $rows['task_id']; ?>">
+                                    <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+                               </form>
+                            </td>
                             
                             
                             

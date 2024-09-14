@@ -431,6 +431,7 @@ $n = 1;
                             <th>Bank</th>
                             <th>Price</th>
                             <th>Delete</th>
+                            <th>Update</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -481,6 +482,22 @@ $n = 1;
                                </form>
                             </td>
                             
+                            <td>
+                                <form action="./updateOngoing.php" method="post">
+                                    <input type="hidden" name="delete_id" value="<?php echo $rows['task_id']; ?>">
+                                    <button type="submit" name="Update" class="btn btn-danger"
+                                    
+                                    <?php
+                             if($rows['completion'] == 0){
+                              echo '';
+                             }else{
+                              echo 'disabled';
+                             }
+                            ?>
+                                    
+                                    >Update</button>
+                               </form>
+                            </td>
                            
                           
                           

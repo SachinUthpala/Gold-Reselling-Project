@@ -360,18 +360,64 @@ $UserNames = $_SESSION['UserName'];
                       </div>
 
                       <div class="form-group col-md-6">
-                        <label for="inputEmail4">Jewelry Image</label>
+                        <label for="inputEmail4">Jewelry Image 1</label>
                         <input type="file" class="form-control"  name="jewelry" placeholder="jewelry">
                       </div>
 
                       <div class="form-group col-md-6">
-                        <label for="inputEmail4">ID Image</label>
+                        <label for="inputEmail4">Jewelry Image 2</label>
+                        <input type="file" class="form-control"  name="jewelry1" placeholder="jewelry">
+                      </div>
+
+                      <div class="form-group col-md-6">
+                        <label for="inputEmail4">Jewelry Image 3</label>
+                        <input type="file" class="form-control"  name="jewelry2" placeholder="jewelry">
+                      </div>
+
+                      <div class="form-group col-md-6">
+                        <label for="inputEmail4">Jewelry Image 4</label>
+                        <input type="file" class="form-control"  name="jewelry3" placeholder="jewelry">
+                      </div>
+
+                      <div class="form-group col-md-6">
+                        <label for="inputEmail4">Jewelry Image 5</label>
+                        <input type="file" class="form-control"  name="jewelry4" placeholder="jewelry">
+                      </div>
+
+
+                      <div class="form-group col-md-6">
+                        <label for="inputEmail4">ID Image Front</label>
                         <input type="file" class="form-control"  name="id_image" placeholder="ID Image">
                       </div>
 
                       <div class="form-group col-md-6">
-                        <label for="inputEmail4">Recipt Image</label>
+                        <label for="inputEmail4">ID Image Back</label>
+                        <input type="file" class="form-control"  name="id_image1" placeholder="ID Image">
+                      </div>
+
+                      <div class="form-group col-md-6">
+                        <label for="inputEmail4">Recipt Image 1</label>
                         <input type="file" class="form-control"  name="recipt_image" placeholder="Recipt Image">
+                      </div>
+                      
+                      <div class="form-group col-md-6">
+                        <label for="inputEmail4">Recipt Image 2</label>
+                        <input type="file" class="form-control"  name="recipt_image1" placeholder="Recipt Image">
+                      </div>
+                      
+                      <div class="form-group col-md-6">
+                        <label for="inputEmail4">Recipt Image 3</label>
+                        <input type="file" class="form-control"  name="recipt_image2" placeholder="Recipt Image">
+                      </div>
+                      
+                      <div class="form-group col-md-6">
+                        <label for="inputEmail4">Recipt Image 4</label>
+                        <input type="file" class="form-control"  name="recipt_image3" placeholder="Recipt Image">
+                      </div>
+                      
+                      <div class="form-group col-md-6">
+                        <label for="inputEmail4">Recipt Image 5</label>
+                        <input type="file" class="form-control"  name="recipt_image4" placeholder="Recipt Image">
                       </div>
 
                       <div class="form-group col-md-6">
