@@ -402,9 +402,9 @@ $n = 1;
                               }
                             ?>
                             >
-                                  <form id="approvalForm" action="#" method="post">
+                                  <form id="approvalForm" action="../DbActions/expencess/changeApproval.php" method="post">
                                       <input type="hidden" name="expId" value="<?php echo $rows['expenxess_id']; ?>">
-                                      <input type="submit" value="Approved" class="btn btn-success" id="approveBtn">
+                                      <input type="submit" value="Approved" name="approval" class="btn btn-success" id="approveBtn">
                                   </form>
 
                                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -439,9 +439,9 @@ $n = 1;
                               }
                             ?>
                             >
-                                  <form id="approvalForm2" action="#" method="post">
+                                  <form id="approvalForm2" action="../DbActions/expencess/removeApp.php" method="post">
                                       <input type="hidden" name="expId" value="<?php echo $rows['expenxess_id']; ?>">
-                                      <input type="submit" value="Remove Approved" class="btn btn-danger" id="approveBtn2">
+                                      <input type="submit" value="Remove Approved" name="removeapp" class="btn btn-danger" id="approveBtn2">
                                   </form>
 
                                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
