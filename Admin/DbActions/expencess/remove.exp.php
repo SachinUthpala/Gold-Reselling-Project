@@ -1,6 +1,6 @@
 <?php
 
-require_once '../Db.conn.php';
+require_once '../Db.conn.php'; 
 session_start();
 
 $expId = (int)$_POST['expID'];
