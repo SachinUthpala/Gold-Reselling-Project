@@ -527,7 +527,7 @@ $n = 1;
                                             showCancelButton: true,
                                             confirmButtonColor: '#3085d6',
                                             cancelButtonColor: '#d33',
-                                            confirmButtonText: 'Yes, approve it!',
+                                            confirmButtonText: 'Yes, Delete it!',
                                             cancelButtonText: 'No, cancel!'
                                         }).then((result) => {
                                             if (result.isConfirmed) {

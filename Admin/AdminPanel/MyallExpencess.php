@@ -467,12 +467,12 @@ $n = 1;
 
                                         Swal.fire({
                                             title: 'Are you sure?',
-                                            text: "Do you want to Delete this?",
+                                            text: "Do you want to Remove this?",
                                             icon: 'warning',
                                             showCancelButton: true,
                                             confirmButtonColor: '#3085d6',
                                             cancelButtonColor: '#d33',
-                                            confirmButtonText: 'Yes, approve it!',
+                                            confirmButtonText: 'Yes, Remove it!',
                                             cancelButtonText: 'No, cancel!'
                                         }).then((result) => {
                                             if (result.isConfirmed) {
