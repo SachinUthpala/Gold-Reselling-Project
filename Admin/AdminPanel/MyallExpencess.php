@@ -404,10 +404,32 @@ $n = 1;
                               }
                             ?>
                             >
-                              <form action="../DbActions/expencess/remove.exp.php" method="post">
+                              <form  id="<?php echo "deleteForm".$rows['expenxess_id']; ?>" action="../DbActions/expencess/remove.exp.php" method="post">
                                 <input type="hidden" name="expID" value="<?php echo $rows['expenxess_id']; ?>">
-                                <button type="submit" class="btn btn-danger" >Remove</button>
+                                <button type="submit" class="btn btn-danger" id="<?php echo "deletebutton".$rows['expenxess_id']; ?>" >Remove</button>
                               </form>
+
+                              <script>
+                                    document.getElementById('<?php echo "deletebutton".$rows['expenxess_id']; ?>').addEventListener('click', function(event) {
+                                        event.preventDefault(); // Prevent the form from submitting immediately
+
+                                        Swal.fire({
+                                            title: 'Are you sure?',
+                                            text: "Do you want to Delete this?",
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#3085d6',
+                                            cancelButtonColor: '#d33',
+                                            confirmButtonText: 'Yes, approve it!',
+                                            cancelButtonText: 'No, cancel!'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                // If confirmed, submit the form
+                                                document.getElementById('<?php echo "deleteForm".$rows['expenxess_id']; ?>').submit();
+                                            }
+                                        });
+                                    });
+                                </script>
                             </td>
                           </tr>
                         <?php } ?>
@@ -423,6 +445,8 @@ $n = 1;
       </div>
     </div>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <!-- Scripts -->
   <script src="assets/js/app.min.js"></script>

@@ -4,7 +4,7 @@ require_once '../Db.conn.php';
 session_start();
 
 
-if(isset($_POST['delete'])){
+
     $taskId = (int)$_POST['delete_id'];
 
     $sql = "DELETE FROM `task` WHERE task_id = $taskId";
@@ -24,7 +24,7 @@ if(isset($_POST['delete'])){
 
     exit();
 
-}
+
 
 
 ?>
