@@ -15,11 +15,11 @@ $adminId = $_SESSION['AdminAccess'];
 
 
 if($adminId == 2){
-<<<<<<< HEAD
+
   $tCsql = "SELECT * FROM `taskcreatorcommition` WHERE tID = 2";
-=======
+
   $tCsql = "SELECT * FROM `taskcreatorcommition` WHERE tID = 1";
->>>>>>> a543eb6d1796989a71f9ab1acc8b3c1b742b8621
+
   $tcResult = mysqli_query($conn, $tCsql);
 
   if ($tcResult) {
@@ -176,7 +176,6 @@ $n = 1;
               ?>
               >
                 <li><a class="nav-link" href="./createTask.php">Create Task</a></li>
-                <li><a class="nav-link" href="./UpdateTask.php">Update Task</a></li>
                 <li><a class="nav-link" href="./deleteTask.php">Delete Task</a></li>
               </ul>
             </li>
@@ -312,10 +311,63 @@ $n = 1;
               <ul class="dropdown-menu"
              
               >
-                <li><a class="nav-link" href="../DbActions/Advance/clearExpencess.php">Clear Expencess</a></li>
-                <li><a class="nav-link" href="../DbActions/Advance/clearExpencess.php">Clear Commitions</a></li>
+                <li><a class="nav-link" onclick="ClearExp()" style="cursor: pointer;">Clear Expencess</a></li>
+                <li><a class="nav-link" onclick="ClearCommi()" style="cursor: pointer;">Clear Commitions</a></li>
               </ul>
             </li>
+                <!-- 
+        sweet alert
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+      async function  ClearExp(){
+           const { value: password } = await Swal.fire({
+           title: "Enter your password",
+           input: "password",
+           inputLabel: "Password",
+           inputPlaceholder: "Enter your password",
+           inputAttributes: {
+               maxlength: "100",
+               autocapitalize: "off",
+               autocorrect: "off"
+           }
+           });
+           if (password === "admin@2024") {
+
+               location.href="../DbActions/Advance/clearExpencess.php";
+           }else{
+               Swal.fire({
+               icon: "error",
+               title: "Oops...",
+               text: "Provide Correct Password To Continive this Task !",
+               });
+           }
+       }
+
+       async function  ClearCommi(){
+           const { value: password } = await Swal.fire({
+           title: "Enter your password",
+           input: "password",
+           inputLabel: "Password",
+           inputPlaceholder: "Enter your password",
+           inputAttributes: {
+               maxlength: "100",
+               autocapitalize: "off",
+               autocorrect: "off"
+           }
+           });
+           if (password === "admin@2024") {
+
+               location.href="../DbActions/Advance/clearExpencess.php";
+           }else{
+               Swal.fire({
+               icon: "error",
+               title: "Oops...",
+               text: "Provide Correct Password To Continive this Task !",
+               });
+           }
+       }
+   </script>
 
             
             

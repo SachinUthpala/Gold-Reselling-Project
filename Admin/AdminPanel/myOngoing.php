@@ -177,7 +177,6 @@ $n = 1;
               ?>
               >
                 <li><a class="nav-link" href="./createTask.php">Create Task</a></li>
-                <li><a class="nav-link" href="./UpdateTask.php">Update Task</a></li>
                 <li><a class="nav-link" href="./deleteTask.php">Delete Task</a></li>
               </ul>
             </li>
@@ -313,10 +312,63 @@ $n = 1;
               <ul class="dropdown-menu"
              
               >
-                <li><a class="nav-link" href="../DbActions/Advance/clearExpencess.php">Clear Expencess</a></li>
-                <li><a class="nav-link" href="../DbActions/Advance/clearExpencess.php">Clear Commitions</a></li>
+                <li><a class="nav-link" onclick="ClearExp()" style="cursor: pointer;">Clear Expencess</a></li>
+                <li><a class="nav-link" onclick="ClearCommi()" style="cursor: pointer;">Clear Commitions</a></li>
               </ul>
             </li>
+                <!-- 
+        sweet alert
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+      async function  ClearExp(){
+           const { value: password } = await Swal.fire({
+           title: "Enter your password",
+           input: "password",
+           inputLabel: "Password",
+           inputPlaceholder: "Enter your password",
+           inputAttributes: {
+               maxlength: "100",
+               autocapitalize: "off",
+               autocorrect: "off"
+           }
+           });
+           if (password === "admin@2024") {
+
+               location.href="../DbActions/Advance/clearExpencess.php";
+           }else{
+               Swal.fire({
+               icon: "error",
+               title: "Oops...",
+               text: "Provide Correct Password To Continive this Task !",
+               });
+           }
+       }
+
+       async function  ClearCommi(){
+           const { value: password } = await Swal.fire({
+           title: "Enter your password",
+           input: "password",
+           inputLabel: "Password",
+           inputPlaceholder: "Enter your password",
+           inputAttributes: {
+               maxlength: "100",
+               autocapitalize: "off",
+               autocorrect: "off"
+           }
+           });
+           if (password === "admin@2024") {
+
+               location.href="../DbActions/Advance/clearExpencess.php";
+           }else{
+               Swal.fire({
+               icon: "error",
+               title: "Oops...",
+               text: "Provide Correct Password To Continive this Task !",
+               });
+           }
+       }
+   </script>
 
             
             

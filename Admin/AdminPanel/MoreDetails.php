@@ -168,7 +168,6 @@ $row = $result->fetch_assoc();
               ?>
               >
                 <li><a class="nav-link" href="./createTask.php">Create Task</a></li>
-                <li><a class="nav-link" href="./UpdateTask.php">Update Task</a></li>
                 <li><a class="nav-link" href="./deleteTask.php">Delete Task</a></li>
               </ul>
             </li>
@@ -304,10 +303,63 @@ $row = $result->fetch_assoc();
               <ul class="dropdown-menu"
              
               >
-                <li><a class="nav-link" href="../DbActions/Advance/clearExpencess.php">Clear Expencess</a></li>
-                <li><a class="nav-link" href="../DbActions/Advance/clearExpencess.php">Clear Commitions</a></li>
+                <li><a class="nav-link" onclick="ClearExp()" style="cursor: pointer;">Clear Expencess</a></li>
+                <li><a class="nav-link" onclick="ClearCommi()" style="cursor: pointer;">Clear Commitions</a></li>
               </ul>
             </li>
+                <!-- 
+        sweet alert
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+      async function  ClearExp(){
+           const { value: password } = await Swal.fire({
+           title: "Enter your password",
+           input: "password",
+           inputLabel: "Password",
+           inputPlaceholder: "Enter your password",
+           inputAttributes: {
+               maxlength: "100",
+               autocapitalize: "off",
+               autocorrect: "off"
+           }
+           });
+           if (password === "admin@2024") {
+
+               location.href="../DbActions/Advance/clearExpencess.php";
+           }else{
+               Swal.fire({
+               icon: "error",
+               title: "Oops...",
+               text: "Provide Correct Password To Continive this Task !",
+               });
+           }
+       }
+
+       async function  ClearCommi(){
+           const { value: password } = await Swal.fire({
+           title: "Enter your password",
+           input: "password",
+           inputLabel: "Password",
+           inputPlaceholder: "Enter your password",
+           inputAttributes: {
+               maxlength: "100",
+               autocapitalize: "off",
+               autocorrect: "off"
+           }
+           });
+           if (password === "admin@2024") {
+
+               location.href="../DbActions/Advance/clearExpencess.php";
+           }else{
+               Swal.fire({
+               icon: "error",
+               title: "Oops...",
+               text: "Provide Correct Password To Continive this Task !",
+               });
+           }
+       }
+   </script>
 
             
             
@@ -508,6 +560,14 @@ $row = $result->fetch_assoc();
                                 <input type="text" class="form-control" name="weight" value="<?php echo $row['weight']; ?>">
                                 <div class="invalid-feedback">
                                   Please fill in the Weight
+                                </div>
+                              </div>
+
+                              <div class="form-group col-md-6 col-12">
+                                <label>Price</label>
+                                <input type="text" class="form-control" name="price" value="<?php echo $row['price']; ?>">
+                                <div class="invalid-feedback">
+                                  Please fill in the Price
                                 </div>
                               </div>
 
