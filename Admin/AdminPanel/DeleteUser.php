@@ -466,10 +466,32 @@ $n = 1;
                             </td>
 
                             <td>
-                                <form action="../DbActions/UserFunctions/deleteUser.php" method="post">
+                                <form id="<?php echo "deleteForm".$rows['UserId']; ?>" action="../DbActions/UserFunctions/deleteUser.php" method="post" >
                                     <input type="hidden" name="delete_id" value="<?php echo $rows['UserId']; ?>">
-                                    <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+                                    <button type="submit" name="delete" class="btn btn-danger" id="<?php echo "deletebutton".$rows['UserId']; ?>">Delete</button>
                                </form>
+
+                               <script>
+                                    document.getElementById('<?php echo "deletebutton".$rows['UserId']; ?>').addEventListener('click', function(event) {
+                                        event.preventDefault(); // Prevent the form from submitting immediately
+
+                                        Swal.fire({
+                                            title: 'Are you sure?',
+                                            text: "Do you want to Delete this?",
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#3085d6',
+                                            cancelButtonColor: '#d33',
+                                            confirmButtonText: 'Yes, approve it!',
+                                            cancelButtonText: 'No, cancel!'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                // If confirmed, submit the form
+                                                document.getElementById('<?php echo "deleteForm".$rows['UserId']; ?>').submit();
+                                            }
+                                        });
+                                    });
+                                </script>
                             </td>
                             
                            
@@ -487,6 +509,8 @@ $n = 1;
                 </div>
               </div>
             </div>
+
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
           
         
           
