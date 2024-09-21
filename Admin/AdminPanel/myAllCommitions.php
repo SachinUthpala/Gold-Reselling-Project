@@ -442,11 +442,8 @@ $n = 1;
                       <div class="col-lg-6 pr-0 pt-3">
                         <div class="card-content">
                           <h5 class="font-15">Commotion</h5>
-<<<<<<< HEAD
                           <h2 class="mb-3 font-18"><?php echo 'Rs. '.$tcRow['Commition'].'.00' ; ?></h2>
-=======
                           <h2 class="mb-3 font-18"><?php echo $tcRow['Commition'] ; ?></h2>
->>>>>>> a543eb6d1796989a71f9ab1acc8b3c1b742b8621
                         </div>
                       </div>
                       <div class="col-lg-6 pl-0">
@@ -461,7 +458,7 @@ $n = 1;
             </div>
           </div>
 
-          <!-- Expenses Table -->
+          <!-- commition table Table -->
           <div class="row"
           <?php
           if($adminId == 2){
@@ -472,7 +469,7 @@ $n = 1;
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h4>Expenses Table</h4>
+                  <h4>Commition Table</h4>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -507,6 +504,8 @@ $n = 1;
               </div>
             </div>
           </div>
+
+          
 
         </section>
       </div>
