@@ -417,38 +417,36 @@ $UserNames = $_SESSION['UserName'];
                       </div>
 
                       <div class="form-group col-md-6">
-<<<<<<< HEAD
                         <label for="inputEmail4">Jewelry Image 2</label>
-=======
                         <label for="inputEmail4">Jewelry Image</label>
->>>>>>> a543eb6d1796989a71f9ab1acc8b3c1b742b8621
+
                         <input type="file" class="form-control"  name="jewelry1" placeholder="jewelry">
                       </div>
 
                       <div class="form-group col-md-6">
-<<<<<<< HEAD
+
                         <label for="inputEmail4">Jewelry Image 3</label>
-=======
+
                         <label for="inputEmail4">Jewelry Image</label>
->>>>>>> a543eb6d1796989a71f9ab1acc8b3c1b742b8621
+
                         <input type="file" class="form-control"  name="jewelry2" placeholder="jewelry">
                       </div>
 
                       <div class="form-group col-md-6">
-<<<<<<< HEAD
+
                         <label for="inputEmail4">Jewelry Image 4</label>
-=======
+
                         <label for="inputEmail4">Jewelry Image</label>
->>>>>>> a543eb6d1796989a71f9ab1acc8b3c1b742b8621
+
                         <input type="file" class="form-control"  name="jewelry3" placeholder="jewelry">
                       </div>
 
                       <div class="form-group col-md-6">
-<<<<<<< HEAD
+
                         <label for="inputEmail4">Jewelry Image 5</label>
-=======
+
                         <label for="inputEmail4">Jewelry Image</label>
->>>>>>> a543eb6d1796989a71f9ab1acc8b3c1b742b8621
+
                         <input type="file" class="form-control"  name="jewelry4" placeholder="jewelry">
                       </div>
 
@@ -464,11 +462,8 @@ $UserNames = $_SESSION['UserName'];
                       </div>
 
                       <div class="form-group col-md-6">
-<<<<<<< HEAD
                         <label for="inputEmail4">Recipt Image 1</label>
-=======
                         <label for="inputEmail4">Recipt Image</label>
->>>>>>> a543eb6d1796989a71f9ab1acc8b3c1b742b8621
                         <input type="file" class="form-control"  name="recipt_image" placeholder="Recipt Image">
                       </div>
                       

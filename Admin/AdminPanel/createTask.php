@@ -9,6 +9,8 @@ if(!$_SESSION['UserName'] && !$_SESSION['UserId']){
 }
 
 
+$username222 = $_SESSION['UserName']; 
+
 $TotalUsers = "SELECT * FROM users";
 $result_total = $conn->query($TotalUsers);
 $AllUsers = $result_total->num_rows ; 
@@ -435,6 +437,11 @@ $AllUsers = $result_total->num_rows ;
                         <label for="inputEmail4">Note</label>
                         <input type="text" class="form-control" name="note" placeholder="Extra Note">
                       </div>
+                      
+                      
+                      
+                        <input type="hidden" class="form-control" name="createBy" value="<?php echo $username222;  ?>">
+                      
 
                     </div>
                    

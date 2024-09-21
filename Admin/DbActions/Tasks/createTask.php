@@ -18,7 +18,7 @@ if(isset($_POST['createTask'])){
     $location = $_POST['location'];
     $weight = $_POST['weight'];
     $note = $_POST['note'];
-
+    $createdBy = $_POST['createBy'];
 
     $sql = "INSERT INTO `task`( `select_user`, `inqueryNumber`, `date`, `time`, `customerName`, `Phone`, `bank_shop`, `city`, `enterPrice`, `location` , `weight` , `note`) 
     VALUES ( '$userId' , '$Inquery_Number' ,'$date' ,'$time' ,'$customer_name' ,'$phone' ,'$bank' ,'$city' ,'$price' ,'$location' ,'$weight' , '$note')";
@@ -26,6 +26,7 @@ if(isset($_POST['createTask'])){
     $result = mysqli_query($conn , $sql);
 
     if($result){
+        
         $_SESSION['TaskCreated'] = 1;
         header("Location: ../../AdminPanel/createTask.php");
         echo "Task Created Successfully";

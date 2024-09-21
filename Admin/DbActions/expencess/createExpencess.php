@@ -11,6 +11,7 @@ if(isset($_POST['createTask'])){
     $userName = $_POST['userNAme'];
 
     $distance = $amount / 6 ;
+    $distance = (int)$distance;
     
 
     $findUserAvailableSql = "SELECT * FROM total_expencess WHERE userID = '$userID'";
