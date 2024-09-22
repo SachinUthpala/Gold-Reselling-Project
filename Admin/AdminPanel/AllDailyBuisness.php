@@ -3,18 +3,15 @@
 require_once '../DbActions/Db.conn.php';
 session_start();
 error_reporting(0);
-date_default_timezone_set('Asia/Colombo');
+date_default_timezone_set("Asia/Colombo");
 
 if(!$_SESSION['UserName'] && !$_SESSION['UserId']){
   header('Location: ../index.html');
 }
 
 
-$username222 = $_SESSION['UserName']; 
 
-$TotalUsers = "SELECT * FROM users";
-$result_total = $conn->query($TotalUsers);
-$AllUsers = $result_total->num_rows ; 
+$n = 0;
 
 
 ?>
@@ -90,7 +87,7 @@ $AllUsers = $result_total->num_rows ;
 
         </ul>
       </nav>
-      
+
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
@@ -368,63 +365,127 @@ $AllUsers = $result_total->num_rows ;
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
-
-          <!-- user create form -->
-          <div class="card">
-                  <div class="card-header">
-                    <h4>Create Daily Buisness</h4>
-                  </div>
-                  <form action="../DbActions/DailyBuisness/createDailyBuisness.php" method="post">
-                  <div class="card-body">
-                    <div class="form-row">
-
-                    
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail4">Date</label>
-                        <input type="text" class="form-control" name="Date"  value="<?php echo date("Y/m/d"); ?>">
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail4">Time</label>
-                        <input type="text" class="form-control" name="Time"  value="<?php echo date("h:i:sa"); ?>">
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail4">Weight</label>
-                        <input type="text" class="form-control" name="Weight" placeholder="Weight">
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail4">Buying Price</label>
-                        <input type="text" class="form-control" name="BuyingPrice" placeholder="Buying Price">
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail4">Selling Price</label>
-                        <input type="text" class="form-control" name="SellingPrice" placeholder="Selling Price">
-                    </div>
-                      
-                      
-                       
-                      
-
-                    </div>
-                   
-                    
-                    <div class="form-group mb-0">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck">
-                        <label class="form-check-label" for="gridCheck">
-                          I will agree with conditions
-                        </label>
+            
+          <div class="row ">
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="card">
+                <div class="card-statistic-4">
+                  <div class="align-items-center justify-content-between">
+                    <div class="row ">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                        <div class="card-content">
+                          <h5 class="font-15">Date</h5>
+                          <h2 class="mb-3 font-18"><?php echo  date('Y-m-d'); ?></h2>
+                          <p class="mb-0"><span class="col-green">Have a good Day</span></p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                        <div class="banner-img">
+                          <img src="assets/img/banner/1.png" alt="">
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div class="card-footer">
-                    <button class="btn btn-primary" name="dailyBuisness">Submit</button>
-                  </div>
-                  </form>
                 </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="card">
+                <div class="card-statistic-4">
+                  <div class="align-items-center justify-content-between">
+                    <div class="row ">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                        <div class="card-content">
+                          <h5 class="font-15"> Time</h5>
+                          <h2 class="mb-3 font-18"><?php echo date('H:i:s'); ?></h2>
+                          <p class="mb-0"><span class="col-orange">
+                          
+                          </span> From Total Users</p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                        <div class="banner-img">
+                          <img src="assets/img/banner/2.png" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            
+
+          </div>
+
+          <?php
+          $sql = "SELECT * FROM dailybuisness";
+          $result = mysqli_query($conn , $sql);
+          ?>
+        
+          <!-- user create form -->
+          <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>All Daily Buisness</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-striped" id="table-1">
+                        <thead>
+                        <tr>
+                            <th class="text-center">
+                              #
+                            </th>
+                            <th>Buisness ID</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Weight</th>
+                            <th>Buying Price</th>
+                            <th>Selling Price</th>
+                            <th>Daily Profit</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                        <?php while($rows = $result-> fetch_assoc()){ ?>
+                          <tr>
+                            <td>
+                              <?php echo $n; ?>
+                            </td>
+                            <td><?php echo $rows['bId']; ?></td>
+                            <td><?php echo $rows['date']; ?></td>
+                            <td><?php echo $rows['time']; ?></td>
+                            
+                            <td><?php echo $rows['weight']; ?></td>
+                            <td><?php echo "Rs.".$rows['buyingPrice'].".00"; ?></td>
+                            <td><?php echo "Rs.".$rows['sellingPrice'].".00"; ?></td>
+                            <td><?php 
+                                $profit = $rows['sellingPrice'] - $rows['buyingPrice'] ;
+
+                                if($profit > 0){
+                                    echo '<span style= "color:green;">Rs.'.$profit.'.00</span>';
+                                } else {
+                                    echo '<span style= "color:red;">Rs.'.$profit.'.00</span>';
+                                }
+                            ?></td>
+                            <td>
+                                
+                            </td>
+                          </tr>
+                          <?php 
+                            $n++;
+                        } ?>
+                          
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           
         
           
@@ -527,7 +588,7 @@ $AllUsers = $result_total->num_rows ;
       </div>
       <footer class="main-footer">
         <div class="footer-left">
-          <a href="https://github.com/SachinUthpala/">Sachin Gunasekara</a></a>
+          <a href="#">Sachin Gunasekara</a></a>
         </div>
         <div class="footer-right">
         </div>
@@ -554,21 +615,31 @@ $AllUsers = $result_total->num_rows ;
   <!-- sweet alert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
+  <!-- JS Libraies -->
+  <script src="assets/bundles/datatables/datatables.min.js"></script>
+  <script src="assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+  <script src="assets/bundles/jquery-ui/jquery-ui.min.js"></script>
+  <!-- Page Specific JS File -->
+  <script src="assets/js/page/datatables.js"></script>
+
+
+
   <?php
 
-if($_SESSION['TaskCreated'] == 1){
+if($_SESSION['userCreated'] == 1){
     echo '<script>
             Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Buisness Created Sucessfully",
+            title: "User Created Sucessfully",
             showConfirmButton: false,
             timer: 1500
             });
 
         </script>' ;
 
-        $_SESSION['TaskCreated'] = null;
+        $_SESSION['userCreated'] = null;
 }
 
 

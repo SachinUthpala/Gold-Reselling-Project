@@ -322,7 +322,7 @@ $allexpencess = $result_expencess->num_rows ;
                   echo 'style="display:none;"';
                 }
               ?>
-            >Summary Settings</li>
+            >Summary Settings (Daily)</li>
              <!-- end of summery settings -->
              <li class="dropdown"
             <?php
@@ -333,11 +333,12 @@ $allexpencess = $result_expencess->num_rows ;
             >
               <a href="#" class="menu-toggle nav-link has-dropdown"
              
-              ><i data-feather="copy"></i><span> Summary Stettings</span></a>
+              ><i data-feather="copy"></i><span> Summary (Daily Buisness)</span></a>
               <ul class="dropdown-menu"
              
               >
-                <li><a class="nav-link" href="./CreateDailyBuisness.php" style="cursor: pointer;">Daily Buisness</a></li>
+                <li><a class="nav-link" href="./CreateDailyBuisness.php" style="cursor: pointer;">Add Daily Buisness</a></li>
+                <li><a class="nav-link" href="./AllDailyBuisness.php" style="cursor: pointer;">All Daily Buisness</a></li>
               </ul>
             </li>
 
