@@ -315,9 +315,38 @@ $allexpencess = $result_expencess->num_rows ;
               </ul>
             </li>
 
+            <!-- summery Settings -->
             <li class="menu-header"
             <?php
-                if( $_SESSION['AdminAccess'] == 0) {
+                if( $_SESSION['AdminAccess'] == 0 || $_SESSION['AdminAccess'] == 2 ) {
+                  echo 'style="display:none;"';
+                }
+              ?>
+            >Summary Settings</li>
+             <!-- end of summery settings -->
+             <li class="dropdown"
+            <?php
+                if($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
+                  echo 'style="display:none;"';
+                }
+              ?>
+            >
+              <a href="#" class="menu-toggle nav-link has-dropdown"
+             
+              ><i data-feather="copy"></i><span> Summary Stettings</span></a>
+              <ul class="dropdown-menu"
+             
+              >
+                <li><a class="nav-link" href="./CreateDailyBuisness.php" style="cursor: pointer;">Daily Buisness</a></li>
+              </ul>
+            </li>
+
+             <!-- emd of full settingss -->
+
+
+            <li class="menu-header"
+            <?php
+                if( $_SESSION['AdminAccess'] == 0 || $_SESSION['AdminAccess'] == 2 ) {
                   echo 'style="display:none;"';
                 }
               ?>
