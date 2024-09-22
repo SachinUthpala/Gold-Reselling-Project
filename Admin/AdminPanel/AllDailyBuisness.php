@@ -446,6 +446,7 @@ $n = 0;
                             <th>Buying Price</th>
                             <th>Selling Price</th>
                             <th>Daily Profit</th>
+                            <th>Remove</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -472,7 +473,32 @@ $n = 0;
                                 }
                             ?></td>
                             <td>
-                                
+                              <form id="<?php echo "deleteForm".$rows['bId']; ?>" action="" method="post">
+                                    <input type="hidden" name="delete_id" value="<?php echo $rows['bId']; ?>">
+                                    <button type="submit" name="delete" class="btn btn-danger" id="<?php echo "deletebutton".$rows['bId']; ?>">Delete</button>
+                               </form>
+
+                               <script>
+                                    document.getElementById('<?php echo "deletebutton".$rows['bId']; ?>').addEventListener('click', function(event) {
+                                        event.preventDefault(); // Prevent the form from submitting immediately
+
+                                        Swal.fire({
+                                            title: 'Are you sure?',
+                                            text: "Do you want to Delete this?",
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#3085d6',
+                                            cancelButtonColor: '#d33',
+                                            confirmButtonText: 'Yes, Delete it!',
+                                            cancelButtonText: 'No, cancel!'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                // If confirmed, submit the form
+                                                document.getElementById('<?php echo "deleteForm".$rows['bId']; ?>').submit();
+                                            }
+                                        });
+                                    });
+                                </script>
                             </td>
                           </tr>
                           <?php 
@@ -627,19 +653,19 @@ $n = 0;
 
   <?php
 
-if($_SESSION['userCreated'] == 1){
+if($_SESSION['TaskCreated'] == 1){
     echo '<script>
             Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "User Created Sucessfully",
+            title: "Inform Deleted Sucessfully",
             showConfirmButton: false,
             timer: 1500
             });
 
         </script>' ;
 
-        $_SESSION['userCreated'] = null;
+        $_SESSION['TaskCreated'] = null;
 }
 
 

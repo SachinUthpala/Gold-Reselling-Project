@@ -11,7 +11,7 @@ if(isset($_POST['dailyBuisness'])){
     $selligPrice = (float)$_POST['SellingPrice'];
 
     $sql = "INSERT INTO `dailybuisness`( `weight`, `buyingPrice`, `sellingPrice`, `date`, `time`) 
-    VALUES ($weight , $buyingPrice , $selligPrice , $date , '$time')";
+    VALUES ($weight , $buyingPrice , $selligPrice , '$date' , '$time')";
 
     $result = mysqli_query($conn ,  $sql);
 
