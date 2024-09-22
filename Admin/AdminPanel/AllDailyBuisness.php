@@ -367,7 +367,7 @@ $n = 0;
         <section class="section">
             
           <div class="row ">
-            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
               <div class="card">
                 <div class="card-statistic-4">
                   <div class="align-items-center justify-content-between">
@@ -390,7 +390,7 @@ $n = 0;
               </div>
             </div>
 
-            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="col-xl-2 col-lg-6 col-md-6 col-sm-6 col-xs-12">
               <div class="card">
                 <div class="card-statistic-4">
                   <div class="align-items-center justify-content-between">
@@ -398,10 +398,52 @@ $n = 0;
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                         <div class="card-content">
                           <h5 class="font-15"> Time</h5>
-                          <h2 class="mb-3 font-18"><?php echo date('H:i:s'); ?></h2>
+                          <h2 class="mb-3 font-18"><?php echo date('H:i'); ?></h2>
                           <p class="mb-0"><span class="col-orange">
                           
-                          </span> From Total Users</p>
+                          </span> Time</p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                        <div class="banner-img">
+                          <img src="assets/img/banner/2.png" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <?php
+                $sql2 = "SELECT * FROM dailybuisness";
+                $result2 = mysqli_query($conn , $sql2);
+                $totalProfit = 0.00;
+
+                while($rows2 = $result2-> fetch_assoc()){
+                    $rowProfit  = $rows2['sellingPrice'] - $rows2['buyingPrice'] ; 
+                    $totalProfit = $totalProfit + $rowProfit ;
+                } 
+          ?>
+
+            <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="card">
+                <div class="card-statistic-4">
+                  <div class="align-items-center justify-content-between">
+                    <div class="row ">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                        <div class="card-content">
+                          <h5 class="font-15"> Profit</h5>
+                          <h2 class="mb-3 font-18"><?php 
+                                if($totalProfit > 0){
+                                    echo '<span style= "color:green;">Rs.'.$totalProfit.'.00</span>';
+                                } else {
+                                    echo '<span style= "color:red;">Rs.'.$totalProfit.'.00</span>';
+                                }
+                          ?></h2>
+                          <p class="mb-0"><span class="col-orange">
+                          
+                          </span>Total Profit</p>
                         </div>
                       </div>
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
@@ -417,6 +459,134 @@ $n = 0;
 
             
 
+          </div>
+
+          <div class="row">
+            <?php
+                $sql3 = "SELECT * FROM dailybuisness WHERE WEEK(date) = WEEK(CURDATE()) AND YEAR(date) = YEAR(CURDATE())";
+                $result3 = mysqli_query($conn , $sql3);
+                $totalProfit2 = 0.00;
+
+                while($rows3 = $result3-> fetch_assoc()){
+                    $rowProfit2  = $rows3['sellingPrice'] - $rows3['buyingPrice'] ; 
+                    $totalProfit2 = $totalProfit2 + $rowProfit2 ;
+                } 
+            ?>
+
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="card">
+                <div class="card-statistic-4">
+                  <div class="align-items-center justify-content-between">
+                    <div class="row ">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                        <div class="card-content">
+                          <h5 class="font-15">Current Week</h5>
+                          <h2 class="mb-3 font-18"><?php 
+                                if($totalProfit2 > 0){
+                                    echo '<span style= "color:green;">Rs.'.$totalProfit2.'.00</span>';
+                                } else {
+                                    echo '<span style= "color:red;">Rs.'.$totalProfit2.'.00</span>';
+                                }
+                          ?></h2>
+                          <p class="mb-0"><span class="col-orange">
+                          
+                          </span>Total Current Week Profit</p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                        <div class="banner-img">
+                          <img src="assets/img/banner/2.png" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <?php
+                $sql4 = "SELECT * FROM dailybuisness WHERE YEAR(date) = YEAR(CURDATE())";
+                $result4 = mysqli_query($conn , $sql4);
+                $totalProfit3 = 0.00;
+
+                while($rows4 = $result4-> fetch_assoc()){
+                    $rowProfit3  = $rows4['sellingPrice'] - $rows4['buyingPrice'] ; 
+                    $totalProfit3 = $totalProfit3 + $rowProfit3 ;
+                } 
+            ?>
+
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="card">
+                <div class="card-statistic-4">
+                  <div class="align-items-center justify-content-between">
+                    <div class="row ">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                        <div class="card-content">
+                          <h5 class="font-15">Current Year</h5>
+                          <h2 class="mb-3 font-18"><?php 
+                                if($totalProfit3 > 0){
+                                    echo '<span style= "color:green;">Rs.'.$totalProfit3.'.00</span>';
+                                } else {
+                                    echo '<span style= "color:red;">Rs.'.$totalProfit3.'.00</span>';
+                                }
+                          ?></h2>
+                          <p class="mb-0"><span class="col-orange">
+                          
+                          </span>Total Current Year Profit</p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                        <div class="banner-img">
+                          <img src="assets/img/banner/2.png" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <?php
+                $sql5 = "SELECT * FROM dailybuisness WHERE date = CURDATE()";
+                $result5 = mysqli_query($conn , $sql5);
+                $totalProfit5 = 0.00;
+
+                while($rows5 = $result5-> fetch_assoc()){
+                    $rowProfit5  = $rows5['sellingPrice'] - $rows5['buyingPrice'] ; 
+                    $totalProfit5 = $totalProfit5 + $rowProfit5 ;
+                } 
+            ?>
+
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="card">
+                <div class="card-statistic-4">
+                  <div class="align-items-center justify-content-between">
+                    <div class="row ">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                        <div class="card-content">
+                          <h5 class="font-15">Current Day</h5>
+                          <h2 class="mb-3 font-18"><?php 
+                                if($totalProfit5 > 0){
+                                    echo '<span style= "color:green;">Rs.'.$totalProfit5.'.00</span>';
+                                } else {
+                                    echo '<span style= "color:red;">Rs.'.$totalProfit5.'.00</span>';
+                                }
+                          ?></h2>
+                          <p class="mb-0"><span class="col-orange">
+                          
+                          </span>Total Current Day Profit</p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                        <div class="banner-img">
+                          <img src="assets/img/banner/2.png" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <?php
@@ -473,7 +643,7 @@ $n = 0;
                                 }
                             ?></td>
                             <td>
-                              <form id="<?php echo "deleteForm".$rows['bId']; ?>" action="" method="post">
+                              <form id="<?php echo "deleteForm".$rows['bId']; ?>" action="../DbActions/DailyBuisness/DeleteDailyBuisness.php" method="post">
                                     <input type="hidden" name="delete_id" value="<?php echo $rows['bId']; ?>">
                                     <button type="submit" name="delete" class="btn btn-danger" id="<?php echo "deletebutton".$rows['bId']; ?>">Delete</button>
                                </form>
