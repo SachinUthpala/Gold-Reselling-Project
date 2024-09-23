@@ -436,7 +436,151 @@ $allexpencess = $result_expencess->num_rows ;
       <div class="main-content">
         <section class="section">
 
-        <div class="row "
+        <!-- only admin rows -->
+         <h4
+         <?php
+          if( $_SESSION['AdminAccess'] == 1) {
+            echo 'style="display:block;"';
+          }else{
+            echo 'style="display:none;"';
+          }
+          ?>
+         >Daily Buisness</h4>
+
+         <div class="row" <?php if($_SESSION['AdminAccess'] != 1) { echo 'style="display:none;"'; } ?>>
+            <?php
+                $sql3 = "SELECT * FROM dailybuisness WHERE WEEK(date) = WEEK(CURDATE()) AND YEAR(date) = YEAR(CURDATE())";
+                $result3 = mysqli_query($conn , $sql3);
+                $totalProfit2 = 0.00;
+
+                while($rows3 = $result3-> fetch_assoc()){
+                    $rowProfit2  = $rows3['sellingPrice'] - $rows3['buyingPrice'] ; 
+                    $totalProfit2 = $totalProfit2 + $rowProfit2 ;
+                } 
+            ?>
+
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="card">
+                <div class="card-statistic-4">
+                  <div class="align-items-center justify-content-between">
+                    <div class="row ">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                        <div class="card-content">
+                          <h5 class="font-15">Current Week</h5>
+                          <h2 class="mb-3 font-18"><?php 
+                                if($totalProfit2 > 0){
+                                    echo '<span style= "color:green;">Rs.'.$totalProfit2.'.00</span>';
+                                } else {
+                                    echo '<span style= "color:red;">Rs.'.$totalProfit2.'.00</span>';
+                                }
+                          ?></h2>
+                          <p class="mb-0"><span class="col-orange">
+                          
+                          </span>Total Current Week Profit</p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                        <div class="banner-img">
+                          <img src="assets/img/banner/2.png" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <?php
+                $sql4 = "SELECT * FROM dailybuisness WHERE YEAR(date) = YEAR(CURDATE())";
+                $result4 = mysqli_query($conn , $sql4);
+                $totalProfit3 = 0.00;
+
+                while($rows4 = $result4-> fetch_assoc()){
+                    $rowProfit3  = $rows4['sellingPrice'] - $rows4['buyingPrice'] ; 
+                    $totalProfit3 = $totalProfit3 + $rowProfit3 ;
+                } 
+            ?>
+
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="card">
+                <div class="card-statistic-4">
+                  <div class="align-items-center justify-content-between">
+                    <div class="row ">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                        <div class="card-content">
+                          <h5 class="font-15">Current Year</h5>
+                          <h2 class="mb-3 font-18"><?php 
+                                if($totalProfit3 > 0){
+                                    echo '<span style= "color:green;">Rs.'.$totalProfit3.'.00</span>';
+                                } else {
+                                    echo '<span style= "color:red;">Rs.'.$totalProfit3.'.00</span>';
+                                }
+                          ?></h2>
+                          <p class="mb-0"><span class="col-orange">
+                          
+                          </span>Total Current Year Profit</p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                        <div class="banner-img">
+                          <img src="assets/img/banner/2.png" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <?php
+                $sql5 = "SELECT * FROM dailybuisness WHERE date = CURDATE()";
+                $result5 = mysqli_query($conn , $sql5);
+                $totalProfit5 = 0.00;
+
+                while($rows5 = $result5-> fetch_assoc()){
+                    $rowProfit5  = $rows5['sellingPrice'] - $rows5['buyingPrice'] ; 
+                    $totalProfit5 = $totalProfit5 + $rowProfit5 ;
+                } 
+            ?>
+
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="card">
+                <div class="card-statistic-4">
+                  <div class="align-items-center justify-content-between">
+                    <div class="row ">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                        <div class="card-content">
+                          <h5 class="font-15">Current Day</h5>
+                          <h2 class="mb-3 font-18"><?php 
+                                if($totalProfit5 > 0){
+                                    echo '<span style= "color:green;">Rs.'.$totalProfit5.'.00</span>';
+                                } else {
+                                    echo '<span style= "color:red;">Rs.'.$totalProfit5.'.00</span>';
+                                }
+                          ?></h2>
+                          <p class="mb-0"><span class="col-orange">
+                          
+                          </span>Total Current Day Profit</p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                        <div class="banner-img">
+                          <img src="assets/img/banner/2.png" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+
+     
+
+     <h4 <?php if($_SESSION['AdminAccess'] != 1) { echo 'style="display:none;"'; } ?> >Users Summery</h4>
+
+        <div class="row"
         <?php
                 if($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
                   echo 'style="display:none;"';
@@ -551,12 +695,12 @@ $allexpencess = $result_expencess->num_rows ;
           </div>
           
           <div class="row "
-          <?php
-                if($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
-                  echo 'style="display:none;"';
-                }
-              ?>
-          >
+            <?php
+                  if($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
+                    echo 'style="display:none;"';
+                  }
+                ?>
+            >
 
               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-6">
                 <div class="card">
@@ -635,8 +779,21 @@ $allexpencess = $result_expencess->num_rows ;
 
           </div>
 
-          <div class="row">
-              <div class="col-12">
+          <div class="row"
+            <?php
+            if( $_SESSION['AdminAccess'] == 1) {
+              echo 'style="display:none;"';
+            }
+            ?>
+          >
+
+              <div class="col-12"
+                  <?php
+                    if( $_SESSION['AdminAccess'] == 1) {
+                      echo 'style="display:none;"';
+                    }
+                    ?>
+              >
                 <div class="card">
                   <div class="card-header">
                     <h4>MY TASKS</h4>
@@ -741,7 +898,13 @@ $allexpencess = $result_expencess->num_rows ;
 
             <!-- =========================== -->
 
-            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12"
+                <?php
+              if( $_SESSION['AdminAccess'] == 1) {
+                echo 'style="display:none;"';
+              }
+              ?>
+            >
               <div class="card">
                 <div class="card-statistic-4">
                   <div class="align-items-center justify-content-between">
@@ -780,7 +943,13 @@ $allexpencess = $result_expencess->num_rows ;
                             ?>
               <!-- =========================== -->
 
-             <div class="row">
+             <div class="row"
+             <?php
+          if( $_SESSION['AdminAccess'] == 1) {
+            echo 'style="display:none;"';
+          }
+          ?>
+             >
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
@@ -827,7 +996,13 @@ $allexpencess = $result_expencess->num_rows ;
              <!-- ======================= -->
 
             
-            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12"
+            <?php
+          if( $_SESSION['AdminAccess'] == 1) {
+            echo 'style="display:none;"';
+          }
+          ?>
+            >
               <div class="card">
                 <div class="card-statistic-4">
                   <div class="align-items-center justify-content-between">
@@ -860,7 +1035,13 @@ $allexpencess = $result_expencess->num_rows ;
             </div>
 
 
-            <div class="row">
+            <div class="row"
+            <?php
+          if( $_SESSION['AdminAccess'] == 1) {
+            echo 'style="display:none;"';
+          }
+          ?>
+            >
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
