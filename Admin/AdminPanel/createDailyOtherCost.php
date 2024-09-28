@@ -391,12 +391,12 @@ $AllUsers = $result_total->num_rows ;
 
                     <div class="form-group col-md-6">
                         <label for="inputEmail4">Cost Type</label>
-                        <input type="text" class="form-control" name="Weight" placeholder="Weight">
+                        <input type="text" class="form-control" name="Weight" placeholder="Cost Type">
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="inputEmail4">Amount</label>
-                        <input type="text" class="form-control" name="BuyingPrice" placeholder="Buying Price">
+                        <input type="text" class="form-control" name="BuyingPrice" placeholder="Amount">
                     </div>
 
                     
