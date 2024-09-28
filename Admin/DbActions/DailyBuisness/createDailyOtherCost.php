@@ -1,9 +1,9 @@
 <?php
 
-$costType = $_POST[''];
-$costAmount = $_POST[''];
-$date = $_POST[''];
-$time = $_POST[''];
+$costType = $_POST['Weight'];
+$costAmount = $_POST['BuyingPrice'];
+$date = $_POST['Date'];
+$time = $_POST['Time'];
 $sql = "INSERT INTO `dailyothercost`( `costType`, `date`, `time`, `amount`) VALUES ()";
 
 
