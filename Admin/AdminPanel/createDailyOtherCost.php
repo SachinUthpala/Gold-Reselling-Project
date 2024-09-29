@@ -374,7 +374,7 @@ $AllUsers = $result_total->num_rows ;
                   <div class="card-header">
                     <h4>Create Daily Other Cost</h4>
                   </div>
-                  <form action="../DbActions/DailyBuisness/createDailyBuisness.php" method="post">
+                  <form action="../DbActions/DailyBuisness/createDailyOtherCost.php" method="post">
                   <div class="card-body">
                     <div class="form-row">
 
@@ -558,7 +558,7 @@ if($_SESSION['TaskCreated'] == 1){
             Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Buisness Created Sucessfully",
+            title: "Other Cost Created Sucessfully",
             showConfirmButton: false,
             timer: 1500
             });
