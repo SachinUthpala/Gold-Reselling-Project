@@ -73,7 +73,15 @@ $allexpencess = $result_expencess->num_rows ;
   <link rel="stylesheet" href="assets/css/components.css">
   <!-- Custom style CSS -->
   <link rel="stylesheet" href="assets/css/custom.css">
-  <
+  
+
+  <style>
+    #section-to-pdf {
+       /* Black border with 5px width */
+      padding: 10px; /* Padding to give some space between content and border */
+ /* Margin to add space around the section */
+    }
+  </style>
 </head>
 
 <body>
@@ -120,6 +128,7 @@ $allexpencess = $result_expencess->num_rows ;
               <a href="../DbActions/logOut/logout.php" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i>
                 Logout
               </a>
+              <a class="dropdown-item has-icon" onclick="downloadPDF()" style="cursor: pointer;" >Download PDF</a>
             </div>
 
 
@@ -482,7 +491,7 @@ $allexpencess = $result_expencess->num_rows ;
       </div>
       <!-- Main Content -->
       <div class="main-content">
-        <section class="section">
+        <section class="section" id="section-to-pdf">
 
             <!-- only admin rows -->
             <h5
@@ -500,7 +509,7 @@ $allexpencess = $result_expencess->num_rows ;
             <h6>1.) Daily Task Report</h6>
 
             <div class="row">
-                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                   <div class="card">
                     <div class="card-statistic-4">
                       <div class="align-items-center justify-content-between">
@@ -550,7 +559,7 @@ $allexpencess = $result_expencess->num_rows ;
                   </div>
                 </div>
 
-                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                   <div class="card">
                     <div class="card-statistic-4">
                       <div class="align-items-center justify-content-between">
@@ -606,9 +615,9 @@ $allexpencess = $result_expencess->num_rows ;
                       <table class="table table-striped table-hover" id="tableExport" style="width:100%;">
                         <thead>
                           <tr>
-                          <th>Inquery Number</th>
+                          
                             <th>Date</th>
-                            <th>Time</th>
+                            
                             <th>Customer Name</th>
                             <th>Pnone</th>
                             <th>Bank/Shop</th>
@@ -623,9 +632,9 @@ $allexpencess = $result_expencess->num_rows ;
 
                         <?php while($rows = $result-> fetch_assoc()){ ?>
                           <tr>
-                            <td><?php echo $rows['inqueryNumber']; ?></td>
+                            
                             <td><?php echo $rows['date']; ?></td>
-                            <td><?php echo $rows['time']; ?></td>
+                            
                             <td><?php echo $rows['customerName']; ?></td>
                             <td><?php echo $rows['Phone']; ?></td>
                             <td><?php echo $rows['bank_shop']; ?></td>
@@ -977,12 +986,12 @@ $allexpencess = $result_expencess->num_rows ;
                     $totalDailyCommitions = $totalDailyCommitions + (float)$rows11['commition'];
                 } 
 
-                $sql12 = "SELECT * FROM complete_task WHERE compteled_date = CURDATE()";
+                $sql12 = "SELECT * FROM expencess WHERE date = CURDATE() and approved_exp = 1";
                 $result12 = mysqli_query($conn , $sql12);
                 $dailyTotalExpencess = 0 ; 
 
                 while($rows12 = $result12-> fetch_assoc()){
-                    $dailyTotalExpencess = $dailyTotalExpencess + (float)$rows12['commition'];
+                    $dailyTotalExpencess = $dailyTotalExpencess + (float)$rows12['amount'];
                 } 
             ?>
 
@@ -1060,6 +1069,35 @@ $allexpencess = $result_expencess->num_rows ;
         
           
         </section>
+
+        <script>
+    function downloadPDF() {
+      var element = document.getElementById('section-to-pdf');
+      
+      // Set up options for jsPDF
+      var options = {
+        margin: [10, 10, 10, 10], // Adjust margins (top, left, bottom, right)
+        filename: '<?php echo "DailyReport".date('Y/m/d')."pdf"; ?>',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+      };
+
+      // Create the PDF with html2pdf and then apply a border to each page
+      html2pdf().set(options).from(element).toPdf().get('pdf').then(function (pdf) {
+        var totalPages = pdf.internal.getNumberOfPages();
+
+        // Draw a border around each page
+        for (var i = 1; i <= totalPages; i++) {
+          pdf.setPage(i);
+          pdf.setLineWidth(1); // Border width
+          pdf.setDrawColor(0, 0, 0); // Black border color
+          pdf.rect(5, 5, pdf.internal.pageSize.getWidth() - 10, pdf.internal.pageSize.getHeight() - 10); // Add border
+        }
+      }).save();
+    }
+  </script>
 
 
 
@@ -1194,6 +1232,9 @@ $allexpencess = $result_expencess->num_rows ;
   <script src="assets/bundles/datatables/export-tables/vfs_fonts.js"></script>
   <script src="assets/bundles/datatables/export-tables/buttons.print.min.js"></script>
   <script src="assets/js/page/datatables.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
 </body>
 
 
