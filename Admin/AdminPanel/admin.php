@@ -390,65 +390,59 @@ $allexpencess = $result_expencess->num_rows ;
             </li>
                 <!-- 
         sweet alert
-    -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            <script>
-      async function  ClearExp(){
-           const { value: password } = await Swal.fire({
-           title: "Enter your password",
-           input: "password",
-           inputLabel: "Password",
-           inputPlaceholder: "Enter your password",
-           inputAttributes: {
-               maxlength: "100",
-               autocapitalize: "off",
-               autocorrect: "off"
-           }
-           });
-           if (password === "admin@2024") {
+         -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script>
+          async function  ClearExp(){
+              const { value: password } = await Swal.fire({
+              title: "Enter your password",
+              input: "password",
+              inputLabel: "Password",
+              inputPlaceholder: "Enter your password",
+              inputAttributes: {
+                  maxlength: "100",
+                  autocapitalize: "off",
+                  autocorrect: "off"
+              }
+              });
+              if (password === "admin@2024") {
 
-               location.href="../DbActions/Advance/clearExpencess.php";
-           }else{
-               Swal.fire({
-               icon: "error",
-               title: "Oops...",
-               text: "Provide Correct Password To Continive this Task !",
-               });
-           }
-       }
+                  location.href="../DbActions/Advance/clearExpencess.php";
+              }else{
+                  Swal.fire({
+                  icon: "error",
+                  title: "Oops...",
+                  text: "Provide Correct Password To Continive this Task !",
+                  });
+              }
+          }
 
-       async function  ClearCommi(){
-           const { value: password } = await Swal.fire({
-           title: "Enter your password",
-           input: "password",
-           inputLabel: "Password",
-           inputPlaceholder: "Enter your password",
-           inputAttributes: {
-               maxlength: "100",
-               autocapitalize: "off",
-               autocorrect: "off"
-           }
-           });
-           if (password === "admin@2024") {
+          async function  ClearCommi(){
+              const { value: password } = await Swal.fire({
+              title: "Enter your password",
+              input: "password",
+              inputLabel: "Password",
+              inputPlaceholder: "Enter your password",
+              inputAttributes: {
+                  maxlength: "100",
+                  autocapitalize: "off",
+                  autocorrect: "off"
+              }
+              });
+              if (password === "admin@2024") {
 
-               location.href="../DbActions/Advance/clearExpencess.php";
-           }else{
-               Swal.fire({
-               icon: "error",
-               title: "Oops...",
-               text: "Provide Correct Password To Continive this Task !",
-               });
-           }
-       }
-   </script>
-
-            
-            
-            
-          
-            
-          </ul>
-        </aside>
+                  location.href="../DbActions/Advance/clearExpencess.php";
+              }else{
+                  Swal.fire({
+                  icon: "error",
+                  title: "Oops...",
+                  text: "Provide Correct Password To Continive this Task !",
+                  });
+              }
+          }
+            </script>
+              </ul>
+            </aside>
       </div>
       <!-- Main Content -->
       <div class="main-content">
