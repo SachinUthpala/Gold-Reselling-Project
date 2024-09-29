@@ -110,7 +110,6 @@ if(isset($_POST['Update'])){
 
         </ul>
       </nav>
-      
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
@@ -255,7 +254,7 @@ if(isset($_POST['Update'])){
             
             <li class="menu-header"
             <?php
-                if( $_SESSION['AdminAccess'] == 0) {
+                if( $_SESSION['AdminAccess'] == 0 || $_SESSION['AdminAccess'] == 2 ) {
                   echo 'style="display:none;"';
                 }
               ?>
@@ -298,9 +297,57 @@ if(isset($_POST['Update'])){
               </ul>
             </li>
 
+            <!-- summery Settings -->
             <li class="menu-header"
             <?php
-                if( $_SESSION['AdminAccess'] == 0) {
+                if( $_SESSION['AdminAccess'] == 0 ) {
+                  echo 'style="display:none;"';
+                }
+              ?>
+            >Summary Settings (Daily)</li>
+             <!-- end of summery settings -->
+             <li class="dropdown"
+            <?php
+                if($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
+                  echo 'style="display:none;"';
+                }
+              ?>
+            >
+              <a href="#" class="menu-toggle nav-link has-dropdown"
+             
+              ><i data-feather="copy"></i><span> Summary (Daily Buisness)</span></a>
+              <ul class="dropdown-menu"
+             
+              >
+                <li><a class="nav-link" href="./CreateDailyBuisness.php" style="cursor: pointer;">Add Daily Buisness</a></li>
+                <li><a class="nav-link" href="./AllDailyBuisness.php" style="cursor: pointer;">All Daily Buisness</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown"
+            <?php
+                if($_SESSION['AdminAccess'] == 0) {
+                  echo 'style="display:none;"';
+                }
+              ?>
+            >
+              <a href="#" class="menu-toggle nav-link has-dropdown"
+             
+              ><i data-feather="copy"></i><span>Other Cost (Daily)</span></a>
+              <ul class="dropdown-menu"
+             
+              >
+                <li><a class="nav-link" href="./createDailyOtherCost.php" style="cursor: pointer;">Add Other Cost</a></li>
+                <li><a class="nav-link" href="./AllDailyOtherCost.php" style="cursor: pointer;">All Other Costs</a></li>
+              </ul>
+            </li>
+
+             <!-- emd of full settingss -->
+
+
+            <li class="menu-header"
+            <?php
+                if( $_SESSION['AdminAccess'] == 0 || $_SESSION['AdminAccess'] == 2 ) {
                   echo 'style="display:none;"';
                 }
               ?>
@@ -325,65 +372,59 @@ if(isset($_POST['Update'])){
             </li>
                 <!-- 
         sweet alert
-    -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            <script>
-      async function  ClearExp(){
-           const { value: password } = await Swal.fire({
-           title: "Enter your password",
-           input: "password",
-           inputLabel: "Password",
-           inputPlaceholder: "Enter your password",
-           inputAttributes: {
-               maxlength: "100",
-               autocapitalize: "off",
-               autocorrect: "off"
-           }
-           });
-           if (password === "admin@2024") {
+         -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script>
+          async function  ClearExp(){
+              const { value: password } = await Swal.fire({
+              title: "Enter your password",
+              input: "password",
+              inputLabel: "Password",
+              inputPlaceholder: "Enter your password",
+              inputAttributes: {
+                  maxlength: "100",
+                  autocapitalize: "off",
+                  autocorrect: "off"
+              }
+              });
+              if (password === "admin@2024") {
 
-               location.href="../DbActions/Advance/clearExpencess.php";
-           }else{
-               Swal.fire({
-               icon: "error",
-               title: "Oops...",
-               text: "Provide Correct Password To Continive this Task !",
-               });
-           }
-       }
+                  location.href="../DbActions/Advance/clearExpencess.php";
+              }else{
+                  Swal.fire({
+                  icon: "error",
+                  title: "Oops...",
+                  text: "Provide Correct Password To Continive this Task !",
+                  });
+              }
+          }
 
-       async function  ClearCommi(){
-           const { value: password } = await Swal.fire({
-           title: "Enter your password",
-           input: "password",
-           inputLabel: "Password",
-           inputPlaceholder: "Enter your password",
-           inputAttributes: {
-               maxlength: "100",
-               autocapitalize: "off",
-               autocorrect: "off"
-           }
-           });
-           if (password === "admin@2024") {
+          async function  ClearCommi(){
+              const { value: password } = await Swal.fire({
+              title: "Enter your password",
+              input: "password",
+              inputLabel: "Password",
+              inputPlaceholder: "Enter your password",
+              inputAttributes: {
+                  maxlength: "100",
+                  autocapitalize: "off",
+                  autocorrect: "off"
+              }
+              });
+              if (password === "admin@2024") {
 
-               location.href="../DbActions/Advance/clearExpencess.php";
-           }else{
-               Swal.fire({
-               icon: "error",
-               title: "Oops...",
-               text: "Provide Correct Password To Continive this Task !",
-               });
-           }
-       }
-   </script>
-
-            
-            
-            
-          
-            
-          </ul>
-        </aside>
+                  location.href="../DbActions/Advance/clearExpencess.php";
+              }else{
+                  Swal.fire({
+                  icon: "error",
+                  title: "Oops...",
+                  text: "Provide Correct Password To Continive this Task !",
+                  });
+              }
+          }
+            </script>
+              </ul>
+            </aside>
       </div>
       <!-- Main Content -->
       <div class="main-content">
