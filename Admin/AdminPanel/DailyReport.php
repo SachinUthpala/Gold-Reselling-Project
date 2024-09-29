@@ -912,6 +912,60 @@ $allexpencess = $result_expencess->num_rows ;
               </div>
             </div>
 
+            <?php
+              $sql10 = "SELECT * FROM bordcampingcost WHERE date = CURDATE()";
+              $result10 = mysqli_query($conn , $sql10);
+            ?>
+            <div class="section-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h4>Daily Board Camping Cost Table</h4>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="tableExport2" style="width:100%;">
+                          <thead>
+                            <tr>
+                              <th>Cost ID</th>
+                              <th>Date</th>
+                              <th>Time</th>
+                              <th>Cost Type</th>
+                              <th>Cost Amount</th>
+                              
+                              
+                            </tr>
+                          </thead>
+                          <tbody>
+
+                          <?php while($row10 = $result10-> fetch_assoc()){ ?>
+                            <tr>
+                              <td><?php echo $row10['costId']; ?></td>
+                              <td><?php echo $row10['date']; ?></td>
+                              <td><?php echo $row10['time']; ?></td>
+                              <td><?php echo $row10['costType']; ?></td>
+                              
+                              <td><?php 
+                                  
+                                      echo '<span style= "color:red;">Rs.'.$row10['amount'].'.00</span>';
+                                
+                              ?></td>
+                              
+                            </tr>
+                            <?php 
+                              $n++;
+                          } ?>
+                            
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
 
 
 
