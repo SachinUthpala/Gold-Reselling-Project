@@ -514,7 +514,7 @@ $n = 0;
                             <td><?php echo "Rs.".$rows['amount'].".00"; ?></td>
                             
                             <td>
-                              <form id="<?php echo "deleteForm".$rows['costId']; ?>" action="../DbActions/DailyBuisness/DeleteDailyBuisness.php" method="post">
+                              <form id="<?php echo "deleteForm".$rows['costId']; ?>" action="../DbActions/DailyBuisness/DeleteOtherCost.php" method="post">
                                     <input type="hidden" name="delete_id" value="<?php echo $rows['costId']; ?>">
                                     <button type="submit" name="delete" class="btn btn-danger" id="<?php echo "deletebutton".$rows['costId']; ?>">Delete</button>
                                </form>
