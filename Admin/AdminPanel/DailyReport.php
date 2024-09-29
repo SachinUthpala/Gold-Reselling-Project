@@ -893,7 +893,7 @@ $allexpencess = $result_expencess->num_rows ;
                           <h5 class="font-15">Current Day</h5>
                           <h2 class="mb-3 font-18"><?php 
                                 
-                                    echo '<span style= "color:red;">Rs.'.$totalDailyBoardCampingCost.'.00</span>';
+                                    echo '<span style= "color:blue;">Rs.'.$totalDailyBoardCampingCost.'.00</span>';
                                
                           ?></h2>
                           <p class="mb-0"><span class="col-orange">
@@ -948,7 +948,7 @@ $allexpencess = $result_expencess->num_rows ;
                               
                               <td><?php 
                                   
-                                      echo '<span style= "color:red;">Rs.'.$row10['amount'].'.00</span>';
+                                      echo '<span style= "color:blue;">Rs.'.$row10['amount'].'.00</span>';
                                 
                               ?></td>
                               
@@ -964,6 +964,88 @@ $allexpencess = $result_expencess->num_rows ;
                   </div>
                 </div>
               </div>
+            </div>
+
+            <h6>4.) Daily Total Commitions and Expencess Costs</h6>
+
+            <?php
+                $sql11 = "SELECT * FROM complete_task WHERE compteled_date = CURDATE()";
+                $result11 = mysqli_query($conn , $sql11);
+                $totalDailyCommitions = 0 ; 
+
+                while($rows11 = $result11-> fetch_assoc()){
+                    $totalDailyCommitions = $totalDailyCommitions + (float)$rows11['commition'];
+                } 
+
+                $sql12 = "SELECT * FROM complete_task WHERE compteled_date = CURDATE()";
+                $result12 = mysqli_query($conn , $sql12);
+                $dailyTotalExpencess = 0 ; 
+
+                while($rows12 = $result12-> fetch_assoc()){
+                    $dailyTotalExpencess = $dailyTotalExpencess + (float)$rows12['commition'];
+                } 
+            ?>
+
+            <div class="row">
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="card">
+                <div class="card-statistic-4">
+                  <div class="align-items-center justify-content-between">
+                    <div class="row ">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                        <div class="card-content">
+                          <h5 class="font-15">Current Day</h5>
+                          <h2 class="mb-3 font-18"><?php 
+                                
+                                    echo '<span style= "color:blue;">Rs.'.$totalDailyCommitions.'.00</span>';
+                               
+                          ?></h2>
+                          <p class="mb-0"><span class="col-orange">
+                          
+                          </span>Total Commitions</p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                        <div class="banner-img">
+                          <img src="assets/img/banner/2.png" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="card">
+                <div class="card-statistic-4">
+                  <div class="align-items-center justify-content-between">
+                    <div class="row ">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                        <div class="card-content">
+                          <h5 class="font-15">Current Day</h5>
+                          <h2 class="mb-3 font-18"><?php 
+                                
+                                    echo '<span style= "color:purple;">Rs.'.$dailyTotalExpencess.'.00</span>';
+                               
+                          ?></h2>
+                          <p class="mb-0"><span class="col-orange">
+                          
+                          </span>Total Expencess</p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                        <div class="banner-img">
+                          <img src="assets/img/banner/2.png" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             </div>
 
 
