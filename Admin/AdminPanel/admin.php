@@ -318,7 +318,7 @@ $allexpencess = $result_expencess->num_rows ;
             <!-- summery Settings -->
             <li class="menu-header"
             <?php
-                if( $_SESSION['AdminAccess'] == 0 || $_SESSION['AdminAccess'] == 2 ) {
+                if( $_SESSION['AdminAccess'] == 0 ) {
                   echo 'style="display:none;"';
                 }
               ?>
@@ -344,7 +344,7 @@ $allexpencess = $result_expencess->num_rows ;
 
             <li class="dropdown"
             <?php
-                if($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
+                if($_SESSION['AdminAccess'] == 0) {
                   echo 'style="display:none;"';
                 }
               ?>
@@ -356,7 +356,7 @@ $allexpencess = $result_expencess->num_rows ;
              
               >
                 <li><a class="nav-link" href="./createDailyOtherCost.php" style="cursor: pointer;">Add Other Cost</a></li>
-                <li><a class="nav-link" href="./AllDailyBuisness.php" style="cursor: pointer;">All Other Costs</a></li>
+                <li><a class="nav-link" href="./AllDailyOtherCost.php" style="cursor: pointer;">All Other Costs</a></li>
               </ul>
             </li>
 
