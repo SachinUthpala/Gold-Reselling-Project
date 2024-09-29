@@ -1,5 +1,6 @@
 <?php
 
+
 require_once '../DbActions/Db.conn.php';
 session_start();
 error_reporting(0);
@@ -9,24 +10,50 @@ if(!$_SESSION['UserName'] && !$_SESSION['UserId']){
   header('Location: ../index.html');
 }
 
-// $sql = "SELECT * FROM task WHERE `completion` = 2";
-// $result = mysqli_query($conn, $sql);
+$userNames = $_SESSION['UserName'];
+
+$userId = (int)$_SESSION['UserId'];
+
+$stmt = $conn->prepare("SELECT * FROM `task` WHERE `select_user` = ?");
+$stmt->bind_param("i", $userId); // 'i' denotes the type integer for $userId
+
+$stmt->execute();
+
+// Get the result of the query
+$result = $stmt->get_result();
+
+// Fetch the number of rows
 
 
+$TotalUsers = "SELECT * FROM users";
+$result_total = $conn->query($TotalUsers);
+$AllUsers = $result_total->num_rows ; 
 
-$sql = "
-SELECT 
-    task.*, 
-    complete_task.completedBy 
-FROM 
-    task 
-LEFT JOIN 
-    complete_task 
-ON 
-    task.task_id = complete_task.	taskID";
-$result = mysqli_query($conn, $sql);
+$sql_admin = "SELECT * FROM users WHERE `AdminAccess` = 1";
+$result_admin = $conn->query($sql_admin);
+$adminUsers = $result_admin->num_rows ; 
 
-$n = 1;
+$sql_nonAdmin = "SELECT * FROM users WHERE `AdminAccess` = 1";
+$result_nonAdmin = $conn->query($sql_nonAdmin);
+$nonadminUsers = $result_nonAdmin->num_rows ; 
+
+
+$TotalTask = "SELECT * FROM task";
+$result_total = $conn->query($TotalTask);
+$AllTasks = $result_total->num_rows ; 
+
+$sql_onGoing = "SELECT * FROM task WHERE `completion` = 0";
+$result_ongoing = $conn->query($sql_onGoing);
+$allOngoing = $result_ongoing->num_rows ; 
+
+$sql_completed = "SELECT * FROM task WHERE `completion` = 2";
+$result_completed = $conn->query($sql_completed);
+$allCompleted = $result_completed->num_rows ; 
+
+
+$sql_expencess = "SELECT * FROM expencess WHERE `user_id` = '$userId'";
+$result_expencess = $conn->query($sql_expencess);
+$allexpencess = $result_expencess->num_rows ; 
 
 ?>
 
@@ -79,7 +106,7 @@ $n = 1;
           
           
           
-        <li class="dropdown"><a href="#" data-toggle="dropdown"
+          <li class="dropdown"><a href="#" data-toggle="dropdown"
               class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="<?php echo $_SESSION['userImage']; ?>"
                 class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
             <div class="dropdown-menu dropdown-menu-right pullDown">
@@ -101,7 +128,6 @@ $n = 1;
 
         </ul>
       </nav>
-      
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
@@ -347,8 +373,8 @@ $n = 1;
               <ul class="dropdown-menu"
              
               >
-                <li><a class="nav-link" href="./CreateDailyBoardCamping.php" style="cursor: pointer;">Add Board Cost</a></li>
-                <li><a class="nav-link" href="./AllDailyBoardCampingCost.php" style="cursor: pointer;">All Board Costs</a></li>
+                <li><a class="nav-link" href="./createDailyOtherCost.php" style="cursor: pointer;">Add Board Cost</a></li>
+                <li><a class="nav-link" href="./AllDailyOtherCost.php" style="cursor: pointer;">All Board Costs</a></li>
               </ul>
             </li>
 
@@ -454,173 +480,26 @@ $n = 1;
               </ul>
             </aside>
       </div>
-
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
-            
-          <div class="row ">
-            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-              <div class="card">
-                <div class="card-statistic-4">
-                  <div class="align-items-center justify-content-between">
-                    <div class="row ">
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
-                        <div class="card-content">
-                          <h5 class="font-15">Date</h5>
-                          <h2 class="mb-3 font-18"><?php echo  date('Y-m-d'); ?></h2>
-                          <p class="mb-0"><span class="col-green">Have a good Day</span></p>
-                        </div>
-                      </div>
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
-                        <div class="banner-img">
-                          <img src="assets/img/banner/1.png" alt="">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-              <div class="card">
-                <div class="card-statistic-4">
-                  <div class="align-items-center justify-content-between">
-                    <div class="row ">
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
-                        <div class="card-content">
-                          <h5 class="font-15"> Time</h5>
-                          <h2 class="mb-3 font-18"><?php echo date('H:i:s'); ?></h2>
-                          <p class="mb-0"><span class="col-orange">
-                          
-                          </span> From Total Users</p>
-                        </div>
-                      </div>
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
-                        <div class="banner-img">
-                          <img src="assets/img/banner/2.png" alt="">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <!-- only admin rows -->
+            <h4
+            <?php
+            if( $_SESSION['AdminAccess'] == 1) {
+                echo 'style="display:block;"';
+            }else{
+                echo 'style="display:none;"';
+            }
+            ?>
+            >Daily Buisness</h4>
+
+         
+
 
             
 
-          </div>
-        
-          <!-- user create form -->
-          <div class="row">
-              <div class="col-12">
-                <div class="card">
-                  <div class="card-header">
-                    <h4>Basic DataTables</h4>
-                  </div>
-                  <div class="card-body">
-                    <div class="table-responsive">
-                      <table class="table table-striped" id="table-1">
-                        <thead>
-                        <tr>
-                            <th class="text-center">
-                              #
-                            </th>
-                            <th>Inquery Number</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Customer Name</th>
-                            <th>Pnone</th>
-                            <th>Bank/Shop</th>
-                            <th>City</th>
-                            <th>Price</th>
-                            <th>Location</th>
-                            <th>Completion</th>
-                            <th>Completed By</th>
-                            <th>More Details</th>
-     
-                          </tr>
-                        </thead>
-                        <tbody>
-
-                        <?php while($rows = $result-> fetch_assoc()){ ?>
-                          <tr>
-                            <td>
-                              <?php echo $n; ?>
-                            </td>
-                            <td><?php echo $rows['inqueryNumber']; ?></td>
-                            <td><?php echo $rows['date']; ?></td>
-                            <td><?php echo $rows['time']; ?></td>
-                            <td><?php echo $rows['customerName']; ?></td>
-                            <td><?php echo $rows['Phone']; ?></td>
-                            <td><?php echo $rows['bank_shop']; ?></td>
-                            <td><?php echo $rows['city']; ?></td>
-                            <td><?php echo $rows['enterPrice']; ?></td>
-                            <td><a href="<?php echo $rows['location']; ?>" target=" ">Map</a></td>
-                            <td>
-                                <?php
-                                    if($rows['completion'] == 2) {
-                                        echo "<p style='color:green;font-weight:bold;'>Completed</p>";
-                                    }else if($rows['completion'] == 0){
-                                        echo "<p style='color:#ffa800;font-weight:bold;'>OnGoing</p>";
-                                    }else if($rows['completion'] == 1){
-                                        echo "<p style='color:0019ff;font-weight:bold;'>Pending</p>";
-                                    }else if($rows['completion'] == 3){
-                                        echo "<p style='color:red;font-weight:bold;'>Canceled</p>";
-                                    }
-                                ?>
-                            </td>
-                            <td><?php echo $rows['completedBy']; ?></td>
-                            <td 
-                            <?php
-                              if($rows['completion'] == 0){
-                                echo "style='display:block;'";
-                              }else{
-                                echo "style='display:none;'";
-                              }
-                            ?>
-                            >
-                            <p style='color:red;font-weight:bold;'>
-                              <?php
-                                $idCompleted = (int)$rows['inqueryNumber'];
-                                 $completedBYSQL = "SELECT * FROM complete_task WHERE taskID = $idCompleted  ";
-                                 $resultCompletedBy = mysqli_query($conn , $completedBYSQL);
-                                 $completedByrow = $resultCompletedBy->fetch_assoc();
-                                  echo $completedByrow['complete_task'];
-                              ?>
-                            </p>
-                            </td>
-
-                            <td 
-                            <?php
-                              if($rows['completion'] == 2){
-                                echo "style='display:block;'";
-                              }else{
-                                echo "style='display:none;'";
-                              }
-                            ?>
-                            >
-                            
-                            <form action="./MoreDetails.php" method="post">
-                                    <input type="hidden" name="task_id" value="<?php echo $rows['task_id']; ?>">
-                                    <input type="submit" name="details" value="More Details" class="btn btn-success">
-                                </form>
-
-                            </td>
-                           
-                          </tr>
-                          <?php 
-                            $n++;
-                        } ?>
-                          
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           
         
           
@@ -723,18 +602,13 @@ $n = 1;
       </div>
       <footer class="main-footer">
         <div class="footer-left">
-          <a href="#">Sachin Gunasekara</a></a>
+          <a href="https://github.com/SachinUthpala/">Sachin Gunasekara</a></a>
         </div>
         <div class="footer-right">
         </div>
       </footer>
     </div>
   </div>
-
-  <?php
-
-
-    ?>
 
 
   <!-- General JS Scripts -->
@@ -747,42 +621,104 @@ $n = 1;
   <script src="assets/js/scripts.js"></script>
   <!-- Custom JS File -->
   <script src="assets/js/custom.js"></script>
-  <!-- sweet alert -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
   <!-- JS Libraies -->
-  <script src="assets/bundles/datatables/datatables.min.js"></script>
-  <script src="assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
-  <script src="assets/bundles/jquery-ui/jquery-ui.min.js"></script>
-  <!-- Page Specific JS File -->
-  <script src="assets/js/page/datatables.js"></script>
-
-
-
-  <?php
-
-if($_SESSION['userCreated'] == 1){
-    echo '<script>
-            Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "User Created Sucessfully",
-            showConfirmButton: false,
-            timer: 1500
-            });
-
-        </script>' ;
-
-        $_SESSION['userCreated'] = null;
-}
-
-
-    ?>
-
-
-
+  <script src="assets/bundles/amcharts4/core.js"></script>
+  <script src="assets/bundles/amcharts4/charts.js"></script>
+  <script src="assets/bundles/amcharts4/animated.js"></script>
+  <script src="assets/bundles/amcharts4/worldLow.js"></script>
+  <script src="assets/bundles/amcharts4/maps.js"></script>
 </body>
+
+
+
+<script>
+
+'use strict';
+$(function () {
+  gaugeChart();
+});
+
+
+  function gaugeChart() {
+  // Themes begin
+  am4core.useTheme(am4themes_animated);
+  // Themes end
+
+
+
+  // Create chart instance
+  var chart = am4core.create("gaugeChart", am4charts.RadarChart);
+
+  // Add data
+  chart.data = [
+    {
+    "category": "Non admin Users",
+    "value": <?php echo $nonadminUsers; ?>,
+    "full": <?php echo $AllUsers; ?>
+  },{
+    "category": "Admin Usrs",
+    "value": <?php echo $adminUsers; ?>,
+    "full": <?php echo $AllUsers; ?>
+  } ,{
+    "category": "All Users",
+    "value": <?php echo $AllUsers; ?>,
+    "full": <?php echo $AllUsers; ?>
+  }];
+
+  // Make chart not full circle
+  chart.startAngle = -90;
+  chart.endAngle = 180;
+  chart.innerRadius = am4core.percent(20);
+
+  // Set number format
+  chart.numberFormatter.numberFormat = "#.#'%'";
+
+  // Create axes
+  var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+  categoryAxis.dataFields.category = "category";
+  categoryAxis.renderer.grid.template.location = 0;
+  categoryAxis.renderer.grid.template.strokeOpacity = 0;
+  categoryAxis.renderer.labels.template.horizontalCenter = "right";
+  categoryAxis.renderer.labels.template.fontWeight = 500;
+  categoryAxis.renderer.labels.template.adapter.add("fill", function (fill, target) {
+    return (target.dataItem.index >= 0) ? chart.colors.getIndex(target.dataItem.index) : fill;
+  });
+  categoryAxis.renderer.minGridDistance = 10;
+
+  var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
+  valueAxis.renderer.grid.template.strokeOpacity = 0;
+  valueAxis.min = 0;
+  valueAxis.max = 100;
+  valueAxis.strictMinMax = true;
+  valueAxis.renderer.labels.template.fill = am4core.color("#9aa0ac");
+
+  // Create series
+  var series1 = chart.series.push(new am4charts.RadarColumnSeries());
+  series1.dataFields.valueX = "full";
+  series1.dataFields.categoryY = "category";
+  series1.clustered = false;
+  series1.columns.template.fill = new am4core.InterfaceColorSet().getFor("alternativeBackground");
+  series1.columns.template.fillOpacity = 0.08;
+  series1.columns.template.cornerRadiusTopLeft = 20;
+  series1.columns.template.strokeWidth = 0;
+  series1.columns.template.radarColumn.cornerRadius = 20;
+
+  var series2 = chart.series.push(new am4charts.RadarColumnSeries());
+  series2.dataFields.valueX = "value";
+  series2.dataFields.categoryY = "category";
+  series2.clustered = false;
+  series2.columns.template.strokeWidth = 0;
+  series2.columns.template.tooltipText = "{category}: [bold]{value}[/]";
+  series2.columns.template.radarColumn.cornerRadius = 20;
+
+  series2.columns.template.adapter.add("fill", function (fill, target) {
+    return chart.colors.getIndex(target.dataItem.index);
+  });
+
+  // Add cursor
+  chart.cursor = new am4charts.RadarCursor();
+}
+</script>
 
 
 <!-- index.html  21 Nov 2019 03:47:04 GMT -->

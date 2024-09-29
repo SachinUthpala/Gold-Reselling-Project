@@ -337,6 +337,24 @@ $AllUsers = $result_total->num_rows ;
               </ul>
             </li>
 
+            <li class="dropdown"
+            <?php
+                if($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
+                  echo 'style="display:none;"';
+                }
+              ?>
+            >
+              <a href="#" class="menu-toggle nav-link has-dropdown"
+             
+              ><i data-feather="copy"></i><span> Reports </span></a>
+              <ul class="dropdown-menu"
+             
+              >
+                <li><a class="nav-link" href="./DailyReport.php" style="cursor: pointer;">Daily Report</a></li>
+                <li><a class="nav-link" href="./DailyReport.php" style="cursor: pointer;">Monthly Report</a></li>
+              </ul>
+            </li>
+
              <!-- emd of full settingss -->
 
 
