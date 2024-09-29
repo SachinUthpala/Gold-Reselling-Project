@@ -433,7 +433,7 @@ $AllUsers = $result_total->num_rows ;
                   <div class="card-header">
                     <h4>Create Daily Other Cost</h4>
                   </div>
-                  <form action="../DbActions/DailyBuisness/createDailyOtherCost.php" method="post">
+                  <form action="../DbActions/DailyBuisness/createBordCamping.php" method="post">
                   <div class="card-body">
                     <div class="form-row">
 
