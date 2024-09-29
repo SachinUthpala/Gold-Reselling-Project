@@ -772,6 +772,106 @@ $allexpencess = $result_expencess->num_rows ;
             </div>
           </div>
 
+          <br>
+
+          <h6>2.) Daily Other Costs</h6>
+
+          <?php
+                $sql7 = "SELECT * FROM dailyothercost WHERE date = CURDATE()";
+                $result7 = mysqli_query($conn , $sql7);
+                $totalOtherCost = 0 ; 
+
+                while($rows7 = $result7-> fetch_assoc()){
+                    $totalOtherCost = $totalOtherCost + (float)$rows7['amount'];
+                } 
+            ?>
+
+           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="card">
+                <div class="card-statistic-4">
+                  <div class="align-items-center justify-content-between">
+                    <div class="row ">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                        <div class="card-content">
+                          <h5 class="font-15">Current Day</h5>
+                          <h2 class="mb-3 font-18"><?php 
+                                
+                                    echo '<span style= "color:red;">Rs.'.$totalOtherCost.'.00</span>';
+                               
+                          ?></h2>
+                          <p class="mb-0"><span class="col-orange">
+                          
+                          </span>Total Current Day Other Cost</p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                        <div class="banner-img">
+                          <img src="assets/img/banner/2.png" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <?php
+              $sql8 = "SELECT * FROM dailyothercost WHERE date = CURDATE()";
+              $result8 = mysqli_query($conn , $sql8);
+            ?>
+            <div class="section-body">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Daily Other Cost Table</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-striped table-hover" id="tableExport2" style="width:100%;">
+                        <thead>
+                          <tr>
+                            <th>Cost ID</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Cost Type</th>
+                            <th>Cost Amount</th>
+                            
+                            
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                        <?php while($row8 = $result8-> fetch_assoc()){ ?>
+                          <tr>
+                            <td><?php echo $row8['costId']; ?></td>
+                            <td><?php echo $row8['date']; ?></td>
+                            <td><?php echo $row8['time']; ?></td>
+                            <td><?php echo $row8['costType']; ?></td>
+                            
+                            <td><?php 
+                                
+                                    echo '<span style= "color:red;">Rs.'.$row8['amount'].'.00</span>';
+                              
+                            ?></td>
+                            
+                          </tr>
+                          <?php 
+                            $n++;
+                        } ?>
+                          
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
          
 
 
