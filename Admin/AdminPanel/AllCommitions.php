@@ -329,8 +329,8 @@ $n = 1;
               <ul class="dropdown-menu"
              
               >
-                <li><a class="nav-link" href="./createDailyOtherCost.php" style="cursor: pointer;">Add Board Cost</a></li>
-                <li><a class="nav-link" href="./AllDailyOtherCost.php" style="cursor: pointer;">All Board Costs</a></li>
+                <li><a class="nav-link" href="./CreateDailyBoardCamping.php" style="cursor: pointer;">Add Board Cost</a></li>
+                <li><a class="nav-link" href="./AllDailyBoardCampingCost.php" style="cursor: pointer;">All Board Costs</a></li>
               </ul>
             </li>
 

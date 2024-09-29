@@ -342,6 +342,24 @@ if(isset($_POST['Update'])){
               </ul>
             </li>
 
+            <li class="dropdown"
+            <?php
+                if($_SESSION['AdminAccess'] == 0) {
+                  echo 'style="display:none;"';
+                }
+              ?>
+            >
+              <a href="#" class="menu-toggle nav-link has-dropdown"
+             
+              ><i data-feather="copy"></i><span>Board Camping (Daily)</span></a>
+              <ul class="dropdown-menu"
+             
+              >
+                <li><a class="nav-link" href="./CreateDailyBoardCamping.php" style="cursor: pointer;">Add Board Cost</a></li>
+                <li><a class="nav-link" href="./AllDailyBoardCampingCost.php" style="cursor: pointer;">All Board Costs</a></li>
+              </ul>
+            </li>
+
              <!-- emd of full settingss -->
 
 
