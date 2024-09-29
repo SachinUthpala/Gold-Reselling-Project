@@ -272,7 +272,7 @@ $allexpencess = $result_expencess->num_rows ;
             
             <li class="menu-header"
             <?php
-                if( $_SESSION['AdminAccess'] == 0) {
+                if( $_SESSION['AdminAccess'] == 0 || $_SESSION['AdminAccess'] == 2 ) {
                   echo 'style="display:none;"';
                 }
               ?>
