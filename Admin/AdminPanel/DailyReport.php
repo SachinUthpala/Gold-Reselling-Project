@@ -485,7 +485,7 @@ $allexpencess = $result_expencess->num_rows ;
         <section class="section">
 
             <!-- only admin rows -->
-            <h4
+            <h5
             <?php
             if( $_SESSION['AdminAccess'] == 1) {
                 echo 'style="display:block;"';
@@ -493,7 +493,223 @@ $allexpencess = $result_expencess->num_rows ;
                 echo 'style="display:none;"';
             }
             ?>
-            >Daily Buisness</h4>
+            >Today Is <?php echo date('Y-m-d'); ?> and Welcome to Daily Reports</h5>
+
+            <br>
+
+            <h6>1.) Daily Task Report</h6>
+
+            <div class="row">
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <div class="card">
+                    <div class="card-statistic-4">
+                      <div class="align-items-center justify-content-between">
+                        <div class="row ">
+                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                            <div class="card-content">
+                              <h5 class="font-15"> All Created Tasks</h5>
+                              <h2 class="mb-3 font-18">20</h2>
+                              <p class="mb-0"><span class="col-orange">
+                              
+                              </span> From Task Table</p>
+                            </div>
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                            <div class="banner-img">
+                              <img src="assets/img/banner/2.png" alt="">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <div class="card">
+                    <div class="card-statistic-4">
+                      <div class="align-items-center justify-content-between">
+                        <div class="row ">
+                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                            <div class="card-content">
+                              <h5 class="font-15"> All Completed Tasks</h5>
+                              <h2 class="mb-3 font-18">20</h2>
+                              <p class="mb-0"><span class="col-orange">
+                              
+                              </span> From Task Table</p>
+                            </div>
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                            <div class="banner-img">
+                              <img src="assets/img/banner/2.png" alt="">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <div class="card">
+                    <div class="card-statistic-4">
+                      <div class="align-items-center justify-content-between">
+                        <div class="row ">
+                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                            <div class="card-content">
+                              <h5 class="font-15"> All Ongoing Tasks</h5>
+                              <h2 class="mb-3 font-18">20</h2>
+                              <p class="mb-0"><span class="col-orange">
+                              
+                              </span> From Task Table</p>
+                            </div>
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                            <div class="banner-img">
+                              <img src="assets/img/banner/2.png" alt="">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <?php $currentDate =  date('Y-m-d'); ?>
+
+            <?php
+              $sql = "
+              SELECT 
+                  task.*, 
+                  users.* 
+              FROM 
+                  task 
+              LEFT JOIN 
+                  users 
+              ON 
+                  task.select_user = users.UserId 
+              WHERE
+                  task.date = '$currentDate'";
+              $result = mysqli_query($conn, $sql);
+            ?>
+
+        <div class="section-body">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Daily Task Table</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-striped table-hover" id="tableExport" style="width:100%;">
+                        <thead>
+                          <tr>
+                          <th>Inquery Number</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Customer Name</th>
+                            <th>Pnone</th>
+                            <th>Bank/Shop</th>
+                            <th>City</th>
+                            <th>Price</th>
+                            <th>Completed By</th>
+                            <th>Completion</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          
+
+                        <?php while($rows = $result-> fetch_assoc()){ ?>
+                          <tr>
+                            <td><?php echo $rows['inqueryNumber']; ?></td>
+                            <td><?php echo $rows['date']; ?></td>
+                            <td><?php echo $rows['time']; ?></td>
+                            <td><?php echo $rows['customerName']; ?></td>
+                            <td><?php echo $rows['Phone']; ?></td>
+                            <td><?php echo $rows['bank_shop']; ?></td>
+                            <td><?php echo $rows['city']; ?></td>
+                            <td><?php echo $rows['enterPrice']; ?></td>
+                            <td><?php echo $rows['UserName']; ?></td>
+                            <td>
+                                <?php
+                                    if($rows['completion'] == 2) {
+                                        echo "<p style='color:green;font-weight:bold;'>Completed</p>";
+                                    }else if($rows['completion'] == 0){
+                                        echo "<p style='color:#ffa800;font-weight:bold;'>OnGoing</p>";
+                                    }else if($rows['completion'] == 1){
+                                        echo "<p style='color:0019ff;font-weight:bold;'>Pending</p>";
+                                    }else if($rows['completion'] == 3){
+                                        echo "<p style='color:red;font-weight:bold;'>Canceled</p>";
+                                    }
+                                ?>
+                            </td>
+                            
+                            
+
+                            
+                           
+                          </tr>
+                          <?php 
+                            $n++;
+                        } ?>
+                          
+                        
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br>
+
+            <h6>2.) Daily Buisness Report</h6>
+
+            <?php
+                $sql5 = "SELECT * FROM dailybuisness WHERE date = CURDATE()";
+                $result5 = mysqli_query($conn , $sql5);
+                $totalProfit5 = 0.00;
+
+                while($rows5 = $result5-> fetch_assoc()){
+                    $rowProfit5  = $rows5['sellingPrice'] - $rows5['buyingPrice'] ; 
+                    $totalProfit5 = $totalProfit5 + $rowProfit5 ;
+                } 
+            ?>
+
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="card">
+                <div class="card-statistic-4">
+                  <div class="align-items-center justify-content-between">
+                    <div class="row ">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                        <div class="card-content">
+                          <h5 class="font-15">Current Day</h5>
+                          <h2 class="mb-3 font-18"><?php 
+                                if($totalProfit5 > 0){
+                                    echo '<span style= "color:green;">Rs.'.$totalProfit5.'.00</span>';
+                                } else {
+                                    echo '<span style= "color:red;">Rs.'.$totalProfit5.'.00</span>';
+                                }
+                          ?></h2>
+                          <p class="mb-0"><span class="col-orange">
+                          
+                          </span>Total Current Day Profit</p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                        <div class="banner-img">
+                          <img src="assets/img/banner/2.png" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
          
 
@@ -627,6 +843,17 @@ $allexpencess = $result_expencess->num_rows ;
   <script src="assets/bundles/amcharts4/animated.js"></script>
   <script src="assets/bundles/amcharts4/worldLow.js"></script>
   <script src="assets/bundles/amcharts4/maps.js"></script>
+
+  <!-- table css -->
+  <script src="assets/bundles/datatables/datatables.min.js"></script>
+  <script src="assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+  <script src="assets/bundles/datatables/export-tables/dataTables.buttons.min.js"></script>
+  <script src="assets/bundles/datatables/export-tables/buttons.flash.min.js"></script>
+  <script src="assets/bundles/datatables/export-tables/jszip.min.js"></script>
+  <script src="assets/bundles/datatables/export-tables/pdfmake.min.js"></script>
+  <script src="assets/bundles/datatables/export-tables/vfs_fonts.js"></script>
+  <script src="assets/bundles/datatables/export-tables/buttons.print.min.js"></script>
+  <script src="assets/js/page/datatables.js"></script>
 </body>
 
 
