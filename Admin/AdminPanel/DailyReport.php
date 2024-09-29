@@ -710,6 +710,67 @@ $allexpencess = $result_expencess->num_rows ;
                 </div>
               </div>
             </div>
+            
+            <?php
+              $sql6 = "SELECT * FROM dailybuisness WHERE date = CURDATE()";
+              $result6 = mysqli_query($conn , $sql6);
+            ?>
+            <div class="section-body">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Daily Buisness Table</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-striped table-hover" id="tableExport2" style="width:100%;">
+                        <thead>
+                          <tr>
+                            <th>Buisness ID</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Weight</th>
+                            <th>Buying Price</th>
+                            <th>Selling Price</th>
+                            <th>Daily Profit</th>
+                            
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                        <?php while($rows6 = $result6-> fetch_assoc()){ ?>
+                          <tr>
+                            <td><?php echo $rows6['bId']; ?></td>
+                            <td><?php echo $rows6['date']; ?></td>
+                            <td><?php echo $rows6['time']; ?></td>
+                            
+                            <td><?php echo $rows6['weight']; ?></td>
+                            <td><?php echo "Rs.".$rows6['buyingPrice'].".00"; ?></td>
+                            <td><?php echo "Rs.".$rows6['sellingPrice'].".00"; ?></td>
+                            <td><?php 
+                                $profit6 = $rows6['sellingPrice'] - $rows6['buyingPrice'] ;
+
+                                if($profit6 > 0){
+                                    echo '<span style= "color:green;">Rs.'.$profit6.'.00</span>';
+                                } else {
+                                    echo '<span style= "color:red;">Rs.'.$profit6.'.00</span>';
+                                }
+                            ?></td>
+                            
+                          </tr>
+                          <?php 
+                            $n++;
+                        } ?>
+                          
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
          
 
