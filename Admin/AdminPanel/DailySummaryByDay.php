@@ -495,10 +495,8 @@ $selectedDate = $_POST['EntereDate'];
       <div class="main-content">
         <section class="section" id="section-to-pdf">
 
-
-
-            <!-- only admin rows -->
-            <h5
+           <!-- only admin rows -->
+           <h5
             <?php
             if( $_SESSION['AdminAccess'] == 1) {
                 echo 'style="display:block;"';
@@ -506,13 +504,34 @@ $selectedDate = $_POST['EntereDate'];
                 echo 'style="display:none;"';
             }
             ?>
-            >Selected Date Is <?php echo $selectedDate; ?> and Welcome to Daily Reports</h5>
+            >Daily Summary Of <?php echo $selectedDate; ?> and Welcome to Daily Reports</h5>
 
             <br>
 
-            
-
             <h6>1.) Daily Task Report</h6>
+            
+            <?php
+                
+                $allTaskDaily = 0;
+                $allDailyPending = 0;
+                $allDailyCompleted = 0;
+            
+                $allDailyTask = "SELECT * FROM task WHERE date = '$selectedDate'";
+                $resultDailyAllTask = mysqli_query($conn , $allDailyTask);
+                
+                while($rowsAllDaily = $resultDailyAllTask-> fetch_assoc()){
+                    if((int)$rowsAllDaily['completion'] == 2){
+                       $allDailyCompleted = $allDailyCompleted +1 ; 
+                    }else if((int)$rowsAllDaily['completion'] == 0) {
+                        $allDailyPending = $allDailyPending +1 ;
+                    }
+                    
+                    $allTaskDaily = $allTaskDaily + 1;
+                }
+                
+                
+            
+            ?>
 
             <div class="row">
                 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -523,7 +542,7 @@ $selectedDate = $_POST['EntereDate'];
                           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                             <div class="card-content">
                               <h5 class="font-15"> All Created Tasks</h5>
-                              <h2 class="mb-3 font-18">20</h2>
+                              <h2 class="mb-3 font-18"><?php echo $allTaskDaily; ?></h2>
                               <p class="mb-0"><span class="col-orange">
                               
                               </span> From Task Table</p>
@@ -548,7 +567,7 @@ $selectedDate = $_POST['EntereDate'];
                           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                             <div class="card-content">
                               <h5 class="font-15"> All Completed Tasks</h5>
-                              <h2 class="mb-3 font-18">20</h2>
+                              <h2 class="mb-3 font-18"><?php echo $allDailyCompleted; ?></h2>
                               <p class="mb-0"><span class="col-orange">
                               
                               </span> From Task Table</p>
@@ -573,7 +592,7 @@ $selectedDate = $_POST['EntereDate'];
                           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                             <div class="card-content">
                               <h5 class="font-15"> All Ongoing Tasks</h5>
-                              <h2 class="mb-3 font-18">20</h2>
+                              <h2 class="mb-3 font-18"><?php echo $allDailyPending; ?></h2>
                               <p class="mb-0"><span class="col-orange">
                               
                               </span> From Task Table</p>
@@ -591,7 +610,7 @@ $selectedDate = $_POST['EntereDate'];
                 </div>
             </div>
 
-            <?php $currentDate =  date('Y-m-d'); ?>
+            <?php $currentDate =  $selectedDate; ?>
 
             <?php
               $sql = "
@@ -605,7 +624,7 @@ $selectedDate = $_POST['EntereDate'];
               ON 
                   task.select_user = users.UserId 
               WHERE
-                  task.date = '$selectedDate'";
+                  task.date = '$currentDate'";
               $result = mysqli_query($conn, $sql);
             ?>
 
@@ -992,7 +1011,7 @@ $selectedDate = $_POST['EntereDate'];
                     $totalDailyCommitions = $totalDailyCommitions + (float)$rows11['commition'];
                 } 
 
-                $sql12 = "SELECT * FROM expencess WHERE date = '$selectedDate'  and approved_exp = 1";
+                $sql12 = "SELECT * FROM expencess WHERE date = '$selectedDate' and approved_exp = 1";
                 $result12 = mysqli_query($conn , $sql12);
                 $dailyTotalExpencess = 0 ; 
 
@@ -1063,7 +1082,108 @@ $selectedDate = $_POST['EntereDate'];
 
             </div>
 
-            <br>
+            <h6>5.) Daily Full Summery</h6>
+
+            <div class="row">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="card">
+                  <div class="card-statistic-4">
+                    <div class="align-items-center justify-content-between">
+                      <div class="row ">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                          <div class="card-content">
+                            <h5 class="font-15">Current Day</h5>
+                            <h2 class="mb-3 font-18"><?php 
+
+                                    $allTotalExpencess =  $totalDailyCommitions + $dailyTotalExpencess;
+                                  
+                                      echo '<span style= "color:blue;">Rs.'.$allTotalExpencess .'.00</span>';
+                                
+                            ?></h2>
+                            <p class="mb-0"><span class="col-orange">
+                            
+                            </span>Total Expencess</p>
+                          </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                          <div class="banner-img">
+                            <img src="assets/img/banner/2.png" alt="">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="card">
+                  <div class="card-statistic-4">
+                    <div class="align-items-center justify-content-between">
+                      <div class="row ">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                          <div class="card-content">
+                            <h5 class="font-15">Current Day</h5>
+                            <h2 class="mb-3 font-18"><?php 
+                                  
+                                  if($totalProfit5 > 0){
+                                    echo '<span style= "color:green;">Rs.'.$totalProfit5.'.00</span>';
+                                  } else {
+                                      echo '<span style= "color:red;">Rs.'.$totalProfit5.'.00</span>';
+                                  }
+                                
+                            ?></h2>
+                            <p class="mb-0"><span class="col-orange">
+                            
+                            </span>All Day Buisness Profit</p>
+                          </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                          <div class="banner-img">
+                            <img src="assets/img/banner/2.png" alt="">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="card">
+                  <div class="card-statistic-4">
+                    <div class="align-items-center justify-content-between">
+                      <div class="row ">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                          <div class="card-content">
+                            <h5 class="font-15">Current Day</h5>
+                            <h2 class="mb-3 font-18"><?php 
+
+                                  $finalProfit = $totalProfit5 - $allTotalExpencess;
+                                  
+                                  if($finalProfit > 0){
+                                    echo '<span style= "color:green;">Rs.'.$finalProfit.'.00</span>';
+                                  } else {
+                                      echo '<span style= "color:red;">Rs.'.$finalProfit.'.00</span>';
+                                  }
+                                
+                            ?></h2>
+                            <p class="mb-0"><span class="col-orange">
+                            
+                            </span>All Day Final Profit</p>
+                          </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                          <div class="banner-img">
+                            <img src="assets/img/banner/2.png" alt="">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
         </section>
 
