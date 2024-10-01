@@ -55,6 +55,8 @@ $sql_expencess = "SELECT * FROM expencess WHERE `user_id` = '$userId'";
 $result_expencess = $conn->query($sql_expencess);
 $allexpencess = $result_expencess->num_rows ; 
 
+$selectedDate = $_POST['EntereDate'];
+
 ?>
 
 <!DOCTYPE html>
@@ -504,7 +506,7 @@ $allexpencess = $result_expencess->num_rows ;
                 echo 'style="display:none;"';
             }
             ?>
-            >Today Is <?php echo date('Y-m-d'); ?> and Welcome to Daily Reports</h5>
+            >Selected Date Is <?php echo $selectedDate; ?> and Welcome to Daily Reports</h5>
 
             <br>
 
@@ -603,7 +605,7 @@ $allexpencess = $result_expencess->num_rows ;
               ON 
                   task.select_user = users.UserId 
               WHERE
-                  task.date = '$currentDate'";
+                  task.date = '$selectedDate'";
               $result = mysqli_query($conn, $sql);
             ?>
 
@@ -683,7 +685,7 @@ $allexpencess = $result_expencess->num_rows ;
             <h6>2.) Daily Buisness Report</h6>
 
             <?php
-                $sql5 = "SELECT * FROM dailybuisness WHERE date = CURDATE()";
+                $sql5 = "SELECT * FROM dailybuisness WHERE date = '$selectedDate'";
                 $result5 = mysqli_query($conn , $sql5);
                 $totalProfit5 = 0.00;
 
@@ -725,7 +727,7 @@ $allexpencess = $result_expencess->num_rows ;
             </div>
             
             <?php
-              $sql6 = "SELECT * FROM dailybuisness WHERE date = CURDATE()";
+              $sql6 = "SELECT * FROM dailybuisness WHERE date = '$selectedDate'";
               $result6 = mysqli_query($conn , $sql6);
             ?>
             <div class="section-body">
@@ -790,7 +792,7 @@ $allexpencess = $result_expencess->num_rows ;
           <h6>2.) Daily Other Costs</h6>
 
           <?php
-                $sql7 = "SELECT * FROM dailyothercost WHERE date = CURDATE()";
+                $sql7 = "SELECT * FROM dailyothercost WHERE date = '$selectedDate'";
                 $result7 = mysqli_query($conn , $sql7);
                 $totalOtherCost = 0 ; 
 
@@ -829,7 +831,7 @@ $allexpencess = $result_expencess->num_rows ;
             </div>
 
             <?php
-              $sql8 = "SELECT * FROM dailyothercost WHERE date = CURDATE()";
+              $sql8 = "SELECT * FROM dailyothercost WHERE date = '$selectedDate'";
               $result8 = mysqli_query($conn , $sql8);
             ?>
             <div class="section-body">
@@ -887,7 +889,7 @@ $allexpencess = $result_expencess->num_rows ;
           <h6>3.) Daily Board Camping Costs</h6>
 
           <?php
-                $sql9 = "SELECT * FROM bordcampingcost WHERE date = CURDATE()";
+                $sql9 = "SELECT * FROM bordcampingcost WHERE date = '$selectedDate'";
                 $result9 = mysqli_query($conn , $sql9);
                 $totalDailyBoardCampingCost = 0 ; 
 
@@ -926,7 +928,7 @@ $allexpencess = $result_expencess->num_rows ;
             </div>
 
             <?php
-              $sql10 = "SELECT * FROM bordcampingcost WHERE date = CURDATE()";
+              $sql10 = "SELECT * FROM bordcampingcost WHERE date = '$selectedDate'";
               $result10 = mysqli_query($conn , $sql10);
             ?>
             <div class="section-body">
@@ -982,7 +984,7 @@ $allexpencess = $result_expencess->num_rows ;
             <h6>4.) Daily Total Commitions and Expencess Costs</h6>
 
             <?php
-                $sql11 = "SELECT * FROM complete_task WHERE compteled_date = CURDATE()";
+                $sql11 = "SELECT * FROM complete_task WHERE compteled_date = '$selectedDate'";
                 $result11 = mysqli_query($conn , $sql11);
                 $totalDailyCommitions = 0 ; 
 
@@ -990,7 +992,7 @@ $allexpencess = $result_expencess->num_rows ;
                     $totalDailyCommitions = $totalDailyCommitions + (float)$rows11['commition'];
                 } 
 
-                $sql12 = "SELECT * FROM expencess WHERE date = CURDATE() and approved_exp = 1";
+                $sql12 = "SELECT * FROM expencess WHERE date = '$selectedDate'  and approved_exp = 1";
                 $result12 = mysqli_query($conn , $sql12);
                 $dailyTotalExpencess = 0 ; 
 
@@ -1063,36 +1065,6 @@ $allexpencess = $result_expencess->num_rows ;
 
             <br>
 
-            <h6>5.) Other Options </h6> <br>
-
-                  <div class="card w-50">
-                  <div class="card-header">
-                    <h4>Get Daily Summary By Date</h4>
-                  </div>
-                  <div class="card-body">
-                    
-                    <div class="section-title">Enter The Date</div>
-                    <div class="form-group">
-                      <div class="input-group mb-3">
-                        <input type="date" class="form-control" placeholder="" aria-label="">
-                        <div class="input-group-append">
-                          <button class="btn btn-primary" type="button">Button</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                 
-
-
-
-         
-
-
-            
-
-          
-        
-          
         </section>
 
         <script>
@@ -1102,7 +1074,7 @@ $allexpencess = $result_expencess->num_rows ;
       // Set up options for jsPDF
       var options = {
         margin: [10, 10, 10, 10], // Adjust margins (top, left, bottom, right)
-        filename: '<?php echo "DailyReport".date('Y/m/d')."pdf"; ?>',
+        filename: '<?php echo "DailyReport".$selectedDate."pdf"; ?>',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
