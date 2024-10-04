@@ -360,7 +360,7 @@ $UserNames = $_SESSION['UserName'];
              
               >
                 <li><a class="nav-link" href="./DailyReport.php" style="cursor: pointer;">Daily Report</a></li>
-                <li><a class="nav-link" href="./DailyReport.php" style="cursor: pointer;">Monthly Report</a></li>
+                <li><a class="nav-link" href="./MonthlyReport.php" style="cursor: pointer;">Monthly Report</a></li>
               </ul>
             </li>
 
