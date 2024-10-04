@@ -1017,11 +1017,21 @@ $allexpencess = $result_expencess->num_rows ;
                 while($rows12 = $result12-> fetch_assoc()){
                     $dailyTotalExpencess = $dailyTotalExpencess + (float)$rows12['amount'];
                 } 
+
+                // task creator commition
+                $sql_taskCreator = "SELECT * FROM complete_task WHERE compteled_date = CURDATE() ";
+                $resultTaskCreator = mysqli_query($conn , $sql_taskCreator);
+                $taskCreatorNumRows = mysqli_num_rows($resultTaskCreator);
+
+                //taskCreators
+                $totalTaskCreatorRows = "SELECT * FROM taskcreatorcommition";
+                $resultTotalTaskCreators = mysqli_query($conn , $totalTaskCreatorRows);
+                $TotalTaskCreators = mysqli_num_rows($resultTotalTaskCreators);
             ?>
 
             <div class="row">
 
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
               <div class="card">
                 <div class="card-statistic-4">
                   <div class="align-items-center justify-content-between">
@@ -1050,7 +1060,36 @@ $allexpencess = $result_expencess->num_rows ;
               </div>
             </div>
 
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="card">
+                <div class="card-statistic-4">
+                  <div class="align-items-center justify-content-between">
+                    <div class="row ">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                        <div class="card-content">
+                          <h5 class="font-15"><?php echo $TotalTaskCreators."-Task Creators"?></h5>
+                          <h2 class="mb-3 font-18"><?php 
+                                    $AllDayTaskCreatorAllCommition = $taskCreatorNumRows*$TotalTaskCreators*200;
+                                    echo '<span style= "color:blue;">Rs.'.$AllDayTaskCreatorAllCommition.'.00</span>';
+                               
+                          ?></h2>
+                          <p class="mb-0"><span class="col-orange">
+                          
+                          </span>Total Task Creatoe Commitiom</p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                        <div class="banner-img">
+                          <img src="assets/img/banner/2.png" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
               <div class="card">
                 <div class="card-statistic-4">
                   <div class="align-items-center justify-content-between">
@@ -1094,7 +1133,7 @@ $allexpencess = $result_expencess->num_rows ;
                             <h5 class="font-15">Current Day</h5>
                             <h2 class="mb-3 font-18"><?php 
 
-                                    $allTotalExpencess =  $totalDailyCommitions + $dailyTotalExpencess;
+                                    $allTotalExpencess =  $totalDailyCommitions + $dailyTotalExpencess + $AllDayTaskCreatorAllCommition;
                                   
                                       echo '<span style= "color:blue;">Rs.'.$allTotalExpencess .'.00</span>';
                                 
