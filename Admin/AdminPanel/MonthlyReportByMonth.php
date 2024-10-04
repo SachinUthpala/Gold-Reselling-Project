@@ -516,7 +516,8 @@ $selectedDate = $_POST['EntereDate'];
                 $allDailyPending = 0;
                 $allDailyCompleted = 0;
             
-                $allDailyTask = "SELECT * FROM task WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25'));";
+                $allDailyTask = "SELECT * FROM task WHERE (date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
+                  AND date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
                 $resultDailyAllTask = mysqli_query($conn , $allDailyTask);
                 
                 while($rowsAllDaily = $resultDailyAllTask-> fetch_assoc()){
@@ -624,7 +625,8 @@ $selectedDate = $_POST['EntereDate'];
               ON 
                   task.select_user = users.UserId 
               WHERE
-                  (task.date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND task.date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
+                  (task.date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
+                  AND task.date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
               $result = mysqli_query($conn, $sql);
             ?>
 
@@ -704,7 +706,8 @@ $selectedDate = $_POST['EntereDate'];
             <h6>2.) Monthly Buisness Report</h6>
 
             <?php
-                $sql5 = "SELECT * FROM dailybuisness WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
+                $sql5 = "SELECT * FROM dailybuisness WHERE (date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
+                  AND date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
                 $result5 = mysqli_query($conn , $sql5);
                 $totalProfit5 = 0.00;
 
@@ -746,7 +749,8 @@ $selectedDate = $_POST['EntereDate'];
             </div>
             
             <?php
-              $sql6 = "SELECT * FROM dailybuisness WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
+              $sql6 = "SELECT * FROM dailybuisness WHERE (date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
+                  AND date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
               $result6 = mysqli_query($conn , $sql6);
             ?>
             <div class="section-body">
@@ -811,7 +815,8 @@ $selectedDate = $_POST['EntereDate'];
           <h6>2.) Monthly Other Costs</h6>
 
           <?php
-                $sql7 = "SELECT * FROM dailyothercost WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
+                $sql7 = "SELECT * FROM dailyothercost WHERE (date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
+                  AND date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
                 $result7 = mysqli_query($conn , $sql7);
                 $totalOtherCost = 0 ; 
 
@@ -850,7 +855,8 @@ $selectedDate = $_POST['EntereDate'];
             </div>
 
             <?php
-              $sql8 = "SELECT * FROM dailyothercost WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
+              $sql8 = "SELECT * FROM dailyothercost WHERE (date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
+                  AND date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
               $result8 = mysqli_query($conn , $sql8);
             ?>
             <div class="section-body">
@@ -908,7 +914,8 @@ $selectedDate = $_POST['EntereDate'];
           <h6>3.) Monthly Board Camping Costs</h6>
 
           <?php
-                $sql9 = "SELECT * FROM bordcampingcost WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
+                $sql9 = "SELECT * FROM bordcampingcost WHERE (date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
+                  AND date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
                 $result9 = mysqli_query($conn , $sql9);
                 $totalDailyBoardCampingCost = 0 ; 
 
@@ -945,9 +952,10 @@ $selectedDate = $_POST['EntereDate'];
                 </div>
               </div>
             </div>
-
+<!--  -->
             <?php
-              $sql10 = "SELECT * FROM bordcampingcost WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
+              $sql10 = "SELECT * FROM bordcampingcost WHERE (date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
+                  AND date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
               $result10 = mysqli_query($conn , $sql10);
             ?>
             <div class="section-body">
@@ -1003,7 +1011,8 @@ $selectedDate = $_POST['EntereDate'];
             <h6>4.) Monthly Total Commitions and Expencess Costs</h6>
 
             <?php
-                $sql11 = "SELECT * FROM complete_task WHERE  (compteled_date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND compteled_date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
+                $sql11 = "SELECT * FROM complete_task WHERE  (compteled_date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
+                  AND compteled_date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
                 $result11 = mysqli_query($conn , $sql11);
                 $totalDailyCommitions = 0 ; 
 
@@ -1011,7 +1020,8 @@ $selectedDate = $_POST['EntereDate'];
                     $totalDailyCommitions = $totalDailyCommitions + (float)$rows11['commition'];
                 } 
 
-                $sql12 = "SELECT * FROM expencess WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25')) and approved_exp = 1";
+                $sql12 = "SELECT * FROM expencess WHERE (date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
+                  AND date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
                 $result12 = mysqli_query($conn , $sql12);
                 $dailyTotalExpencess = 0 ; 
 
@@ -1020,7 +1030,8 @@ $selectedDate = $_POST['EntereDate'];
                 } 
 
                 // task creator commition
-                $sql_taskCreator = "SELECT * FROM complete_task WHERE (compteled_date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND compteled_date < DATE_FORMAT(CURDATE(), '%Y-%m-25')) ";
+                $sql_taskCreator = "SELECT * FROM complete_task WHERE (compteled_date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
+                  AND compteled_date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d')) ";
                 $resultTaskCreator = mysqli_query($conn , $sql_taskCreator);
                 $taskCreatorNumRows = mysqli_num_rows($resultTaskCreator);
 
