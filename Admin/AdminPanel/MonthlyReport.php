@@ -73,7 +73,15 @@ $allexpencess = $result_expencess->num_rows ;
   <link rel="stylesheet" href="assets/css/components.css">
   <!-- Custom style CSS -->
   <link rel="stylesheet" href="assets/css/custom.css">
-  <
+  
+
+  <style>
+    #section-to-pdf {
+       /* Black border with 5px width */
+      padding: 10px; /* Padding to give some space between content and border */
+ /* Margin to add space around the section */
+    }
+  </style>
 </head>
 
 <body>
@@ -120,6 +128,7 @@ $allexpencess = $result_expencess->num_rows ;
               <a href="../DbActions/logOut/logout.php" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i>
                 Logout
               </a>
+              <a class="dropdown-item has-icon" onclick="downloadPDF()" style="cursor: pointer;" >Download PDF</a>
             </div>
 
 
@@ -392,7 +401,7 @@ $allexpencess = $result_expencess->num_rows ;
              
               >
                 <li><a class="nav-link" href="./DailyReport.php" style="cursor: pointer;">Daily Report</a></li>
-                <li><a class="nav-link" href="./MonthlyReport.php" style="cursor: pointer;">Monthly Report</a></li>
+                <li><a class="nav-link" href="./DailyReport.php" style="cursor: pointer;">Monthly Report</a></li>
               </ul>
             </li>
 
@@ -482,106 +491,219 @@ $allexpencess = $result_expencess->num_rows ;
       </div>
       <!-- Main Content -->
       <div class="main-content">
-        <section class="section">
+        <section class="section" id="section-to-pdf">
 
-        <!-- only admin rows -->
-         <h4
-         <?php
-          if( $_SESSION['AdminAccess'] == 1) {
-            echo 'style="display:block;"';
-          }else{
-            echo 'style="display:none;"';
-          }
-          ?>
-         >Daily Buisness</h4>
 
-         <div class="row" <?php if($_SESSION['AdminAccess'] != 1) { echo 'style="display:none;"'; } ?>>
+ <!-- only admin rows -->
+ <h5
             <?php
-                $sql3 = "SELECT * FROM dailybuisness WHERE WEEK(date) = WEEK(CURDATE()) AND YEAR(date) = YEAR(CURDATE())";
-                $result3 = mysqli_query($conn , $sql3);
-                $totalProfit2 = 0.00;
+            if( $_SESSION['AdminAccess'] == 1) {
+                echo 'style="display:block;"';
+            }else{
+                echo 'style="display:none;"';
+            }
+            ?>
+            >Today Is <?php echo date('Y-m-d'); ?> and Welcome to Daily Reports</h5>
 
-                while($rows3 = $result3-> fetch_assoc()){
-                    $rowProfit2  = $rows3['sellingPrice'] - $rows3['buyingPrice'] ; 
-                    $totalProfit2 = $totalProfit2 + $rowProfit2 ;
-                } 
+            <br>
+
+            <h6>1.) Monthly Task Report</h6>
+            
+            <?php
+                
+                $allTaskDaily = 0;
+                $allDailyPending = 0;
+                $allDailyCompleted = 0;
+            
+                $allDailyTask = "SELECT * FROM task WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25'));";
+                $resultDailyAllTask = mysqli_query($conn , $allDailyTask);
+                
+                while($rowsAllDaily = $resultDailyAllTask-> fetch_assoc()){
+                    if((int)$rowsAllDaily['completion'] == 2){
+                       $allDailyCompleted = $allDailyCompleted +1 ; 
+                    }else if((int)$rowsAllDaily['completion'] == 0) {
+                        $allDailyPending = $allDailyPending +1 ;
+                    }
+                    
+                    $allTaskDaily = $allTaskDaily + 1;
+                }
+                
+                
+            
             ?>
 
-            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-              <div class="card">
-                <div class="card-statistic-4">
-                  <div class="align-items-center justify-content-between">
-                    <div class="row ">
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
-                        <div class="card-content">
-                          <h5 class="font-15">Current Week</h5>
-                          <h2 class="mb-3 font-18"><?php 
-                                if($totalProfit2 > 0){
-                                    echo '<span style= "color:green;">Rs.'.$totalProfit2.'.00</span>';
-                                } else {
-                                    echo '<span style= "color:red;">Rs.'.$totalProfit2.'.00</span>';
-                                }
-                          ?></h2>
-                          <p class="mb-0"><span class="col-orange">
-                          
-                          </span>Total Current Week Profit</p>
-                        </div>
-                      </div>
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
-                        <div class="banner-img">
-                          <img src="assets/img/banner/2.png" alt="">
+            <div class="row">
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <div class="card">
+                    <div class="card-statistic-4">
+                      <div class="align-items-center justify-content-between">
+                        <div class="row ">
+                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                            <div class="card-content">
+                              <h5 class="font-15"> All Created Tasks</h5>
+                              <h2 class="mb-3 font-18"><?php echo $allTaskDaily; ?></h2>
+                              <p class="mb-0"><span class="col-orange">
+                              
+                              </span> From Task Table</p>
+                            </div>
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                            <div class="banner-img">
+                              <img src="assets/img/banner/2.png" alt="">
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            <?php
-                $sql4 = "SELECT * FROM dailybuisness WHERE YEAR(date) = YEAR(CURDATE())";
-                $result4 = mysqli_query($conn , $sql4);
-                $totalProfit3 = 0.00;
-
-                while($rows4 = $result4-> fetch_assoc()){
-                    $rowProfit3  = $rows4['sellingPrice'] - $rows4['buyingPrice'] ; 
-                    $totalProfit3 = $totalProfit3 + $rowProfit3 ;
-                } 
-            ?>
-
-            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-              <div class="card">
-                <div class="card-statistic-4">
-                  <div class="align-items-center justify-content-between">
-                    <div class="row ">
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
-                        <div class="card-content">
-                          <h5 class="font-15">Current Year</h5>
-                          <h2 class="mb-3 font-18"><?php 
-                                if($totalProfit3 > 0){
-                                    echo '<span style= "color:green;">Rs.'.$totalProfit3.'.00</span>';
-                                } else {
-                                    echo '<span style= "color:red;">Rs.'.$totalProfit3.'.00</span>';
-                                }
-                          ?></h2>
-                          <p class="mb-0"><span class="col-orange">
-                          
-                          </span>Total Current Year Profit</p>
-                        </div>
-                      </div>
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
-                        <div class="banner-img">
-                          <img src="assets/img/banner/2.png" alt="">
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <div class="card">
+                    <div class="card-statistic-4">
+                      <div class="align-items-center justify-content-between">
+                        <div class="row ">
+                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                            <div class="card-content">
+                              <h5 class="font-15"> All Completed Tasks</h5>
+                              <h2 class="mb-3 font-18"><?php echo $allDailyCompleted; ?></h2>
+                              <p class="mb-0"><span class="col-orange">
+                              
+                              </span> From Task Table</p>
+                            </div>
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                            <div class="banner-img">
+                              <img src="assets/img/banner/2.png" alt="">
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <div class="card">
+                    <div class="card-statistic-4">
+                      <div class="align-items-center justify-content-between">
+                        <div class="row ">
+                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                            <div class="card-content">
+                              <h5 class="font-15"> All Ongoing Tasks</h5>
+                              <h2 class="mb-3 font-18"><?php echo $allDailyPending; ?></h2>
+                              <p class="mb-0"><span class="col-orange">
+                              
+                              </span> From Task Table</p>
+                            </div>
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                            <div class="banner-img">
+                              <img src="assets/img/banner/2.png" alt="">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div>
 
+            <?php $currentDate =  date('Y-m-d'); ?>
+
             <?php
-                $sql5 = "SELECT * FROM dailybuisness WHERE date = CURDATE()";
+              $sql = "
+              SELECT 
+                  task.*, 
+                  users.* 
+              FROM 
+                  task 
+              LEFT JOIN 
+                  users 
+              ON 
+                  task.select_user = users.UserId 
+              WHERE
+                  (task.date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND task.date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
+              $result = mysqli_query($conn, $sql);
+            ?>
+
+        <div class="section-body">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Monthly Task Table</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-striped table-hover" id="tableExport" style="width:100%;">
+                        <thead>
+                          <tr>
+                          
+                            <th>Date</th>
+                            
+                            <th>Customer Name</th>
+                            <th>Pnone</th>
+                            <th>Bank/Shop</th>
+                            <th>City</th>
+                            <th>Price</th>
+                            <th>Completed By</th>
+                            <th>Completion</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          
+
+                        <?php while($rows = $result-> fetch_assoc()){ ?>
+                          <tr>
+                            
+                            <td><?php echo $rows['date']; ?></td>
+                            
+                            <td><?php echo $rows['customerName']; ?></td>
+                            <td><?php echo $rows['Phone']; ?></td>
+                            <td><?php echo $rows['bank_shop']; ?></td>
+                            <td><?php echo $rows['city']; ?></td>
+                            <td><?php echo $rows['enterPrice']; ?></td>
+                            <td><?php echo $rows['UserName']; ?></td>
+                            <td>
+                                <?php
+                                    if($rows['completion'] == 2) {
+                                        echo "<p style='color:green;font-weight:bold;'>Completed</p>";
+                                    }else if($rows['completion'] == 0){
+                                        echo "<p style='color:#ffa800;font-weight:bold;'>OnGoing</p>";
+                                    }else if($rows['completion'] == 1){
+                                        echo "<p style='color:0019ff;font-weight:bold;'>Pending</p>";
+                                    }else if($rows['completion'] == 3){
+                                        echo "<p style='color:red;font-weight:bold;'>Canceled</p>";
+                                    }
+                                ?>
+                            </td>
+                            
+                            
+
+                            
+                           
+                          </tr>
+                          <?php 
+                            $n++;
+                        } ?>
+                          
+                        
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br>
+
+            <h6>2.) Monthly Buisness Report</h6>
+
+            <?php
+                $sql5 = "SELECT * FROM dailybuisness WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
                 $result5 = mysqli_query($conn , $sql5);
                 $totalProfit5 = 0.00;
 
@@ -608,7 +730,7 @@ $allexpencess = $result_expencess->num_rows ;
                           ?></h2>
                           <p class="mb-0"><span class="col-orange">
                           
-                          </span>Total Current Day Profit</p>
+                          </span>Total Current Month Profit</p>
                         </div>
                       </div>
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
@@ -621,316 +743,54 @@ $allexpencess = $result_expencess->num_rows ;
                 </div>
               </div>
             </div>
-          </div>
-        
-
-     
-
-     <h4 <?php if($_SESSION['AdminAccess'] != 1) { echo 'style="display:none;"'; } ?> >Users Summery</h4>
-
-        <div class="row"
-        <?php
-                if($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
-                  echo 'style="display:none;"';
-                }
-              ?>
-        >
-            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-              <div class="card">
-                <div class="card-statistic-4">
-                  <div class="align-items-center justify-content-between">
-                    <div class="row ">
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
-                        <div class="card-content">
-                          <h5 class="font-15">All Users</h5>
-                          <h2 class="mb-3 font-18"><?php echo $AllUsers; ?></h2>
-                          <p class="mb-0"><span class="col-green">100%</span> From Total Users</p>
-                        </div>
-                      </div>
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
-                        <div class="banner-img">
-                          <img src="assets/img/banner/1.png" alt="">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-              <div class="card">
-                <div class="card-statistic-4">
-                  <div class="align-items-center justify-content-between">
-                    <div class="row ">
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
-                        <div class="card-content">
-                          <h5 class="font-15"> Admin Users</h5>
-                          <h2 class="mb-3 font-18"><?php echo $adminUsers; ?></h2>
-                          <p class="mb-0"><span class="col-orange">
-                          <?php
-                            $adminP = $adminUsers/$AllUsers*100;
-                            echo $adminP.'%';
-                            // echo $adminUsers;
-                            // echo $AllUsers;
-                          ?>
-                          </span> From Total Users</p>
-                        </div>
-                      </div>
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
-                        <div class="banner-img">
-                          <img src="assets/img/banner/2.png" alt="">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-              <div class="card">
-                <div class="card-statistic-4">
-                  <div class="align-items-center justify-content-between">
-                    <div class="row ">
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
-                        <div class="card-content">
-                          <h5 class="font-15">Non Admin Users</h5>
-                          <h2 class="mb-3 font-18"><?php echo $nonadminUsers;   ?></h2>
-                          <p class="mb-0"><span class="col-green">
-                          <?php
-                            $normalP = $nonadminUsers/$AllUsers*100;
-                            echo $normalP.'%';
-                          ?>
-                          </span>
-                          From Total Users</p>
-                        </div>
-                      </div>
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
-                        <div class="banner-img">
-                          <img src="assets/img/banner/2.png" alt="">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-              <div class="card">
-                <div class="card-statistic-4">
-                  <div class="align-items-center justify-content-between">
-                    <div class="row ">
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
-                        <div class="card-content">
-                          <h5 class="font-15">All Tasks</h5>
-                          <h2 class="mb-3 font-18"><?php echo $AllTasks; ?></h2>
-                          <p class="mb-0"><span class="col-green">100%</span> Total Tasks</p>
-                        </div>
-                      </div>
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
-                        <div class="banner-img">
-                          <img src="assets/img/banner/1.png" alt="">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          
-          <div class="row "
-            <?php
-                  if($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
-                    echo 'style="display:none;"';
-                  }
-                ?>
-            >
-
-              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-6">
-                <div class="card">
-                  <div class="card-header">
-                    <h4>System User's Chart</h4>
-                  </div>
-                  <div class="card-body">
-                    <div class="recent-report__chart">
-                      <div id="gaugeChart"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             
-
-            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-              <div class="card">
-                <div class="card-statistic-4">
-                  <div class="align-items-center justify-content-between">
-                    <div class="row ">
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
-                        <div class="card-content">
-                          <h5 class="font-15"> All Completed Task</h5>
-                          <h2 class="mb-3 font-18"><?php echo $allCompleted; ?></h2>
-                          <p class="mb-0"><span class="col-orange">
-                          <?php
-                            $adminP = $allCompleted/$AllTasks*100;
-                            echo (int)$adminP.'%';
-                            // echo $adminUsers;
-                            // echo $AllUsers;
-                          ?>
-                          </span> From Total Users</p>
-                        </div>
-                      </div>
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
-                        <div class="banner-img">
-                          <img src="assets/img/banner/2.png" alt="">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-              <div class="card">
-                <div class="card-statistic-4">
-                  <div class="align-items-center justify-content-between">
-                    <div class="row ">
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
-                        <div class="card-content">
-                          <h5 class="font-15">All On Going Task</h5>
-                          <h2 class="mb-3 font-18"><?php echo $allOngoing;   ?></h2>
-                          <p class="mb-0"><span class="col-green">
-                          <?php
-                            $normalP = $allOngoing/$AllTasks*100;
-                            echo (int)$normalP.'%';
-                          ?>
-                          </span>
-                          From Total Users</p>
-                        </div>
-                      </div>
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
-                        <div class="banner-img">
-                          <img src="assets/img/banner/2.png" alt="">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            
-
-          </div>
-
-          <div class="row"
             <?php
-            if( $_SESSION['AdminAccess'] == 1) {
-              echo 'style="display:none;"';
-            }
+              $sql6 = "SELECT * FROM dailybuisness WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
+              $result6 = mysqli_query($conn , $sql6);
             ?>
-          >
-
-              <div class="col-12"
-                  <?php
-                    if( $_SESSION['AdminAccess'] == 1) {
-                      echo 'style="display:none;"';
-                    }
-                    ?>
-              >
+            <div class="section-body">
+            <div class="row">
+              <div class="col-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4>MY TASKS</h4>
+                    <h4>Monthly Buisness Table</h4>
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
-                      <table class="table table-striped" id="table-1">
+                      <table class="table table-striped table-hover" id="tableExport2" style="width:100%;">
                         <thead>
-                        <tr>
-                            <th>Inquery Number</th>
+                          <tr>
+                            <th>Buisness ID</th>
                             <th>Date</th>
                             <th>Time</th>
-                            <th>Customer Name</th>
-                            <th>Pnone</th>
-                            <th>Bank/Shop</th>
-                            <th>City</th>
-                            <th>Price</th>
-                            <th>Location</th>
-                            <th>Completion</th>
-                            <th>Complete Now</th>
-     
+                            <th>Weight</th>
+                            <th>Buying Price</th>
+                            <th>Selling Price</th>
+                            <th>Daily Profit</th>
+                            
                           </tr>
                         </thead>
                         <tbody>
 
-                        <?php while($rows = $result-> fetch_assoc()){ ?>
+                        <?php while($rows6 = $result6-> fetch_assoc()){ ?>
                           <tr>
-                           
-                            <td><?php echo $rows['inqueryNumber']; ?></td>
-                            <td><?php echo $rows['date']; ?></td>
-                            <td><?php echo $rows['time']; ?></td>
-                            <td><?php echo $rows['customerName']; ?></td>
-                            <td><?php echo $rows['Phone']; ?></td>
-                            <td><?php echo $rows['bank_shop']; ?></td>
-                            <td><?php echo $rows['city']; ?></td>
-                            <td><?php echo $rows['enterPrice']; ?></td>
-                            <td><a href="<?php echo $rows['location']; ?>">Map</a></td>
-                            <td>
-                                <?php
-                                    if($rows['completion'] == 2) {
-                                        echo "<p style='color:green;font-weight:bold;'>Completed</p>";
-                                    }else if($rows['completion'] == 0){
-                                        echo "<p style='color:#ffa800;font-weight:bold;'>OnGoing</p>";
-                                    }else if($rows['completion'] == 1){
-                                        echo "<p style='color:0019ff;font-weight:bold;'>Pending</p>";
-                                    }else if($rows['completion'] == 3){
-                                        echo "<p style='color:red;font-weight:bold;'>Canceled</p>";
-                                    }
-                                ?>
-                            </td>
+                            <td><?php echo $rows6['bId']; ?></td>
+                            <td><?php echo $rows6['date']; ?></td>
+                            <td><?php echo $rows6['time']; ?></td>
                             
-                            <td 
-                            <?php
-                              if($rows['completion'] == 0){
-                                echo "style='display:block;'";
-                              }else{
-                                echo "style='display:none;'";
-                              }
-                            ?>
-                            >
-                                <form action="./CompleteTask.php" method="post">
-                                    <input type="hidden" name="task_id" value="<?php echo $rows['task_id']; ?>">
-                                    <input type="submit" name="complete" value="Complete Now" class="btn btn-success">
-                                </form>
-                            </td>
+                            <td><?php echo $rows6['weight']; ?></td>
+                            <td><?php echo "Rs.".$rows6['buyingPrice'].".00"; ?></td>
+                            <td><?php echo "Rs.".$rows6['sellingPrice'].".00"; ?></td>
+                            <td><?php 
+                                $profit6 = $rows6['sellingPrice'] - $rows6['buyingPrice'] ;
 
-                            <td
-                            <?php
-
-                              if($rows['completion'] == 2){
-                                echo "style='display:block;'";
-                              }else{
-                                echo "style='display:none;'";
-                              }
-                            ?>  
-                        
-                            >
-                                <form action="./MoreDetails.php" method="post">
-                                    <input type="hidden" name="task_id" value="<?php echo $rows['task_id']; ?>">
-                                    <input type="submit" name="complete" value="Update Submitions" class="btn btn-success">
-                                </form>
-                            </td>
+                                if($profit6 > 0){
+                                    echo '<span style= "color:green;">Rs.'.$profit6.'.00</span>';
+                                } else {
+                                    echo '<span style= "color:red;">Rs.'.$profit6.'.00</span>';
+                                }
+                            ?></td>
                             
-                            
-                            
-                                    
-                           
-                            
-                           
                           </tr>
                           <?php 
                             $n++;
@@ -943,34 +803,38 @@ $allexpencess = $result_expencess->num_rows ;
                 </div>
               </div>
             </div>
+          </div>
 
-            <!-- =========================== -->
+          <br>
 
-            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12"
-                <?php
-              if( $_SESSION['AdminAccess'] == 1) {
-                echo 'style="display:none;"';
-              }
-              ?>
-            >
+          <h6>2.) Monthly Other Costs</h6>
+
+          <?php
+                $sql7 = "SELECT * FROM dailyothercost WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
+                $result7 = mysqli_query($conn , $sql7);
+                $totalOtherCost = 0 ; 
+
+                while($rows7 = $result7-> fetch_assoc()){
+                    $totalOtherCost = $totalOtherCost + (float)$rows7['amount'];
+                } 
+            ?>
+
+           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
               <div class="card">
                 <div class="card-statistic-4">
                   <div class="align-items-center justify-content-between">
                     <div class="row ">
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                         <div class="card-content">
-                          <h5 class="font-15">MY TOTAL COMMITION AMOUNT</h5>
-                          <h2 class="mb-3 font-18"></h2>
-                          <p class="mb-0"><span class="col-green">
-                            <?php
-                             $sqlis_txs = "SELECT * FROM commition_total WHERE completedBy = '$userNames'";
-                             $sqlix_results = mysqli_query($conn , $sqlis_txs);
-                             $mysqli_rowss = $sqlix_results->fetch_assoc();
-
-                             echo 'Rs . '.$mysqli_rowss['Commition'].'.00';
-                            ?>
-                          </span>
-                           </p>
+                          <h5 class="font-15">Current Month</h5>
+                          <h2 class="mb-3 font-18"><?php 
+                                
+                                    echo '<span style= "color:red;">Rs.'.$totalOtherCost.'.00</span>';
+                               
+                          ?></h2>
+                          <p class="mb-0"><span class="col-orange">
+                          
+                          </span>Total Current Month Other Cost</p>
                         </div>
                       </div>
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
@@ -983,50 +847,47 @@ $allexpencess = $result_expencess->num_rows ;
                 </div>
               </div>
             </div>
-             <!-- ========================= -->
-             <?php
-                             $sqlis_txs11 = "SELECT * FROM complete_task  WHERE completedBy = '$userNames'";
-                             $sqlix_results11 = mysqli_query($conn , $sqlis_txs11);
-                             
-                            ?>
-              <!-- =========================== -->
 
-             <div class="row"
-             <?php
-          if( $_SESSION['AdminAccess'] == 1) {
-            echo 'style="display:none;"';
-          }
-          ?>
-             >
+            <?php
+              $sql8 = "SELECT * FROM dailyothercost WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
+              $result8 = mysqli_query($conn , $sql8);
+            ?>
+            <div class="section-body">
+            <div class="row">
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4>MY Expencess</h4>
+                    <h4>Monthly Other Cost Table</h4>
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
-                      <table class="table table-striped" id="table-1">
+                      <table class="table table-striped table-hover" id="tableExport2" style="width:100%;">
                         <thead>
-                        <tr>
-                            <th>Task ID</th>
-                            <th>Completed Date</th>
-                            <th>Completed Time</th>
-                            <th>Commition</th>
-     
+                          <tr>
+                            <th>Cost ID</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Cost Type</th>
+                            <th>Cost Amount</th>
+                            
+                            
                           </tr>
                         </thead>
                         <tbody>
 
-                        <?php while($rows21 = $sqlix_results11-> fetch_assoc()){ ?>
+                        <?php while($row8 = $result8-> fetch_assoc()){ ?>
                           <tr>
-                           
-                            <td><?php echo $rows21['taskID']; ?></td>
-                            <td><?php echo $rows21['compteled_date']; ?></td>
-                            <td><?php echo $rows21['completedTime']; ?></td>
-                            <td><?php echo 'Rs '.$rows21['commition'].'.00'; ?></td>
+                            <td><?php echo $row8['costId']; ?></td>
+                            <td><?php echo $row8['date']; ?></td>
+                            <td><?php echo $row8['time']; ?></td>
+                            <td><?php echo $row8['costType']; ?></td>
                             
+                            <td><?php 
+                                
+                                    echo '<span style= "color:red;">Rs.'.$row8['amount'].'.00</span>';
+                              
+                            ?></td>
                             
-
                           </tr>
                           <?php 
                             $n++;
@@ -1039,103 +900,410 @@ $allexpencess = $result_expencess->num_rows ;
                 </div>
               </div>
             </div>
+          </div>
+
+          <hr style="width: 3px; background-color: #7CFC00;">
+
+          <h6>3.) Monthly Board Camping Costs</h6>
+
+          <?php
+                $sql9 = "SELECT * FROM bordcampingcost WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
+                $result9 = mysqli_query($conn , $sql9);
+                $totalDailyBoardCampingCost = 0 ; 
+
+                while($rows9 = $result9-> fetch_assoc()){
+                    $totalDailyBoardCampingCost = $totalDailyBoardCampingCost + (float)$rows9['amount'];
+                } 
+            ?>
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="card">
+                <div class="card-statistic-4">
+                  <div class="align-items-center justify-content-between">
+                    <div class="row ">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                        <div class="card-content">
+                          <h5 class="font-15">Current Month</h5>
+                          <h2 class="mb-3 font-18"><?php 
+                                
+                                    echo '<span style= "color:blue;">Rs.'.$totalDailyBoardCampingCost.'.00</span>';
+                               
+                          ?></h2>
+                          <p class="mb-0"><span class="col-orange">
+                          
+                          </span>Total Current Month Board Camping Cost</p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                        <div class="banner-img">
+                          <img src="assets/img/banner/2.png" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <?php
+              $sql10 = "SELECT * FROM bordcampingcost WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
+              $result10 = mysqli_query($conn , $sql10);
+            ?>
+            <div class="section-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h4>Monthly Board Camping Cost Table</h4>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="tableExport2" style="width:100%;">
+                          <thead>
+                            <tr>
+                              <th>Cost ID</th>
+                              <th>Date</th>
+                              <th>Time</th>
+                              <th>Cost Type</th>
+                              <th>Cost Amount</th>
+                              
+                              
+                            </tr>
+                          </thead>
+                          <tbody>
+
+                          <?php while($row10 = $result10-> fetch_assoc()){ ?>
+                            <tr>
+                              <td><?php echo $row10['costId']; ?></td>
+                              <td><?php echo $row10['date']; ?></td>
+                              <td><?php echo $row10['time']; ?></td>
+                              <td><?php echo $row10['costType']; ?></td>
+                              
+                              <td><?php 
+                                  
+                                      echo '<span style= "color:blue;">Rs.'.$row10['amount'].'.00</span>';
+                                
+                              ?></td>
+                              
+                            </tr>
+                            <?php 
+                              $n++;
+                          } ?>
+                            
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h6>4.) Monthly Total Commitions and Expencess Costs</h6>
+
+            <?php
+                $sql11 = "SELECT * FROM complete_task WHERE  (compteled_date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND compteled_date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
+                $result11 = mysqli_query($conn , $sql11);
+                $totalDailyCommitions = 0 ; 
+
+                while($rows11 = $result11-> fetch_assoc()){
+                    $totalDailyCommitions = $totalDailyCommitions + (float)$rows11['commition'];
+                } 
+
+                $sql12 = "SELECT * FROM expencess WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25')) and approved_exp = 1";
+                $result12 = mysqli_query($conn , $sql12);
+                $dailyTotalExpencess = 0 ; 
+
+                while($rows12 = $result12-> fetch_assoc()){
+                    $dailyTotalExpencess = $dailyTotalExpencess + (float)$rows12['amount'];
+                } 
+
+                // task creator commition
+                $sql_taskCreator = "SELECT * FROM complete_task WHERE (compteled_date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND compteled_date < DATE_FORMAT(CURDATE(), '%Y-%m-25')) ";
+                $resultTaskCreator = mysqli_query($conn , $sql_taskCreator);
+                $taskCreatorNumRows = mysqli_num_rows($resultTaskCreator);
+
+                //taskCreators
+                $totalTaskCreatorRows = "SELECT * FROM taskcreatorcommition";
+                $resultTotalTaskCreators = mysqli_query($conn , $totalTaskCreatorRows);
+                $TotalTaskCreators = mysqli_num_rows($resultTotalTaskCreators);
+            ?>
+
+            <div class="row">
+
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="card">
+                <div class="card-statistic-4">
+                  <div class="align-items-center justify-content-between">
+                    <div class="row ">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                        <div class="card-content">
+                          <h5 class="font-15">Current Month</h5>
+                          <h2 class="mb-3 font-18"><?php 
+                                
+                                    echo '<span style= "color:blue;">Rs.'.$totalDailyCommitions.'.00</span>';
+                               
+                          ?></h2>
+                          <p class="mb-0"><span class="col-orange">
+                          
+                          </span>Total Commitions</p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                        <div class="banner-img">
+                          <img src="assets/img/banner/2.png" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="card">
+                <div class="card-statistic-4">
+                  <div class="align-items-center justify-content-between">
+                    <div class="row ">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                        <div class="card-content">
+                          <h5 class="font-15"><?php echo $TotalTaskCreators."-Task Creators"?></h5>
+                          <h2 class="mb-3 font-18"><?php 
+                                    $AllDayTaskCreatorAllCommition = $taskCreatorNumRows*$TotalTaskCreators*200;
+                                    echo '<span style= "color:blue;">Rs.'.$AllDayTaskCreatorAllCommition.'.00</span>';
+                               
+                          ?></h2>
+                          <p class="mb-0"><span class="col-orange">
+                          
+                          </span>Total Task Creatoe Commitiom</p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                        <div class="banner-img">
+                          <img src="assets/img/banner/2.png" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="card">
+                <div class="card-statistic-4">
+                  <div class="align-items-center justify-content-between">
+                    <div class="row ">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                        <div class="card-content">
+                          <h5 class="font-15">Current Month</h5>
+                          <h2 class="mb-3 font-18"><?php 
+                                
+                                    echo '<span style= "color:purple;">Rs.'.$dailyTotalExpencess.'.00</span>';
+                               
+                          ?></h2>
+                          <p class="mb-0"><span class="col-orange">
+                          
+                          </span>Total Expencess</p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                        <div class="banner-img">
+                          <img src="assets/img/banner/2.png" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            </div>
+
+            <h6>5.) Current Full Summery</h6>
+
+            <div class="row">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="card">
+                  <div class="card-statistic-4">
+                    <div class="align-items-center justify-content-between">
+                      <div class="row ">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                          <div class="card-content">
+                            <h5 class="font-15">Current Month</h5>
+                            <h2 class="mb-3 font-18"><?php 
+
+                                    $allTotalExpencess =  $totalDailyCommitions + $dailyTotalExpencess + $AllDayTaskCreatorAllCommition;
+                                  
+                                      echo '<span style= "color:blue;">Rs.'.$allTotalExpencess .'.00</span>';
+                                
+                            ?></h2>
+                            <p class="mb-0"><span class="col-orange">
+                            
+                            </span>Total Expencess</p>
+                          </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                          <div class="banner-img">
+                            <img src="assets/img/banner/2.png" alt="">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="card">
+                  <div class="card-statistic-4">
+                    <div class="align-items-center justify-content-between">
+                      <div class="row ">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                          <div class="card-content">
+                            <h5 class="font-15">Current Month</h5>
+                            <h2 class="mb-3 font-18"><?php 
+                                  
+                                  if($totalProfit5 > 0){
+                                    echo '<span style= "color:green;">Rs.'.$totalProfit5.'.00</span>';
+                                  } else {
+                                      echo '<span style= "color:red;">Rs.'.$totalProfit5.'.00</span>';
+                                  }
+                                
+                            ?></h2>
+                            <p class="mb-0"><span class="col-orange">
+                            
+                            </span>All Month Buisness Profit</p>
+                          </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                          <div class="banner-img">
+                            <img src="assets/img/banner/2.png" alt="">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="card">
+                  <div class="card-statistic-4">
+                    <div class="align-items-center justify-content-between">
+                      <div class="row ">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                          <div class="card-content">
+                            <h5 class="font-15">Current Month</h5>
+                            <h2 class="mb-3 font-18"><?php 
+
+                                  $finalProfit = $totalProfit5 - $allTotalExpencess;
+                                  
+                                  if($finalProfit > 0){
+                                    echo '<span style= "color:green;">Rs.'.$finalProfit.'.00</span>';
+                                  } else {
+                                      echo '<span style= "color:red;">Rs.'.$finalProfit.'.00</span>';
+                                  }
+                                
+                            ?></h2>
+                            <p class="mb-0"><span class="col-orange">
+                            
+                            </span>All Month Final Profit</p>
+                          </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                          <div class="banner-img">
+                            <img src="assets/img/banner/2.png" alt="">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <br>
+
+            <h6>5.) Other Options </h6> <br>
+
+                  <div class="card w-50">
+                  <div class="card-header">
+                    <h4>Get Monthy Summary By Month</h4>
+                  </div>
+                  <div class="card-body">
+                  <form action="./DailySummaryByDay.php" method="post" id="form23">
+                    <div class="section-title">Enter The Month</div>
+                    <div class="form-group">
+                      <div class="input-group mb-3">
+                          <input type="month" class="form-control" name="EntereDate" >
+                          <div class="input-group-append">
+                            <button class="btn btn-primary" type="button"  onclick="SubmitForm2()" >Genarate</button>
+                          </div>
+                      </div>
+                    </div>
+                  </form>
+                  </div>
+
+                  <script>
+                      function SubmitForm2() {
+                          // Get the form element
+                          const form = document.getElementById('form23');
+
+                          // Validate the date input (optional)
+                          const dateInput = form.querySelector('input[name="EntereDate"]');
+                          if (!dateInput.value) {
+                              alert("Please enter a date.");
+                              return; // Prevent form submission if no date is entered
+                          }
+
+                          // Submit the form
+                          form.submit();
+                      }
+                      </script>
+
+                 
 
 
-             <!-- ======================= -->
+
+         
+
 
             
-            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12"
-            <?php
-          if( $_SESSION['AdminAccess'] == 1) {
-            echo 'style="display:none;"';
-          }
-          ?>
-            >
-              <div class="card">
-                <div class="card-statistic-4">
-                  <div class="align-items-center justify-content-between">
-                    <div class="row ">
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
-                        <div class="card-content">
-                          <h5 class="font-15">MY TOTAL EXPENCESS AMOUNT</h5>
-                          <h2 class="mb-3 font-18"></h2>
-                          <p class="mb-0"><span class="col-green">
-                            <?php
-                             $sqlis_tx = "SELECT amount FROM total_expencess WHERE userID = '$userId'";
-                             $sqlix_result = mysqli_query($conn , $sqlis_tx);
-                             $mysqli_row = $sqlix_result->fetch_assoc();
-
-                             echo 'Rs '.$mysqli_row['amount'].'.00';
-                            ?>
-                          </span>
-                           </p>
-                        </div>
-                      </div>
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
-                        <div class="banner-img">
-                          <img src="assets/img/banner/2.png" alt="">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-            <div class="row"
-            <?php
-          if( $_SESSION['AdminAccess'] == 1) {
-            echo 'style="display:none;"';
-          }
-          ?>
-            >
-              <div class="col-12">
-                <div class="card">
-                  <div class="card-header">
-                    <h4>MY Expencess</h4>
-                  </div>
-                  <div class="card-body">
-                    <div class="table-responsive">
-                      <table class="table table-striped" id="table-1">
-                        <thead>
-                        <tr>
-                            <th>Expencess</th>
-                            <th>Amount</th>
-                            <th>Date</th>
-                            <th>Recipt Image</th>
-     
-                          </tr>
-                        </thead>
-                        <tbody>
-
-                        <?php while($rows2 = $result_expencess-> fetch_assoc()){ ?>
-                          <tr>
-                           
-                            <td><?php echo $rows2['expencess_type']; ?></td>
-                            <td><?php echo 'Rs '.$rows2['amount'].'.00'; ?></td>
-                            <td><?php echo $rows2['date']; ?></td>
-                            <td>
-                              <img src="<?php echo '../'.$rows2['reciptImg']; ?>" alt="" width="40px" height="30px">
-                            </td>
-
-                          </tr>
-                          <?php 
-                            $n++;
-                        } ?>
-                          
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
 
           
         
           
         </section>
+
+        <script>
+    function downloadPDF() {
+      var element = document.getElementById('section-to-pdf');
+      
+      // Set up options for jsPDF
+      var options = {
+        margin: [10, 10, 10, 10], // Adjust margins (top, left, bottom, right)
+        filename: '<?php echo "DailyReport".date('Y/m/d')."pdf"; ?>',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+      };
+
+      // Create the PDF with html2pdf and then apply a border to each page
+      html2pdf().set(options).from(element).toPdf().get('pdf').then(function (pdf) {
+        var totalPages = pdf.internal.getNumberOfPages();
+
+        // Draw a border around each page
+        for (var i = 1; i <= totalPages; i++) {
+          pdf.setPage(i);
+          pdf.setLineWidth(1); // Border width
+          pdf.setDrawColor(0, 0, 0); // Black border color
+          pdf.rect(5, 5, pdf.internal.pageSize.getWidth() - 10, pdf.internal.pageSize.getHeight() - 10); // Add border
+        }
+      }).save();
+    }
+  </script>
 
 
 
@@ -1259,6 +1427,20 @@ $allexpencess = $result_expencess->num_rows ;
   <script src="assets/bundles/amcharts4/animated.js"></script>
   <script src="assets/bundles/amcharts4/worldLow.js"></script>
   <script src="assets/bundles/amcharts4/maps.js"></script>
+
+  <!-- table css -->
+  <script src="assets/bundles/datatables/datatables.min.js"></script>
+  <script src="assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+  <script src="assets/bundles/datatables/export-tables/dataTables.buttons.min.js"></script>
+  <script src="assets/bundles/datatables/export-tables/buttons.flash.min.js"></script>
+  <script src="assets/bundles/datatables/export-tables/jszip.min.js"></script>
+  <script src="assets/bundles/datatables/export-tables/pdfmake.min.js"></script>
+  <script src="assets/bundles/datatables/export-tables/vfs_fonts.js"></script>
+  <script src="assets/bundles/datatables/export-tables/buttons.print.min.js"></script>
+  <script src="assets/js/page/datatables.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
 </body>
 
 
