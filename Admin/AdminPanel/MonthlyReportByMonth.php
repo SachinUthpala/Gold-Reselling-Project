@@ -55,6 +55,8 @@ $sql_expencess = "SELECT * FROM expencess WHERE `user_id` = '$userId'";
 $result_expencess = $conn->query($sql_expencess);
 $allexpencess = $result_expencess->num_rows ; 
 
+$selectedDate = $_POST['EntereDate'];
+
 ?>
 
 <!DOCTYPE html>
@@ -493,9 +495,8 @@ $allexpencess = $result_expencess->num_rows ;
       <div class="main-content">
         <section class="section" id="section-to-pdf">
 
-
- <!-- only admin rows -->
- <h5
+           <!-- only admin rows -->
+           <h5
             <?php
             if( $_SESSION['AdminAccess'] == 1) {
                 echo 'style="display:block;"';
@@ -503,7 +504,7 @@ $allexpencess = $result_expencess->num_rows ;
                 echo 'style="display:none;"';
             }
             ?>
-            >Today Is <?php echo date('Y-m-d'); ?> and Welcome to Daily Reports</h5>
+            >Monthly Summary Of <?php echo $selectedDate; ?> and Welcome to Monthly Reports</h5>
 
             <br>
 
@@ -1225,55 +1226,9 @@ $allexpencess = $result_expencess->num_rows ;
 
             <br>
 
-            <h6>5.) Other Options </h6> <br>
-
-                  <div class="card w-50">
-                  <div class="card-header">
-                    <h4>Get Monthy Summary By Month</h4>
-                  </div>
-                  <div class="card-body">
-                  <form action="./MonthlyReportByMonth.php" method="post" id="form23">
-                    <div class="section-title">Enter The Month</div>
-                    <div class="form-group">
-                      <div class="input-group mb-3">
-                          <input type="month" class="form-control" name="EntereDate" >
-                          <div class="input-group-append">
-                            <button class="btn btn-primary" type="button"  onclick="SubmitForm2()" >Genarate</button>
-                          </div>
-                      </div>
-                    </div>
-                  </form>
-                  </div>
-
-                  <script>
-                      function SubmitForm2() {
-                          // Get the form element
-                          const form = document.getElementById('form23');
-
-                          // Validate the date input (optional)
-                          const dateInput = form.querySelector('input[name="EntereDate"]');
-                          if (!dateInput.value) {
-                              alert("Please enter a date.");
-                              return; // Prevent form submission if no date is entered
-                          }
-
-                          // Submit the form
-                          form.submit();
-                      }
-                      </script>
-
-                 
-
-
-
-         
-
-
-            
-
-          
         
           
+
         </section>
 
         <script>
@@ -1283,7 +1238,7 @@ $allexpencess = $result_expencess->num_rows ;
       // Set up options for jsPDF
       var options = {
         margin: [10, 10, 10, 10], // Adjust margins (top, left, bottom, right)
-        filename: '<?php echo "DailyReport".date('Y/m/d')."pdf"; ?>',
+        filename: '<?php echo "DailyReport".$selectedDate."pdf"; ?>',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
