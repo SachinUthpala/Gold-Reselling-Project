@@ -1000,7 +1000,134 @@ $selectedDate = $_POST['EntereDate'];
               </div>
             </div>
 
-            <h6>4.) Daily Total Commitions and Expencess Costs</h6>
+            <h6>4.)Current Day Total Commition Details</h6>
+
+            <?php
+              $sql22 = "
+              SELECT 
+                  completedBy, 
+                  SUM(commition) AS total_commission
+              FROM 
+                  complete_task
+              WHERE 
+                  compteled_date = '$selectedDate'
+              GROUP BY 
+                  completedBy
+          ";
+          $result22 = mysqli_query($conn, $sql22);
+            ?>
+
+<div class="section-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h4>Daily Commition Details</h4>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="tableExport2" style="width:100%;">
+                          <thead>
+                            <tr>
+                              
+                              <th>Commition</th>
+                              <th>User</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+
+                          <?php while($row22 = $result22-> fetch_assoc()){ ?>
+                            <tr>
+                              
+                              <td><?php 
+                                  
+                                  echo '<span style= "color:blue;">Rs.'.$row22['total_commission'].'.00</span>';
+                            
+                          ?></td>
+                          <td><?php echo $row22['completedBy']; ?></td>
+                              
+                            </tr>
+                            <?php 
+                              $n++;
+                          } ?>
+                            
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h6>5.)Current Day Total Expencess Details</h6>
+
+            <?php
+              $sql23 = "SELECT 
+                            expencess.*, 
+                            users.UserName,
+                            SUM(expencess.amount) AS total_amount 
+                        FROM 
+                            expencess 
+                        LEFT JOIN 
+                            users 
+                        ON 
+                            expencess.user_id = users.UserId
+                            WHERE 
+                            expencess.date = '$selectedDate' AND approved_exp = 1
+                            Group By
+                            expencess.user_id,
+                            users.UserName";
+              $result23 = mysqli_query($conn , $sql23);
+            ?>
+
+            <div class="section-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h4>Daily Expencess Details</h4>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="tableExport2" style="width:100%;">
+                          <thead>
+                            <tr>
+                              <th>Username</th>
+                              <th>Total Expencess</th>
+                              
+                            </tr>
+                          </thead>
+                          <tbody>
+
+                          <?php while($row23 = $result23-> fetch_assoc()){ ?>
+                            <tr>
+                              
+                              <td><?php echo $row23['UserName']; ?></td>
+                              
+                              <td><?php 
+                                  
+                                      echo '<span style= "color:blue;">Rs.'.$row23['total_amount'].'.00</span>';
+                                
+                              ?></td>
+                              
+                              
+                            </tr>
+                            <?php 
+                              $n++;
+                          } ?>
+                            
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <h6>6.) Daily Total Commitions and Expencess Costs</h6>
 
             <?php
                 $sql11 = "SELECT * FROM complete_task WHERE compteled_date = '$selectedDate'";
@@ -1121,7 +1248,7 @@ $selectedDate = $_POST['EntereDate'];
 
             </div>
 
-            <h6>5.) Daily Full Summery</h6>
+            <h6>7.) Daily Full Summery</h6>
 
             <div class="row">
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
