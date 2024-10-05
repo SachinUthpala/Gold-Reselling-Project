@@ -1133,7 +1133,7 @@ $allexpencess = $result_expencess->num_rows ;
                             <h5 class="font-15">Current Month</h5>
                             <h2 class="mb-3 font-18"><?php 
 
-                                    $allTotalExpencess =  $totalDailyCommitions + $dailyTotalExpencess + $AllDayTaskCreatorAllCommition;
+                                    $allTotalExpencess =  $totalDailyCommitions + $dailyTotalExpencess + $AllDayTaskCreatorAllCommition + $totalOtherCost + $totalDailyBoardCampingCost;
                                   
                                       echo '<span style= "color:blue;">Rs.'.$allTotalExpencess .'.00</span>';
                                 
