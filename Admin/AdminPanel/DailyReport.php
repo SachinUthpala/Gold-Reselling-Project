@@ -999,7 +999,66 @@ $allexpencess = $result_expencess->num_rows ;
               </div>
             </div>
 
-            <h6>4.) Daily Total Commitions and Expencess Costs</h6>
+            <h6>4.)Current Day Total Commition Details</h6>
+
+            <?php
+              $sql22 = "SELECT * FROM complete_task WHERE compteled_date = CURDATE()";
+              $result22 = mysqli_query($conn , $sql22);
+            ?>
+
+            <div class="section-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h4>Daily Commition Details</h4>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="tableExport2" style="width:100%;">
+                          <thead>
+                            <tr>
+                              <th>Date</th>
+                              <th>Task Id</th>
+                              <th>Price</th>
+                              <th>Commition</th>
+                              <th>User</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+
+                          <?php while($row22 = $result22-> fetch_assoc()){ ?>
+                            <tr>
+                              <td><?php echo $row22['compteled_date']; ?></td>
+                              <td><?php echo $row22['IdNumber']; ?></td>
+                              
+                              <td><?php 
+                                  
+                                      echo '<span style= "color:blue;">Rs.'.$row22['price'].'.00</span>';
+                                
+                              ?></td>
+                              <td><?php 
+                                  
+                                  echo '<span style= "color:blue;">Rs.'.$row22['commition'].'.00</span>';
+                            
+                          ?></td>
+                          <td><?php echo $row22['completedBy']; ?></td>
+                              
+                            </tr>
+                            <?php 
+                              $n++;
+                          } ?>
+                            
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h6>6.) Daily Total Commitions and Expencess Costs</h6>
 
             <?php
                 $sql11 = "SELECT * FROM complete_task WHERE compteled_date = CURDATE()";
@@ -1119,6 +1178,8 @@ $allexpencess = $result_expencess->num_rows ;
             </div>
 
             </div>
+
+
 
             <h6>5.) Daily Full Summery</h6>
 
