@@ -539,7 +539,7 @@ $allexpencess = $result_expencess->num_rows ;
             </div>
 
             <?php
-                $sql4 = "SELECT * FROM dailybuisness WHERE YEAR(date) = YEAR(CURDATE())";
+                $sql4 = "SELECT * FROM dailybuisness WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
                 $result4 = mysqli_query($conn , $sql4);
                 $totalProfit3 = 0.00;
 
@@ -549,14 +549,14 @@ $allexpencess = $result_expencess->num_rows ;
                 } 
             ?>
 
-            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12" onclick="location.href='./MonthlyReport.php'">
               <div class="card">
                 <div class="card-statistic-4">
                   <div class="align-items-center justify-content-between">
                     <div class="row ">
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                         <div class="card-content">
-                          <h5 class="font-15">Current Year</h5>
+                          <h5 class="font-15">Current Month</h5>
                           <h2 class="mb-3 font-18"><?php 
                                 if($totalProfit3 > 0){
                                     echo '<span style= "color:green;">Rs.'.$totalProfit3.'.00</span>';
@@ -566,7 +566,7 @@ $allexpencess = $result_expencess->num_rows ;
                           ?></h2>
                           <p class="mb-0"><span class="col-orange">
                           
-                          </span>Total Current Year Profit</p>
+                          </span>Total Current Month Profit</p>
                         </div>
                       </div>
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
@@ -581,7 +581,7 @@ $allexpencess = $result_expencess->num_rows ;
             </div>
 
             <?php
-                $sql5 = "SELECT * FROM dailybuisness WHERE date = CURDATE()";
+                $sql5 = "SELECT * FROM dailybuisness WHERE date = (CURDATE()-1)";
                 $result5 = mysqli_query($conn , $sql5);
                 $totalProfit5 = 0.00;
 
@@ -591,14 +591,14 @@ $allexpencess = $result_expencess->num_rows ;
                 } 
             ?>
 
-            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12"  onclick="location.href='./DailyReport.php'">
               <div class="card">
                 <div class="card-statistic-4">
                   <div class="align-items-center justify-content-between">
                     <div class="row ">
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                         <div class="card-content">
-                          <h5 class="font-15">Current Day</h5>
+                          <h5 class="font-15">Yeaster Day</h5>
                           <h2 class="mb-3 font-18"><?php 
                                 if($totalProfit5 > 0){
                                     echo '<span style= "color:green;">Rs.'.$totalProfit5.'.00</span>';
@@ -608,7 +608,7 @@ $allexpencess = $result_expencess->num_rows ;
                           ?></h2>
                           <p class="mb-0"><span class="col-orange">
                           
-                          </span>Total Current Day Profit</p>
+                          </span>Total Yearster Day Profit</p>
                         </div>
                       </div>
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
