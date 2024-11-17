@@ -503,7 +503,7 @@ $allexpencess = $result_expencess->num_rows ;
                 echo 'style="display:none;"';
             }
             ?>
-            >Today Is <?php echo date('Y-m-d'); ?> and Welcome to Daily Reports</h5>
+            >Today Is <?php echo date('Y-m-d'); ?> and Welcome to Monthly Reports</h5>
 
             <br>
 
@@ -515,7 +515,7 @@ $allexpencess = $result_expencess->num_rows ;
                 $allDailyPending = 0;
                 $allDailyCompleted = 0;
             
-                $allDailyTask = "SELECT * FROM task WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25'));";
+                $allDailyTask = "SELECT * FROM task WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-26'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-26'));";
                 $resultDailyAllTask = mysqli_query($conn , $allDailyTask);
                 
                 while($rowsAllDaily = $resultDailyAllTask-> fetch_assoc()){
@@ -623,7 +623,7 @@ $allexpencess = $result_expencess->num_rows ;
               ON 
                   task.select_user = users.UserId 
               WHERE
-                  (task.date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND task.date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
+                  (task.date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-26'), INTERVAL 1 MONTH) AND task.date < DATE_FORMAT(CURDATE(), '%Y-%m-26'))";
               $result = mysqli_query($conn, $sql);
             ?>
 
@@ -703,7 +703,7 @@ $allexpencess = $result_expencess->num_rows ;
             <h6>2.) Monthly Buisness Report</h6>
 
             <?php
-                $sql5 = "SELECT * FROM dailybuisness WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
+                $sql5 = "SELECT * FROM dailybuisness WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-26'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-26'))";
                 $result5 = mysqli_query($conn , $sql5);
                 $totalProfit5 = 0.00;
 
@@ -745,7 +745,7 @@ $allexpencess = $result_expencess->num_rows ;
             </div>
             
             <?php
-              $sql6 = "SELECT * FROM dailybuisness WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
+              $sql6 = "SELECT * FROM dailybuisness WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-26'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-26'))";
               $result6 = mysqli_query($conn , $sql6);
             ?>
             <div class="section-body">
@@ -810,7 +810,7 @@ $allexpencess = $result_expencess->num_rows ;
           <h6>2.) Monthly Other Costs</h6>
 
           <?php
-                $sql7 = "SELECT * FROM dailyothercost WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
+                $sql7 = "SELECT * FROM dailyothercost WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-26'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-26'))";
                 $result7 = mysqli_query($conn , $sql7);
                 $totalOtherCost = 0 ; 
 
@@ -849,7 +849,7 @@ $allexpencess = $result_expencess->num_rows ;
             </div>
 
             <?php
-              $sql8 = "SELECT * FROM dailyothercost WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
+              $sql8 = "SELECT * FROM dailyothercost WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-26'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-26'))";
               $result8 = mysqli_query($conn , $sql8);
             ?>
             <div class="section-body">
@@ -907,7 +907,7 @@ $allexpencess = $result_expencess->num_rows ;
           <h6>3.) Monthly Board Camping Costs</h6>
 
           <?php
-                $sql9 = "SELECT * FROM bordcampingcost WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
+                $sql9 = "SELECT * FROM bordcampingcost WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-26'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-26'))";
                 $result9 = mysqli_query($conn , $sql9);
                 $totalDailyBoardCampingCost = 0 ; 
 
@@ -946,7 +946,7 @@ $allexpencess = $result_expencess->num_rows ;
             </div>
 
             <?php
-              $sql10 = "SELECT * FROM bordcampingcost WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
+              $sql10 = "SELECT * FROM bordcampingcost WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-26'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-26'))";
               $result10 = mysqli_query($conn , $sql10);
             ?>
             <div class="section-body">
@@ -1009,7 +1009,7 @@ $allexpencess = $result_expencess->num_rows ;
               FROM 
                   complete_task
               WHERE 
-                 (compteled_date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND compteled_date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))
+                 (compteled_date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-26'), INTERVAL 1 MONTH) AND compteled_date < DATE_FORMAT(CURDATE(), '%Y-%m-26'))
               GROUP BY 
                   completedBy
             ";
@@ -1059,7 +1059,7 @@ $allexpencess = $result_expencess->num_rows ;
               </div>
             </div>
 
-            <h6>5.)Current Day Total Expencess Details</h6>
+            <h6>5.)Current Month Total Expencess Details</h6>
 
             <?php
               $sql23 = "SELECT 
@@ -1073,7 +1073,7 @@ $allexpencess = $result_expencess->num_rows ;
                         ON 
                             expencess.user_id = users.UserId
                             WHERE 
-                            (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25')) AND approved_exp = 1
+                            (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-26'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-26')) AND approved_exp = 1
                             Group By
                             expencess.user_id,
                             users.UserName";
@@ -1085,7 +1085,7 @@ $allexpencess = $result_expencess->num_rows ;
                 <div class="col-12">
                   <div class="card">
                     <div class="card-header">
-                      <h4>Daily Expencess Details</h4>
+                      <h4>Month Expencess Details</h4>
                     </div>
                     <div class="card-body">
                       <div class="table-responsive">
@@ -1128,7 +1128,7 @@ $allexpencess = $result_expencess->num_rows ;
             <h6>6.) Monthly Total Commitions and Expencess Costs</h6>
 
             <?php
-                $sql11 = "SELECT * FROM complete_task WHERE  (compteled_date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND compteled_date < DATE_FORMAT(CURDATE(), '%Y-%m-25'))";
+                $sql11 = "SELECT * FROM complete_task WHERE  (compteled_date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-26'), INTERVAL 1 MONTH) AND compteled_date < DATE_FORMAT(CURDATE(), '%Y-%m-26'))";
                 $result11 = mysqli_query($conn , $sql11);
                 $totalDailyCommitions = 0 ; 
 
@@ -1136,7 +1136,7 @@ $allexpencess = $result_expencess->num_rows ;
                     $totalDailyCommitions = $totalDailyCommitions + (float)$rows11['commition'];
                 } 
 
-                $sql12 = "SELECT * FROM expencess WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-25')) and approved_exp = 1";
+                $sql12 = "SELECT * FROM expencess WHERE (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-26'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-26')) and approved_exp = 1";
                 $result12 = mysqli_query($conn , $sql12);
                 $dailyTotalExpencess = 0 ; 
 
@@ -1145,7 +1145,7 @@ $allexpencess = $result_expencess->num_rows ;
                 } 
 
                 // task creator commition
-                $sql_taskCreator = "SELECT * FROM complete_task WHERE (compteled_date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-25'), INTERVAL 1 MONTH) AND compteled_date < DATE_FORMAT(CURDATE(), '%Y-%m-25')) ";
+                $sql_taskCreator = "SELECT * FROM complete_task WHERE (compteled_date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-26'), INTERVAL 1 MONTH) AND compteled_date < DATE_FORMAT(CURDATE(), '%Y-%m-26')) ";
                 $resultTaskCreator = mysqli_query($conn , $sql_taskCreator);
                 $taskCreatorNumRows = mysqli_num_rows($resultTaskCreator);
 
@@ -1354,39 +1354,44 @@ $allexpencess = $result_expencess->num_rows ;
             <h6>8.) Other Options </h6> <br>
 
                   <div class="card w-50">
-                  <div class="card-header">
-                    <h4>Get Monthy Summary By Month</h4>
-                  </div>
-                  <div class="card-body">
-                  <form action="./MonthlyReportByMonth.php" method="post" id="form23">
-                    <div class="section-title">Enter The Month</div>
-                    <div class="form-group">
-                      <div class="input-group mb-3">
-                          <input type="month" class="form-control" name="EntereDate" >
-                          <div class="input-group-append">
-                            <button class="btn btn-primary" type="button"  onclick="SubmitForm2()" >Genarate</button>
-                          </div>
-                      </div>
+    <div class="card-header">
+        <h4>Get Monthly Summary By Month</h4>
+    </div>
+    <div class="card-body">
+        <form action="./MonthlyReportByMonth.php" method="post" id="form23">
+            <div class="section-title">Enter The From Date To Date</div>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <input type="date" class="form-control" name="FromDate" style="margin-left:10px;" required>
+                    <input type="date" class="form-control" name="ToDate" required>
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" onclick="SubmitForm2()">Generate</button>
                     </div>
-                  </form>
-                  </div>
+                </div>
+            </div>
+        </form>
+    </div>
 
-                  <script>
-                      function SubmitForm2() {
-                          // Get the form element
-                          const form = document.getElementById('form23');
+    <script>
+        function SubmitForm2() {
+            // Get the form element
+            const form = document.getElementById('form23');
 
-                          // Validate the date input (optional)
-                          const dateInput = form.querySelector('input[name="EntereDate"]');
-                          if (!dateInput.value) {
-                              alert("Please enter a date.");
-                              return; // Prevent form submission if no date is entered
-                          }
+            // Validate the date inputs
+            const fromDate = form.querySelector('input[name="FromDate"]');
+            const toDate = form.querySelector('input[name="ToDate"]');
+            
+            if (!fromDate.value || !toDate.value) {
+                alert("Please enter both From and To dates.");
+                return; // Prevent form submission if dates are missing
+            }
 
-                          // Submit the form
-                          form.submit();
-                      }
-                      </script>
+            // Submit the form
+            form.submit();
+        }
+    </script>
+</div>
+
 
                  
 

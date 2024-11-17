@@ -12,7 +12,23 @@ if(!$_SESSION['UserName'] && !$_SESSION['UserId']){
 
 $userId = (int)$_SESSION['UserId'];
 
-$stmt = $conn->prepare("SELECT * FROM `total_expencess` ");
+$specialSql = "SELECT 
+                            expencess.*, 
+                            users.UserName,
+                            SUM(expencess.amount) AS total_amount 
+                        FROM 
+                            expencess 
+                        LEFT JOIN 
+                            users 
+                        ON 
+                            expencess.user_id = users.UserId
+                            WHERE 
+                            (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-26'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-26')) AND approved_exp = 1
+                            Group By
+                            expencess.user_id,
+                            users.UserName";
+
+$stmt = $conn->prepare($specialSql);
 // $stmt->bind_param("i", $userId);
 
 $stmt->execute();
@@ -494,8 +510,7 @@ $n = 1;
                     <table class="table table-striped" id="table-1">
                       <thead>
                         <tr>
-                          <th>TID</th>
-                          <th>User Id</th>
+                          
                           <th>User Name</th>
                           <th>Total Expenses</th>
                         </tr>
@@ -503,10 +518,9 @@ $n = 1;
                       <tbody>
                         <?php while ($rows = $result->fetch_assoc()) { ?>
                           <tr>
-                            <td><?php echo $rows['tID']; ?></td>
-                            <td><?php echo $rows['userID']; ?></td>
-                            <td><?php echo $rows['userName']; ?></td>
-                            <td><?php echo "Rs ." .$rows['amount'].".00"; ?></td>
+                            
+                            <td><?php echo $rows['UserName']; ?></td>
+                            <td><?php echo "Rs ." .$rows['total_amount'].".00"; ?></td>
                           </tr>
                         <?php } ?>
                       </tbody>

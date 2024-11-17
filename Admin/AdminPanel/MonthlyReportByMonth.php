@@ -55,7 +55,8 @@ $sql_expencess = "SELECT * FROM expencess WHERE `user_id` = '$userId'";
 $result_expencess = $conn->query($sql_expencess);
 $allexpencess = $result_expencess->num_rows ; 
 
-$selectedDate = $_POST['EntereDate'];
+$fromDate  = $_POST['FromDate'];
+$ToDate  = $_POST['ToDate'];
 
 ?>
 
@@ -504,7 +505,7 @@ $selectedDate = $_POST['EntereDate'];
                 echo 'style="display:none;"';
             }
             ?>
-            >Monthly Summary Of <?php echo $selectedDate; ?> and Welcome to Monthly Reports</h5>
+            >Monthly Summary Of <?php echo $fromDate." To ".$ToDate; ?> and Welcome to Monthly Reports</h5>
 
             <br>
 
@@ -516,8 +517,10 @@ $selectedDate = $_POST['EntereDate'];
                 $allDailyPending = 0;
                 $allDailyCompleted = 0;
             
-                $allDailyTask = "SELECT * FROM task WHERE (date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
-                  AND date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
+                //$allDailyTask = "SELECT * FROM task WHERE (date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
+                //  AND date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
+                
+                $allDailyTask = "SELECT * FROM task WHERE date BETWEEN '$fromDate' AND '$ToDate'";
                 $resultDailyAllTask = mysqli_query($conn , $allDailyTask);
                 
                 while($rowsAllDaily = $resultDailyAllTask-> fetch_assoc()){
@@ -614,19 +617,32 @@ $selectedDate = $_POST['EntereDate'];
             <?php $currentDate =  date('Y-m-d'); ?>
 
             <?php
-              $sql = "
-              SELECT 
-                  task.*, 
-                  users.* 
-              FROM 
-                  task 
-              LEFT JOIN 
-                  users 
-              ON 
-                  task.select_user = users.UserId 
-              WHERE
-                  (task.date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
-                  AND task.date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
+            //   $sql = "
+            //   SELECT 
+            //       task.*, 
+            //       users.* 
+            //   FROM 
+            //       task 
+            //   LEFT JOIN 
+            //       users 
+            //   ON 
+            //       task.select_user = users.UserId 
+            //   WHERE
+            //       (task.date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
+            //       AND task.date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
+            
+            $sql = "
+                        SELECT 
+                            task.*, 
+                            users.* 
+                        FROM 
+                            task 
+                        LEFT JOIN 
+                            users 
+                        ON 
+                            task.select_user = users.UserId 
+                        WHERE
+                            task.date BETWEEN '$fromDate' AND '$ToDate'";
               $result = mysqli_query($conn, $sql);
             ?>
 
@@ -706,8 +722,10 @@ $selectedDate = $_POST['EntereDate'];
             <h6>2.) Monthly Buisness Report</h6>
 
             <?php
-                $sql5 = "SELECT * FROM dailybuisness WHERE (date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
-                  AND date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
+                // $sql5 = "SELECT * FROM dailybuisness WHERE (date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
+                //   AND date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
+                $sql5 = "SELECT * FROM dailybuisness 
+                         WHERE date BETWEEN '$fromDate' AND '$ToDate'";
                 $result5 = mysqli_query($conn , $sql5);
                 $totalProfit5 = 0.00;
 
@@ -749,8 +767,10 @@ $selectedDate = $_POST['EntereDate'];
             </div>
             
             <?php
-              $sql6 = "SELECT * FROM dailybuisness WHERE (date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
-                  AND date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
+            //   $sql6 = "SELECT * FROM dailybuisness WHERE (date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
+            //       AND date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
+            $sql6 = "SELECT * FROM dailybuisness 
+                     WHERE date BETWEEN '$fromDate' AND '$ToDate'";
               $result6 = mysqli_query($conn , $sql6);
             ?>
             <div class="section-body">
@@ -815,8 +835,10 @@ $selectedDate = $_POST['EntereDate'];
           <h6>2.) Monthly Other Costs</h6>
 
           <?php
-                $sql7 = "SELECT * FROM dailyothercost WHERE (date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
-                  AND date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
+                // $sql7 = "SELECT * FROM dailyothercost WHERE (date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
+                //   AND date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
+                $sql7 = "SELECT * FROM dailyothercost 
+                     WHERE date BETWEEN '$fromDate' AND '$ToDate'";
                 $result7 = mysqli_query($conn , $sql7);
                 $totalOtherCost = 0 ; 
 
@@ -855,8 +877,10 @@ $selectedDate = $_POST['EntereDate'];
             </div>
 
             <?php
-              $sql8 = "SELECT * FROM dailyothercost WHERE (date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
-                  AND date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
+            //   $sql8 = "SELECT * FROM dailyothercost WHERE (date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
+            //       AND date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
+            $sql8 = "SELECT * FROM dailyothercost 
+                     WHERE date BETWEEN '$fromDate' AND '$ToDate'";
               $result8 = mysqli_query($conn , $sql8);
             ?>
             <div class="section-body">
@@ -914,8 +938,23 @@ $selectedDate = $_POST['EntereDate'];
           <h6>3.) Monthly Board Camping Costs</h6>
 
           <?php
-                $sql9 = "SELECT * FROM bordcampingcost WHERE (date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
-                  AND date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
+             $lastmonth = $selectedDate - 1;
+             $thismonth = $selectedDate;
+             
+             $lastmonthFull = "2024-".$lastmonth."-26";
+             $thismonthFull = "2024-".$thismonth."-25";
+          ?>
+
+          <?php
+                // $sql9 = "SELECT * 
+                //           FROM bordcampingcost 
+                //           WHERE 
+                //               date >= '$startDate' 
+                //               AND date <= '$endDate';";
+                $sql9 = "SELECT * 
+                         FROM bordcampingcost 
+                         WHERE 
+                             date BETWEEN '$fromDate' AND '$ToDate'";
                 $result9 = mysqli_query($conn , $sql9);
                 $totalDailyBoardCampingCost = 0 ; 
 
@@ -954,8 +993,10 @@ $selectedDate = $_POST['EntereDate'];
             </div>
 <!--  -->
             <?php
-              $sql10 = "SELECT * FROM bordcampingcost WHERE (date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
-                  AND date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
+            //   $sql10 = "SELECT * FROM bordcampingcost WHERE (date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
+            //       AND date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
+            $sql10 = "SELECT * FROM bordcampingcost 
+                     WHERE date BETWEEN '$fromDate' AND '$ToDate'";
               $result10 = mysqli_query($conn , $sql10);
             ?>
             <div class="section-body">
@@ -1011,17 +1052,29 @@ $selectedDate = $_POST['EntereDate'];
             <h6>4.)Current Month Total Commition Details</h6>
 
             <?php
-              $sql22 = "
-              SELECT 
-                  completedBy, 
-                  SUM(commition) AS total_commission
-              FROM 
-                  complete_task
-              WHERE 
-                 (compteled_date >= DATE_SUB(DATE_FORMAT('$selectedDate', '%Y-%m-25'), INTERVAL 1 MONTH) AND compteled_date < DATE_FORMAT('$selectedDate', '%Y-%m-25'))
-              GROUP BY 
-                  completedBy
-            ";
+            //   $sql22 = "
+            //   SELECT 
+            //       completedBy, 
+            //       SUM(commition) AS total_commission
+            //   FROM 
+            //       complete_task
+            //   WHERE 
+            //      (compteled_date >= DATE_SUB(DATE_FORMAT('$selectedDate', '%Y-%m-25'), INTERVAL 1 MONTH) AND compteled_date < DATE_FORMAT('$selectedDate', '%Y-%m-25'))
+            //   GROUP BY 
+            //       completedBy
+            // ";
+            
+            $sql22 = "
+                    SELECT 
+                        completedBy, 
+                        SUM(commition) AS total_commission
+                    FROM 
+                        complete_task
+                    WHERE 
+                        compteled_date BETWEEN '$fromDate' AND '$ToDate'
+                    GROUP BY 
+                        completedBy
+                ";
             $result22 = mysqli_query($conn, $sql22);
             ?>
 
@@ -1068,25 +1121,52 @@ $selectedDate = $_POST['EntereDate'];
               </div>
             </div>
 
-            <h6>5.)Current Day Total Expencess Details</h6>
+            <h6>5.)Current month Total Expencess Details</h6>
 
             <?php
-              $sql23 = "SELECT 
-                            expencess.*, 
-                            users.UserName,
-                            SUM(expencess.amount) AS total_amount 
-                        FROM 
-                            expencess 
-                        LEFT JOIN 
-                            users 
-                        ON 
-                            expencess.user_id = users.UserId
+              $currentYear = date("Y");
+             // Get the current year dynamically
+
+                // $sql23 = "SELECT 
+                //                 expencess.*, 
+                //                 users.UserName, 
+                //                 SUM(expencess.amount) AS total_amount 
+                //             FROM 
+                //                 expencess 
+                //             LEFT JOIN 
+                //                 users 
+                //             ON 
+                //                 expencess.user_id = users.UserId 
+                //             WHERE 
+                //                 date >= '$lastmonthFull' 
+                //                 AND date <= '$thismonthFull' 
+                //                 AND approved_exp = 1 
+                //             GROUP BY 
+                //                 expencess.user_id, 
+                //                 users.UserName";
+                
+                $sql23 = "
+                            SELECT 
+                                expencess.*, 
+                                users.UserName, 
+                                SUM(expencess.amount) AS total_amount 
+                            FROM 
+                                expencess 
+                            LEFT JOIN 
+                                users 
+                            ON 
+                                expencess.user_id = users.UserId 
                             WHERE 
-                            (date >= DATE_SUB(DATE_FORMAT('$selectedDate', '%Y-%m-25'), INTERVAL 1 MONTH) AND date < DATE_FORMAT('$selectedDate', '%Y-%m-25'))  AND approved_exp = 1
-                            Group By
-                            expencess.user_id,
-                            users.UserName";
-              $result23 = mysqli_query($conn , $sql23);
+                                date BETWEEN '$fromDate' AND '$ToDate' 
+                                AND approved_exp = 1 
+                            GROUP BY 
+                                expencess.user_id, 
+                                users.UserName
+                        ";
+                        
+                $result23 = mysqli_query($conn, $sql23);
+
+
             ?>
 
             <div class="section-body">
@@ -1094,7 +1174,7 @@ $selectedDate = $_POST['EntereDate'];
                 <div class="col-12">
                   <div class="card">
                     <div class="card-header">
-                      <h4>Daily Expencess Details</h4>
+                      <h4>Mothly Expencess Details</h4>
                     </div>
                     <div class="card-body">
                       <div class="table-responsive">
@@ -1137,8 +1217,13 @@ $selectedDate = $_POST['EntereDate'];
             <h6>6.) Monthly Total Commitions and Expencess Costs</h6>
 
             <?php
-                $sql11 = "SELECT * FROM complete_task WHERE  (compteled_date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
-                  AND compteled_date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
+                // $sql11 = "SELECT * FROM complete_task WHERE  (compteled_date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
+                //   AND compteled_date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
+                
+                $sql11 = "SELECT * 
+                          FROM complete_task 
+                          WHERE compteled_date BETWEEN '$fromDate' AND '$ToDate'";
+                
                 $result11 = mysqli_query($conn , $sql11);
                 $totalDailyCommitions = 0 ; 
 
@@ -1146,8 +1231,13 @@ $selectedDate = $_POST['EntereDate'];
                     $totalDailyCommitions = $totalDailyCommitions + (float)$rows11['commition'];
                 } 
 
-                $sql12 = "SELECT * FROM expencess WHERE (date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
-                  AND date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
+                // $sql12 = "SELECT * FROM expencess WHERE (date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
+                //   AND date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'))";
+                
+                $sql12 = "SELECT * 
+                          FROM expencess 
+                          WHERE date BETWEEN '$fromDate' AND '$ToDate'";
+                
                 $result12 = mysqli_query($conn , $sql12);
                 $dailyTotalExpencess = 0 ; 
 
@@ -1156,8 +1246,14 @@ $selectedDate = $_POST['EntereDate'];
                 } 
 
                 // task creator commition
-                $sql_taskCreator = "SELECT * FROM complete_task WHERE (compteled_date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
-                  AND compteled_date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d')) ";
+                // $sql_taskCreator = "SELECT * FROM complete_task WHERE (compteled_date >= DATE_SUB(DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d'), INTERVAL 1 MONTH) 
+                //   AND compteled_date < DATE_FORMAT(CONCAT('$selectedDate', '-25'), '%Y-%m-%d')) ";
+                
+                
+                $sql_taskCreator = "SELECT * 
+                    FROM complete_task 
+                    WHERE compteled_date BETWEEN '$fromDate' AND '$ToDate'";
+                
                 $resultTaskCreator = mysqli_query($conn , $sql_taskCreator);
                 $taskCreatorNumRows = mysqli_num_rows($resultTaskCreator);
 
