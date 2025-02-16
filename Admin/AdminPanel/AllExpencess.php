@@ -546,12 +546,12 @@ $n = 1;
                               </script>
 
                             </td>
-                            <td>
+                            <td <?php if ($rows['approved_exp'] == 0) { ?>>
                               <form id="" action="../DbActions/expencess/.php" method="post">
                                 <input type="hidden" name="expId" value="<?php echo $rows['expenxess_id']; ?>">
                                 <input type="submit" value="Update" name="Update" class="btn btn-success" id="approveBtn">
                               </form>
-                            </td>
+                            </td <?php } ?>>
                           </tr>
                         <?php } ?>
                       </tbody>
