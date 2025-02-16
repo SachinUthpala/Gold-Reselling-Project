@@ -12,7 +12,7 @@ if(!$_SESSION['UserName'] && !$_SESSION['UserId']){
 
 $userId = (int)$_SESSION['UserId'];
 
-$stmt = $conn->prepare("SELECT * FROM `task` WHERE `select_user` = ? and `completion` = 0" );
+$stmt = $conn->prepare("SELECT * FROM `task` WHERE `select_user` = ? and `completion` = 0 ORDER BY date DESC" );
 $stmt->bind_param("i", $userId); // 'i' denotes the type integer for $userId
 
 $stmt->execute();

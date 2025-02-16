@@ -12,21 +12,25 @@ if(!$_SESSION['UserName'] && !$_SESSION['UserId']){
 
 $userId = (int)$_SESSION['UserId'];
 
-$specialSql = "SELECT 
-                            expencess.*, 
-                            users.UserName,
-                            SUM(expencess.amount) AS total_amount 
-                        FROM 
-                            expencess 
-                        LEFT JOIN 
-                            users 
-                        ON 
-                            expencess.user_id = users.UserId
-                            WHERE 
-                            (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-26'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-26')) AND approved_exp = 1
-                            Group By
-                            expencess.user_id,
-                            users.UserName";
+// $specialSql = "SELECT 
+//                             expencess.*, 
+//                             users.UserName,
+//                             SUM(expencess.amount) AS total_amount 
+//                         FROM 
+//                             expencess 
+//                         LEFT JOIN 
+//                             users 
+//                         ON 
+//                             expencess.user_id = users.UserId
+//                             WHERE 
+//                             (date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-26'), INTERVAL 1 MONTH) AND date < DATE_FORMAT(CURDATE(), '%Y-%m-26')) AND approved_exp = 1
+//                             Group By
+//                             expencess.user_id,
+//                             users.UserName";
+
+
+$specialSql = "SELECT * FROM total_expencess";
+
 
 $stmt = $conn->prepare($specialSql);
 // $stmt->bind_param("i", $userId);
@@ -519,8 +523,8 @@ $n = 1;
                         <?php while ($rows = $result->fetch_assoc()) { ?>
                           <tr>
                             
-                            <td><?php echo $rows['UserName']; ?></td>
-                            <td><?php echo "Rs ." .$rows['total_amount'].".00"; ?></td>
+                            <td><?php echo $rows['userName']; ?></td>
+                            <td><?php echo "Rs ." .$rows['amount'].".00"; ?></td>
                           </tr>
                         <?php } ?>
                       </tbody>
