@@ -1,10 +1,10 @@
 <?php
 
 
-// $ServerName = "localhost";
-// $UserName = "root";
-// $Password = "" ;
-// $DbName = "swarna_sahana";
+$ServerName = "localhost";
+$UserName = "root";
+$Password = "" ;
+$DbName = "swarna_sahana";
 
 
 

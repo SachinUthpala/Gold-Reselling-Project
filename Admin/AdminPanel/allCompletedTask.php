@@ -23,7 +23,7 @@ FROM
 LEFT JOIN 
     complete_task 
 ON 
-    task.task_id = complete_task.	taskID";
+    task.task_id = complete_task.taskID ORDER BY task.date DESC";
 $result = mysqli_query($conn, $sql);
 
 $n = 1;

@@ -5,7 +5,7 @@ session_start();
 error_reporting(0);
 date_default_timezone_set("Asia/Colombo");
 
-if(!$_SESSION['UserName'] && !$_SESSION['UserId']){
+if (!$_SESSION['UserName'] && !$_SESSION['UserId']) {
   header('Location: ../index.html');
   exit();
 }
@@ -21,7 +21,7 @@ FROM
 LEFT JOIN 
     users 
 ON 
-    expencess.user_id = users.UserId";
+    expencess.user_id = users.UserId ORDER BY expencess.date DESC ";
 
 $result = mysqli_query($conn, $sql);
 
@@ -95,25 +95,23 @@ $n = 1;
               <a href="admin.php" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
             </li>
             <li class="dropdown"
-            <?php
-                  if($_SESSION['AdminAccess'] == 2) {
-                    echo 'style="display:none;"';
-                  }
-                ?>
-            >
+              <?php
+              if ($_SESSION['AdminAccess'] == 2) {
+                echo 'style="display:none;"';
+              }
+              ?>>
               <a href="#" class="menu-toggle nav-link has-dropdown"><i
                   data-feather="briefcase"
-                    <?php
-                  if($_SESSION['AdminAccess'] == 2) {
+                  <?php
+                  if ($_SESSION['AdminAccess'] == 2) {
                     echo 'style="display:none;"';
                   }
-                ?>
-                  ></i><span>My Tasks</span></a>
+                  ?>></i><span>My Tasks</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="./MyAllTask.php">All Tasks</a></li>
                 <li><a class="nav-link" href="./myCompletedTasks.php">Completed Tasks</a></li>
                 <li><a class="nav-link" href="./myOngoing.php">On Going Task</a></li>
-                
+
               </ul>
             </li>
             <li class="dropdown">
@@ -130,54 +128,46 @@ $n = 1;
                 <li><a class="nav-link" href="./myAllCommitions.php">My All Commotions</a></li>
               </ul>
             </li>
-            
+
             <li class="menu-header"
-            <?php
-                if( $_SESSION['AdminAccess'] == 0) {
-                  echo 'style="display:none;"';
-                }
-              ?>
-            >Task Functions</li>
-            <li class="dropdown"
-            <?php
-                if( $_SESSION['AdminAccess'] == 0) {
-                  echo 'style="display:none;"';
-                }
-              ?>
-            >
-              <a href="#" class="menu-toggle nav-link has-dropdown"
-                
-              ><i data-feather="copy"></i><span>Main Functions</span></a>
-              <ul class="dropdown-menu"
               <?php
-                if( $_SESSION['AdminAccess'] == 0) {
+              if ($_SESSION['AdminAccess'] == 0) {
+                echo 'style="display:none;"';
+              }
+              ?>>Task Functions</li>
+            <li class="dropdown"
+              <?php
+              if ($_SESSION['AdminAccess'] == 0) {
+                echo 'style="display:none;"';
+              }
+              ?>>
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="copy"></i><span>Main Functions</span></a>
+              <ul class="dropdown-menu"
+                <?php
+                if ($_SESSION['AdminAccess'] == 0) {
                   echo 'style="display:none;"';
                 }
-              ?>
-              >
+                ?>>
                 <li><a class="nav-link" href="./createTask.php">Create Task</a></li>
                 <li><a class="nav-link" href="./deleteTask.php">Delete Task</a></li>
               </ul>
             </li>
 
             <li class="dropdown"
-            <?php
-                if( $_SESSION['AdminAccess'] == 0) {
-                  echo 'style="display:none;"';
-                }
-              ?>
-            >
+              <?php
+              if ($_SESSION['AdminAccess'] == 0) {
+                echo 'style="display:none;"';
+              }
+              ?>>
               <a href="#" class="menu-toggle nav-link has-dropdown"><i
                   data-feather="shopping-bag"></i><span>All Tasks</span></a>
               <ul class="dropdown-menu"
-             
-              <?php
-                if( $_SESSION['AdminAccess'] == 0) {
+
+                <?php
+                if ($_SESSION['AdminAccess'] == 0) {
                   echo 'style="display:none;"';
                 }
-              ?>
-              
-              >
+                ?>>
                 <li><a class="nav-link" href="./AllTasks.php">All Tasks</a></li>
                 <li><a class="nav-link" href="./allOngoingTask.php">On Going Task</a></li>
                 <li><a class="nav-link" href="./allCompletedTask.php">Completed Tasks</a></li>
@@ -185,19 +175,17 @@ $n = 1;
             </li>
 
             <li class="menu-header"
-            <?php
-                if($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
-                  echo 'style="display:none;"';
-                }
-              ?>
-            >User Functions</li>
+              <?php
+              if ($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
+                echo 'style="display:none;"';
+              }
+              ?>>User Functions</li>
             <li class="dropdown"
-            <?php
-                if($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
-                  echo 'style="display:none;"';
-                }
-              ?>
-            >
+              <?php
+              if ($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
+                echo 'style="display:none;"';
+              }
+              ?>>
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="copy"></i><span>Main Functions</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="./createUser.php">Create User</a></li>
@@ -207,63 +195,47 @@ $n = 1;
             </li>
 
             <li class="dropdown"
-            <?php
-                if($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
-                  echo 'style="display:none;"';
-                }
-              ?>
-            >
-              <a href="#" class="menu-toggle nav-link has-dropdown"
-             
-              ><i data-feather="copy"></i><span> All Users</span></a>
-              <ul class="dropdown-menu"
-             
-              >
+              <?php
+              if ($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
+                echo 'style="display:none;"';
+              }
+              ?>>
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="copy"></i><span> All Users</span></a>
+              <ul class="dropdown-menu">
                 <li><a class="nav-link" href="./allUsers.php">All Users</a></li>
                 <li><a class="nav-link" href="./adminUsers.php">Admin Users</a></li>
                 <li><a class="nav-link" href="./nonAdminUsers.php">Non Admin Users</a></li>
               </ul>
             </li>
-            
+
             <li class="menu-header"
-            <?php
-                if( $_SESSION['AdminAccess'] == 0 || $_SESSION['AdminAccess'] == 2 ) {
-                  echo 'style="display:none;"';
-                }
-              ?>
-            >Expensess & Commitions</li>
+              <?php
+              if ($_SESSION['AdminAccess'] == 0 || $_SESSION['AdminAccess'] == 2) {
+                echo 'style="display:none;"';
+              }
+              ?>>Expensess & Commitions</li>
 
             <li class="dropdown"
-            <?php
-                if($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
-                  echo 'style="display:none;"';
-                }
-              ?>
-            >
-              <a href="#" class="menu-toggle nav-link has-dropdown"
-             
-              ><i data-feather="copy"></i><span> All Expencess</span></a>
-              <ul class="dropdown-menu"
-             
-              >
+              <?php
+              if ($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
+                echo 'style="display:none;"';
+              }
+              ?>>
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="copy"></i><span> All Expencess</span></a>
+              <ul class="dropdown-menu">
                 <li><a class="nav-link" href="./ExpencessSummery.php">Expencess Summery</a></li>
                 <li><a class="nav-link" href="./AllExpencess.php">All Expencess</a></li>
               </ul>
             </li>
 
             <li class="dropdown"
-            <?php
-                if($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
-                  echo 'style="display:none;"';
-                }
-              ?>
-            >
-              <a href="#" class="menu-toggle nav-link has-dropdown"
-             
-              ><i data-feather="copy"></i><span> All Commitions</span></a>
-              <ul class="dropdown-menu"
-             
-              >
+              <?php
+              if ($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
+                echo 'style="display:none;"';
+              }
+              ?>>
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="copy"></i><span> All Commitions</span></a>
+              <ul class="dropdown-menu">
                 <li><a class="nav-link" href="./AllCommitions.php">Commotions Summary</a></li>
                 <li><a class="nav-link" href="./taskCreatorCommition.php">Task Creator Commition</a></li>
                 <li><a class="nav-link" href="./CommitionSummery.php">All Commotions</a></li>
@@ -272,168 +244,145 @@ $n = 1;
 
             <!-- summery Settings -->
             <li class="menu-header"
-            <?php
-                if( $_SESSION['AdminAccess'] == 0 ) {
-                  echo 'style="display:none;"';
-                }
-              ?>
-            >Summary Settings (Daily)</li>
-             <!-- end of summery settings -->
-             <li class="dropdown"
-            <?php
-                if($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
-                  echo 'style="display:none;"';
-                }
-              ?>
-            >
-              <a href="#" class="menu-toggle nav-link has-dropdown"
-             
-              ><i data-feather="copy"></i><span> Summary (Daily Buisness)</span></a>
-              <ul class="dropdown-menu"
-             
-              >
+              <?php
+              if ($_SESSION['AdminAccess'] == 0) {
+                echo 'style="display:none;"';
+              }
+              ?>>Summary Settings (Daily)</li>
+            <!-- end of summery settings -->
+            <li class="dropdown"
+              <?php
+              if ($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
+                echo 'style="display:none;"';
+              }
+              ?>>
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="copy"></i><span> Summary (Daily Buisness)</span></a>
+              <ul class="dropdown-menu">
                 <li><a class="nav-link" href="./CreateDailyBuisness.php" style="cursor: pointer;">Add Daily Buisness</a></li>
                 <li><a class="nav-link" href="./AllDailyBuisness.php" style="cursor: pointer;">All Daily Buisness</a></li>
               </ul>
             </li>
 
             <li class="dropdown"
-            <?php
-                if($_SESSION['AdminAccess'] == 0) {
-                  echo 'style="display:none;"';
-                }
-              ?>
-            >
-              <a href="#" class="menu-toggle nav-link has-dropdown"
-             
-              ><i data-feather="copy"></i><span>Other Cost (Daily)</span></a>
-              <ul class="dropdown-menu"
-             
-              >
+              <?php
+              if ($_SESSION['AdminAccess'] == 0) {
+                echo 'style="display:none;"';
+              }
+              ?>>
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="copy"></i><span>Other Cost (Daily)</span></a>
+              <ul class="dropdown-menu">
                 <li><a class="nav-link" href="./createDailyOtherCost.php" style="cursor: pointer;">Add Other Cost</a></li>
                 <li><a class="nav-link" href="./AllDailyOtherCost.php" style="cursor: pointer;">All Other Costs</a></li>
               </ul>
             </li>
 
             <li class="dropdown"
-            <?php
-                if($_SESSION['AdminAccess'] == 0) {
-                  echo 'style="display:none;"';
-                }
-              ?>
-            >
-              <a href="#" class="menu-toggle nav-link has-dropdown"
-             
-              ><i data-feather="copy"></i><span>Board Camping (Daily)</span></a>
-              <ul class="dropdown-menu"
-             
-              >
+              <?php
+              if ($_SESSION['AdminAccess'] == 0) {
+                echo 'style="display:none;"';
+              }
+              ?>>
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="copy"></i><span>Board Camping (Daily)</span></a>
+              <ul class="dropdown-menu">
                 <li><a class="nav-link" href="./CreateDailyBoardCamping.php" style="cursor: pointer;">Add Board Cost</a></li>
                 <li><a class="nav-link" href="./AllDailyBoardCampingCost.php" style="cursor: pointer;">All Board Costs</a></li>
               </ul>
             </li>
 
             <li class="dropdown"
-            <?php
-                if($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
-                  echo 'style="display:none;"';
-                }
-              ?>
-            >
-              <a href="#" class="menu-toggle nav-link has-dropdown"
-             
-              ><i data-feather="copy"></i><span> Reports </span></a>
-              <ul class="dropdown-menu"
-             
-              >
+              <?php
+              if ($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
+                echo 'style="display:none;"';
+              }
+              ?>>
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="copy"></i><span> Reports </span></a>
+              <ul class="dropdown-menu">
                 <li><a class="nav-link" href="./DailyReport.php" style="cursor: pointer;">Daily Report</a></li>
                 <li><a class="nav-link" href="./MonthlyReport.php" style="cursor: pointer;">Monthly Report</a></li>
               </ul>
             </li>
 
-             <!-- emd of full settingss -->
+            <!-- emd of full settingss -->
 
 
             <li class="menu-header"
-            <?php
-                if( $_SESSION['AdminAccess'] == 0 || $_SESSION['AdminAccess'] == 2 ) {
-                  echo 'style="display:none;"';
-                }
-              ?>
-            >Advance Settings</li>
+              <?php
+              if ($_SESSION['AdminAccess'] == 0 || $_SESSION['AdminAccess'] == 2) {
+                echo 'style="display:none;"';
+              }
+              ?>>Advance Settings</li>
 
             <li class="dropdown"
-            <?php
-                if($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
-                  echo 'style="display:none;"';
-                }
-              ?>
-            >
-              <a href="#" class="menu-toggle nav-link has-dropdown"
-             
-              ><i data-feather="copy"></i><span> Advance Stettings</span></a>
-              <ul class="dropdown-menu"
-             
-              >
+              <?php
+              if ($_SESSION['AdminAccess'] == 2 || $_SESSION['AdminAccess'] == 0) {
+                echo 'style="display:none;"';
+              }
+              ?>>
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="copy"></i><span> Advance Stettings</span></a>
+              <ul class="dropdown-menu">
                 <li><a class="nav-link" onclick="ClearExp()" style="cursor: pointer;">Clear Expencess</a></li>
                 <li><a class="nav-link" onclick="ClearCommi()" style="cursor: pointer;">Clear Commitions</a></li>
               </ul>
             </li>
-                <!-- 
+            <!-- 
         sweet alert
          -->
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                <script>
-          async function  ClearExp(){
-              const { value: password } = await Swal.fire({
-              title: "Enter your password",
-              input: "password",
-              inputLabel: "Password",
-              inputPlaceholder: "Enter your password",
-              inputAttributes: {
-                  maxlength: "100",
-                  autocapitalize: "off",
-                  autocorrect: "off"
-              }
-              });
-              if (password === "admin@2024") {
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+              async function ClearExp() {
+                const {
+                  value: password
+                } = await Swal.fire({
+                  title: "Enter your password",
+                  input: "password",
+                  inputLabel: "Password",
+                  inputPlaceholder: "Enter your password",
+                  inputAttributes: {
+                    maxlength: "100",
+                    autocapitalize: "off",
+                    autocorrect: "off"
+                  }
+                });
+                if (password === "admin@2024") {
 
-                  location.href="../DbActions/Advance/clearExpencess.php";
-              }else{
+                  location.href = "../DbActions/Advance/clearExpencess.php";
+                } else {
                   Swal.fire({
-                  icon: "error",
-                  title: "Oops...",
-                  text: "Provide Correct Password To Continive this Task !",
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Provide Correct Password To Continive this Task !",
                   });
+                }
               }
-          }
 
-          async function  ClearCommi(){
-              const { value: password } = await Swal.fire({
-              title: "Enter your password",
-              input: "password",
-              inputLabel: "Password",
-              inputPlaceholder: "Enter your password",
-              inputAttributes: {
-                  maxlength: "100",
-                  autocapitalize: "off",
-                  autocorrect: "off"
-              }
-              });
-              if (password === "admin@2024") {
+              async function ClearCommi() {
+                const {
+                  value: password
+                } = await Swal.fire({
+                  title: "Enter your password",
+                  input: "password",
+                  inputLabel: "Password",
+                  inputPlaceholder: "Enter your password",
+                  inputAttributes: {
+                    maxlength: "100",
+                    autocapitalize: "off",
+                    autocorrect: "off"
+                  }
+                });
+                if (password === "admin@2024") {
 
-                  location.href="../DbActions/Advance/clearExpencess.php";
-              }else{
+                  location.href = "../DbActions/Advance/clearExpencess.php";
+                } else {
                   Swal.fire({
-                  icon: "error",
-                  title: "Oops...",
-                  text: "Provide Correct Password To Continive this Task !",
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Provide Correct Password To Continive this Task !",
                   });
+                }
               }
-          }
             </script>
-              </ul>
-            </aside>
+          </ul>
+        </aside>
       </div>
 
       <!-- Main Content -->
@@ -514,88 +463,86 @@ $n = 1;
                             <td><?php echo $rows['expencess_type']; ?></td>
                             <td><?php echo $rows['UserName']; ?></td>
                             <td><?php echo $rows['distance']; ?></td>
-                            <td><?php echo "Rs ." .$rows['amount'].".00"; ?></td>
+                            <td><?php echo "Rs ." . $rows['amount'] . ".00"; ?></td>
                             <td><?php echo $rows['date']; ?></td>
-                            <td><?php 
-                            
-                            if($rows['approved_exp'] == 0) {
-                              echo '<p style="color:orange;font-weight:bold;font-size:14px;">Pending</p>';
-                            }else{
-                              echo '<p style="color:green;font-weight:bold;font-size:14px;">Approved</p>';
-                            }
+                            <td><?php
 
-                            ?></td>
-                            <td 
-                            <?php
-                              if($rows['approved_exp'] != 0){
+                                if ($rows['approved_exp'] == 0) {
+                                  echo '<p style="color:orange;font-weight:bold;font-size:14px;">Pending</p>';
+                                } else {
+                                  echo '<p style="color:green;font-weight:bold;font-size:14px;">Approved</p>';
+                                }
+
+                                ?></td>
+                            <td
+                              <?php
+                              if ($rows['approved_exp'] != 0) {
                                 echo 'style="display:none;"';
                               }
-                            ?>
-                            >
-                                  <form id="approvalForm" action="../DbActions/expencess/changeApproval.php" method="post">
-                                      <input type="hidden" name="expId" value="<?php echo $rows['expenxess_id']; ?>">
-                                      <input type="submit" value="Approved" name="approval" class="btn btn-success" id="approveBtn">
-                                  </form>
+                              ?>>
+                              <form id="approvalForm" action="../DbActions/expencess/changeApproval.php" method="post">
+                                <input type="hidden" name="expId" value="<?php echo $rows['expenxess_id']; ?>">
+                                <input type="submit" value="Approved" name="approval" class="btn btn-success" id="approveBtn">
+                              </form>
 
-                                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                                <script>
-                                    document.getElementById('approveBtn').addEventListener('click', function(event) {
-                                        event.preventDefault(); // Prevent the form from submitting immediately
+                              <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                              <script>
+                                document.getElementById('approveBtn').addEventListener('click', function(event) {
+                                  event.preventDefault(); // Prevent the form from submitting immediately
 
-                                        Swal.fire({
-                                            title: 'Are you sure?',
-                                            text: "Do you want to approve this?",
-                                            icon: 'warning',
-                                            showCancelButton: true,
-                                            confirmButtonColor: '#3085d6',
-                                            cancelButtonColor: '#d33',
-                                            confirmButtonText: 'Yes, approve it!',
-                                            cancelButtonText: 'No, cancel!'
-                                        }).then((result) => {
-                                            if (result.isConfirmed) {
-                                                // If confirmed, submit the form
-                                                document.getElementById('approvalForm').submit();
-                                            }
-                                        });
-                                    });
-                                </script>
+                                  Swal.fire({
+                                    title: 'Are you sure?',
+                                    text: "Do you want to approve this?",
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Yes, approve it!',
+                                    cancelButtonText: 'No, cancel!'
+                                  }).then((result) => {
+                                    if (result.isConfirmed) {
+                                      // If confirmed, submit the form
+                                      document.getElementById('approvalForm').submit();
+                                    }
+                                  });
+                                });
+                              </script>
 
                             </td>
 
-                            <td 
-                            <?php
-                              if($rows['approved_exp'] == 0){
+                            <td
+                              <?php
+                              if ($rows['approved_exp'] == 0) {
                                 echo 'style="display:none;"';
                               }
-                            ?>
-                            >
-                                  <form id="approvalForm2" action="../DbActions/expencess/removeApp.php" method="post">
-                                      <input type="hidden" name="expId" value="<?php echo $rows['expenxess_id']; ?>">
-                                      <input type="submit" value="Remove Approved" name="removeapp" class="btn btn-danger" id="approveBtn2">
-                                  </form>
+                              ?>>
+                              <form id="approvalForm2" action="../DbActions/expencess/removeApp.php" method="post">
+                                <input type="hidden" name="expId" value="<?php echo $rows['expenxess_id']; ?>">
+                                <input type="submit" value="Remove Approved" name="removeapp" class="btn btn-danger" id="approveBtn2">
+                              </form>
 
-                                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                                <script>
-                                    document.getElementById('approveBtn2').addEventListener('click', function(event) {
-                                        event.preventDefault(); // Prevent the form from submitting immediately
+                              <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                              <script>
+                                document.getElementById('approveBtn2').addEventListener('click', function(event) {
+                                  event.preventDefault(); // Prevent the form from submitting immediately
 
-                                        Swal.fire({
-                                            title: 'Are you sure?',
-                                            text: "Do you want to remove approve this?",
-                                            icon: 'warning',
-                                            showCancelButton: true,
-                                            confirmButtonColor: '#3085d6',
-                                            cancelButtonColor: '#d33',
-                                            confirmButtonText: 'Yes, approve it!',
-                                            cancelButtonText: 'No, cancel!'
-                                        }).then((result) => {
-                                            if (result.isConfirmed) {
-                                                // If confirmed, submit the form
-                                                document.getElementById('approvalForm2').submit();
-                                            }
-                                        });
-                                    });
-                                </script>
+                                  Swal.fire({
+                                    title: 'Are you sure?',
+                                    text: "Do you want to remove approve this?",
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Yes, approve it!',
+                                    cancelButtonText: 'No, cancel!'
+                                  }).then((result) => {
+                                    if (result.isConfirmed) {
+                                      // If confirmed, submit the form
+                                      document.getElementById('approvalForm2').submit();
+                                    }
+                                  });
+                                });
+                              </script>
 
                             </td>
                           </tr>
@@ -622,4 +569,5 @@ $n = 1;
   <script src="assets/js/custom.js"></script>
 
 </body>
+
 </html>

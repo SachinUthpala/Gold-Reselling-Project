@@ -19,7 +19,9 @@ FROM
 LEFT JOIN 
     users 
 ON 
-    task.select_user = users.UserId";
+    task.select_user = users.UserId
+ORDER BY 
+    task.date DESC";
 
 $result = mysqli_query($conn, $sql);
 
@@ -525,7 +527,6 @@ $n = 0;
                             <th class="text-center">
                               #
                             </th>
-                            <th>Inquery Number</th>
                             <th>Date</th>
                             <th>Time</th>
                             <th>Customer Name</th>
@@ -547,7 +548,6 @@ $n = 0;
                             <td>
                               <?php echo $n; ?>
                             </td>
-                            <td><?php echo $rows['inqueryNumber']; ?></td>
                             <td><?php echo $rows['date']; ?></td>
                             <td><?php echo $rows['time']; ?></td>
                             <td><?php echo $rows['customerName']; ?></td>

@@ -9,7 +9,7 @@ if(!$_SESSION['UserName'] && !$_SESSION['UserId']){
   header('Location: ../index.html');
 }
 
-$sql = "SELECT * FROM task WHERE `completion` = 0";
+$sql = "SELECT * FROM task WHERE `completion` = 0 ORDER BY date DESC";
 $result = mysqli_query($conn, $sql);
 
 $n = 0;
