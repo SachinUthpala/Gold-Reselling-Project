@@ -455,6 +455,7 @@ $n = 1;
                           <th>Date</th>
                           <th>Approved</th>
                           <th>Change Approved</th>
+                          <th>Update</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -544,6 +545,12 @@ $n = 1;
                                 });
                               </script>
 
+                            </td>
+                            <td>
+                              <form id="" action="../DbActions/expencess/.php" method="post">
+                                <input type="hidden" name="expId" value="<?php echo $rows['expenxess_id']; ?>">
+                                <input type="submit" value="Update" name="Update" class="btn btn-success" id="approveBtn">
+                              </form>
                             </td>
                           </tr>
                         <?php } ?>
